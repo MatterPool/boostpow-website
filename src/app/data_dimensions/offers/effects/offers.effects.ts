@@ -56,7 +56,7 @@ export class OffersEffects {
     })
   );
 
-
+/*
   @Effect()
   getBoostJob$: Observable<Action> = this.actions$.pipe(
     ofType<GetBoostJob>(OffersActionTypes.GetBoostJob),
@@ -95,7 +95,7 @@ export class OffersEffects {
         );
     })
   );
-
+*/
   @Effect()
   redirectToUrl$: Observable<Action> = this.actions$.pipe(
     ofType<RedirectAction>(OffersActionTypes.RedirectAction),
