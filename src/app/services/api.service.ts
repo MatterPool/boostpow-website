@@ -27,8 +27,8 @@ export class ApiService {
         return;
       }
 
-      try {
-        Boost.client().loadBoostJob(txid)
+     /* try {
+        Boost.Client().loadBoostJob(txid)
         .then((r) => {
           const response = new ApiRequestResponse(r.data, r.status);
           res(response);
@@ -43,7 +43,7 @@ export class ApiService {
             message: `Error`
           })
         );
-      }
+      }*/
     });
 
     return from(p);
