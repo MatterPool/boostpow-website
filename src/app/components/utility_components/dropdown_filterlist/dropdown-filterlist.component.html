@@ -1,0 +1,21 @@
+<div class="input-container--icon icon-right dropdown-wrapper">
+  <i *ngIf="!isDisabled()" class="icon icon-chevron-down"></i>
+  <div *ngIf="!isDisabled()" class="select-dropdown cs-skin-border cs-active" tabindex="0" [ngClass]="{ 'cs-active': expanded }">
+    <span class="cs-placeholder cs-selected-option" (click)="toggle()" [title]="initialValueText">{{ initialValueText }}</span>
+    <div class="cs-options">
+      <div class="filter-input-container">
+        <input type="text" [(ngModel)]="filterValue" class="filter-input" />
+      </div>
+      <ul class="list-items__container">
+        <li *ngFor="let item of (itemsList | spFilterText: filterValue)" (click)="handleItemSelection(item)">
+          <span
+            class="dropdown-filter-option"
+            [ngClass]="{ 'level-1': item.level == 1, 'level-2': item.level == 2, 'no-level': isItemText(item) }"
+            [title]="getItemCaption(item)"
+            >{{ getItemCaption(item) }}</span
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

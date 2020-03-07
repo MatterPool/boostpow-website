@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row py-5">
+    <div class="col-12">
+      <div class="center-container">
+          <div class="form-group">
+            jobs
+
+              <h2>Add Boost Proof of Work</h2>
+              <label for="exampleInputEmail1">Content</label>
+              <!-- <input name="inputContent" ngModel required #first="ngModel" required class="form-control" id="inputContent" aria-describedby="inputContentHelp">-->
+              <input [(ngModel)]="inputContent" #ctrl="ngModel" required class="form-control" id="inputContent" aria-describedby="inputContentHelp">
+              <small id="inputContentHelp" class="form-text text-muted">Message or hash to Boost</small>
+            </div>
+            <div class="form-group">
+              <label for="inputDiff">Difficulty</label>
+              <input [(ngModel)]="inputDiff" #ctrl="ngModel" required class="form-control" id="inputDiff" aria-describedby="inputDiffHelp" minimum="1">
+              <small id="inputDiffHelp" class="form-text text-muted">Choose how much energy to attach. Minimum difficulty 1.</small>
+            </div>
+            <div class="form-group">
+              <label for="inputBoostReward">Boost Reward</label>
+              <input [(ngModel)]="inputReward" #ctrl="ngModel" required class="form-control" id="inputBoostReward" aria-describedby="inputBoostReward" minimum="0.01">
+              <small id="inputBoostRewardHelp" class="form-text text-muted">Choose the value of the Boost Reward for miners.</small>
+            </div>
+            <a (click)="validForm ? payForBoost() : null" [attr.disabled]="(!validForm) ? 'disabled' : null" [ngClass]="{'disabled': !validForm}" class="btn btn-small mt-3 px-5 d-block d-sm-inline-block btn-primary uppercase py-0 my-sm-auto">
+              Boost
+            </a>
+            <div class="mb-wrapper">
+              <span #mb> </span>
+              <span #ro> </span>
+            </div>
+            <div class="ro-wrapper"></div>
+
+      </div>
+    </div>
+  </div>
+</div>

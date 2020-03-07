@@ -1,0 +1,102 @@
+@import 'shared_styles/tooltip.sass';
+@import 'shared_styles/containers.sass';
+@import 'shared_styles/icons.sass';
+@import 'shared_styles/buttons.sass';
+@import 'shared_styles/datepicker.sass';
+@import 'shared_styles/grid.sass';
+@import 'shared_styles/data-display.sass';
+@import 'shared_styles/table.sass';
+@import 'shared_styles/pagination.sass';
+@import 'shared_styles/fonts.sass';
+@import 'shared_styles/dropzone.scss';
+@import url('https://fonts.googleapis.com/css?family=Proxima+Nova')
+
+// Make all anchors have a hand pointer
+a
+  cursor: pointer
+
+body
+  font-family: 'Open Sans', Lato, Tahoma, serif
+  background-color: rgba(0,0,0,0)
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh
+
+h1
+  color: $heading-primary
+
+h2, h3, h4, h5
+  font-family: 'Open Sans', Lato, Tahoma, serif
+
+.loading-wrapper
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    display: flex;
+    justify-content: center
+    align-items: center
+    z-index: 999999
+
+.loading-inner
+    width: 110px
+    margin: 0 auto
+    .loading-text
+        padding-left: 0.5em
+
+.primary
+  color: $primary !important
+
+
+.btn-primary
+  background: $primary
+  color:white
+  font-weight: 600
+  font-family: $sans-serif
+  font-size: 14pt
+  border: 0px none
+  transition: 0.25s all
+  color:#fff !important
+  transition: 0.25s all
+
+.btn-primary.disabled
+  cursor: default
+
+
+.btn-secondary
+  background: $lightgrey
+  color: $primary !important
+  font-weight: 600
+  width: auto
+  font-family: $sans-serif
+  border: 0px none
+  transition: 0.25s all
+  font-size: 14pt
+  transition: 0.25s all
+  &:hover
+    background: darken($lightgrey, 10)
+
+.disabled
+  opacity: 0.5
+  cursor: default
+
+.btn-small
+  height: 35px
+  font-size: 14px
+  border-radius: 6px
+  line-height: 34px !important
+
+
+.uppercase
+  text-transform: uppercase
+
+
+.flex-grow
+  flex: 1 0 auto !important;
+
+//DZ styles
+.dz-image
+  border-radius: 5px !important
+  border: 1px solid darken($lightgrey, 10) !important
+  background: #fff

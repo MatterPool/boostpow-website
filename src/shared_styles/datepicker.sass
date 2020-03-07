@@ -1,0 +1,111 @@
+.pika-single .pika-title
+  padding: 0 !important
+  margin-bottom: 0 !important
+
+.mini-picker
+
+  border: none !important
+  box-shadow: 1px 1px 13px -1px #bfbfbf, -1px -1px 13px -1px #bfbfbf
+
+  thead
+    border-bottom: 0.15em solid #E1E1E1
+
+  th abbr[title]
+    color: #bfbfbf
+    font-weight: 500
+    font-size: 0.6rem
+
+  .pika-title .pika-label
+    color: #565353
+
+  .pika-prev, .pika-next
+    display: none
+
+  .pika-row td button.pika-button.pika-day.pika-button
+    background-color: #E1E1E1
+    margin: 2px 0
+    font-size: 0.6rem
+    height: 1.3rem
+    width: 1.5rem
+    line-height: 0
+    font-weight: 500
+
+  .pika-button
+    color: #f7921e
+    &:hover
+      color: #fff !important
+
+  .is-today .pika-button
+    color: #f7921e
+
+  .is-today.is-disabled .pika-button
+    color: #666
+
+  .is-disabled .pika-button
+    opacity: 1
+    color: #666
+    cursor: default
+
+  .pika-row td:not(.is-empty):first-child button,
+  .pika-row td[data-day="1"] button
+    border-top-left-radius: 50%
+    border-bottom-left-radius: 50%
+
+  .pika-row td[aria-selected="false"]:last-of-type button,
+  .pika-row td[aria-selected="true"]:last-of-type button
+    border-top-right-radius: 50%
+    border-bottom-right-radius: 50%
+
+  .pika-row td.is-empty
+    background-color: transparent
+
+  .pika-button .pika-day
+    background-color: transparent
+
+  .pika-row td button.pika-button.pika-day
+    background-color: transparent
+
+  .is-selected .pika-button
+    color: #fff
+    background-color: #6CC20F !important
+
+.pika-single .pika-next, .pika-single .pika-prev
+  background: none !important
+
+.pika-single .pika-next:before
+  content: " "
+  color: #fff
+  left: 0
+  font-size: 1rem
+  height: 12px
+  width: 12px
+  display: block
+  border-width: 0 3px 3px 0
+  transform: rotate(45deg)
+  border-right: solid black
+  border-top: solid black
+  position: absolute
+  top: 10px
+
+.pika-single .pika-prev:before
+  content: " "
+  color: #fff
+  right: 0
+  font-size: 1rem
+  height: 12px
+  width: 12px
+  display: block
+  border-width: 0 3px 3px 0
+  transform: rotate(-45deg)
+  border-left: solid black
+  border-top: solid black
+  position: absolute
+  top: 10px
+
+.picker-container__fake-bound
+  .pika-single
+    position: absolute !important
+
+.picker-container__fake-bound.picker-hide
+  .pika-single
+    display: none

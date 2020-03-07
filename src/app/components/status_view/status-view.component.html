@@ -1,0 +1,103 @@
+<div class="component-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col align-self-center">
+        <div class="text-share">
+          <p class="text-center text-share-copy pb-3">
+            This is your BitcoinFiles secret link. Share it with people you want to view and collaborate with.
+          </p>
+          <div class="pb-3">
+            <div class="input-group my-3 input-share-copy">
+              <div class="copy-wrapper">
+                <p class="copy-label">{{ sharelink }}</p>
+                <button class="copy-button" ngxClipboard [cbContent]="sharelink"><i class="far fa-clone copy-icon"></i></button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="album-title">My Files</div>
+
+        <div class="files-title-section"></div>
+        <div class="center-container">
+          <div class="row d-none">
+            <div class="section-title">
+              <h3>My Files</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngFor="let row of getRows" class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-file-preview">
+              <a [href]="getTxLink(row)" target="_blank">
+                <div class="card card-top-rounded">
+                  <div class="img-preview">
+                    <img [src]="row.fileurl" class="card-img-top" [alt]="row.filename" />
+                  </div>
+                  <div class="card-body">
+                    <div class="card-filename">
+                      {{ row.filename }}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <table class="table table-striped d-none">
+            <thead>
+              <th>File</th>
+              <th>Address</th>
+              <th>Service fee (Sats)</th>
+              <th>Txid</th>
+              <th>Explorer</th>
+              <td>Last Sent</td>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of getRows">
+                <td>
+                  <a [href]="row.fileurl" target="_blank">
+                    Preview
+                  </a>
+                </td>
+                <td>
+                  <a [href]="getAddressLink(row.payment_address)" target="_blank">
+                    {{ getBaseName(row.fileurl) }}
+                  </a>
+                </td>
+                <td>{{ row.payment_sats_needed }}</td>
+                <td>
+                  <div *ngIf="row.txid && row.txid !== ''">
+                    <a [href]="getTxLink(row.txid)" target="_blank">
+                      {{ row.txid }}
+                    </a>
+                  </div>
+                  <div *ngIf="!row.txid || row.txid === ''">
+                    -
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="row.txid && row.txid !== ''">
+                    <a [href]="getExploreLink(row.txid)" target="_blank">
+                      View Explorer
+                    </a>
+                  </div>
+                  <div *ngIf="!row.txid || row.txid === ''">
+                    -
+                  </div>
+                </td>
+                <td>{{ formatDate(row.last_broadcast_time) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="add-button-wrapper">
+      <div class="add-button-container">
+        <button class="btn btn-link btn-add-files" (click)="addMoreFiles()">
+          <i class="fas fa-plus btn-add-files-icon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

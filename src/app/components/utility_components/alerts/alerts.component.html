@@ -1,0 +1,6 @@
+<div *ngFor="let alert of filterAlerts()" class="alert" [ngClass]="getAlerClass(alert.type)">
+  <span
+    >{{ formatAlertMessage(alert.message) }}<a [href]="alert.link">{{ alert.linkCaption }}</a></span
+  >
+  <button *ngIf="!alert.permanent" type="button" class="background-icon cancel-icon-white" (click)="deleteAlert.emit(alert.id)"></button>
+</div>
