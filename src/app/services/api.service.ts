@@ -27,6 +27,9 @@ export class ApiService {
         return;
       }
 
+    });
+
+
      /* try {
         Boost.Client().loadBoostJob(txid)
         .then((r) => {
@@ -44,11 +47,8 @@ export class ApiService {
           })
         );
       }*/
-    });
-
     return from(p);
   }
-}
 
   getStatus(tag: string): Observable<any> {
     const p = new Promise((res, rej) => {
