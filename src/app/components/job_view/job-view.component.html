@@ -1,36 +1,93 @@
 <div class="container">
   <div class="row py-5">
+
     <div class="col-12">
-      <div class="center-container">
+      <div class="d-flex justify-content-center center-container">
           <div class="form-group">
-            jobs
+            <div class="card" style="max-width: 32rem;">
+              <div class="card-header boost-card-header d-flex justify-content-between align-items-center">
+                <div class="card-header-split">Boost Bounty: 0.01 BSV </div>
+                <div class="card-header-split">
+                    <div class="features-icons-icon feature-bitcoin">
+                      <a [href]="transactionUrl" target="_blank" class="feature-bitcoin-link"><i class="fab fa-bitcoin "></i></a>
+                    </div>
 
-              <h2>Add Boost Proof of Work</h2>
-              <label for="exampleInputEmail1">Content</label>
-              <!-- <input name="inputContent" ngModel required #first="ngModel" required class="form-control" id="inputContent" aria-describedby="inputContentHelp">-->
-              <input [(ngModel)]="inputContent" #ctrl="ngModel" required class="form-control" id="inputContent" aria-describedby="inputContentHelp">
-              <small id="inputContentHelp" class="form-text text-muted">Message or hash to Boost</small>
+                   </div>
+              </div>
+              <div class="card-body">
+                <label class="boost-info-label">Content</label>
+                <h5 class="card-title">{{boostJobContent}}</h5>
+                <div>
+                    {{boostJobContentHex}}
+                </div>
+              </div>
+              <li class="list-group-item">
+                <label class="boost-info-label">Difficulty: {{boostJobDiff}}</label>
+                <div>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" [style.width]="stylesLogScaleDiff" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </li>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <label class="boost-info-label">Metadata</label>
+                  <div>
+                    <div *ngIf="boostJobTag !== ''" class="boost-info-field">
+                      {{boostJobMetadata}}
+                    </div>
+                    <div *ngIf="isFieldVisible('metadata')" class="boost-info-hidden-field">
+                      {{boostJobMetadataHex}}
+                    </div>
+                    <a href="#" (click)="toggleField('metadata')"><i class="fas fa-info-circle"></i></a>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <label class="boost-info-label">Tag</label>
+                  <div>
+                      <div *ngIf="boostJobTag !== ''" class="boost-info-field">
+                        {{boostJobTag}}
+                      </div>
+                      <div *ngIf="isFieldVisible('tag')" class="boost-info-hidden-field">
+                        {{boostJobTagHex}}
+                      </div>
+                      <a href="#" (click)="toggleField('tag')"><i class="fas fa-info-circle"></i></a>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <label class="boost-info-label">Category</label>
+                  <div>
+                      <div *ngIf="boostJobCategory !== ''" class="boost-info-field">
+                        {{boostJobCategory}}
+                      </div>
+                      <div *ngIf="isFieldVisible('category')" class="boost-info-hidden-field">
+                        {{boostJobCategoryHex}}
+                      </div>
+                      <a href="#" (click)="toggleField('category')"><i class="fas fa-info-circle"></i></a>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <label class="boost-info-label">Unique</label>
+                  <div>
+                      <div *ngIf="boostJobUnique !== ''" class="boost-info-field">
+                        {{boostJobUnique}}
+                      </div>
+                      <div *ngIf="isFieldVisible('unique')" class="boost-info-hidden-field">
+                        {{boostJobUniqueHex}}
+                      </div>
+                      <a href="#" (click)="toggleField('unique')"><i class="fas fa-info-circle"></i></a>
+                  </div>
+                </li>
+              </ul>
+              <div class="card-body">
+                <a href="/create" (click)="gotoAddMoreBoost()" class="btn btn-success btn-job-action">
+                  <i class="fas fa-bolt"></i>
+                  Add More Boost</a>
+                <a href="#" class="btn btn-link btn-job-action">Mine this Boost</a>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="inputDiff">Difficulty</label>
-              <input [(ngModel)]="inputDiff" #ctrl="ngModel" required class="form-control" id="inputDiff" aria-describedby="inputDiffHelp" minimum="1">
-              <small id="inputDiffHelp" class="form-text text-muted">Choose how much energy to attach. Minimum difficulty 1.</small>
-            </div>
-            <div class="form-group">
-              <label for="inputBoostReward">Boost Reward</label>
-              <input [(ngModel)]="inputReward" #ctrl="ngModel" required class="form-control" id="inputBoostReward" aria-describedby="inputBoostReward" minimum="0.01">
-              <small id="inputBoostRewardHelp" class="form-text text-muted">Choose the value of the Boost Reward for miners.</small>
-            </div>
-            <a (click)="validForm ? payForBoost() : null" [attr.disabled]="(!validForm) ? 'disabled' : null" [ngClass]="{'disabled': !validForm}" class="btn btn-small mt-3 px-5 d-block d-sm-inline-block btn-primary uppercase py-0 my-sm-auto">
-              Boost
-            </a>
-            <div class="mb-wrapper">
-              <span #mb> </span>
-              <span #ro> </span>
-            </div>
-            <div class="ro-wrapper"></div>
-
       </div>
     </div>
+
   </div>
 </div>

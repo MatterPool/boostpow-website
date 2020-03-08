@@ -26,18 +26,13 @@ export class ApiService {
         res(response);
         return;
       }
-
-    });
-
-
-     /* try {
-        Boost.Client().loadBoostJob(txid)
+      try {
+        return Boost.Client().loadBoostJob(txid)
         .then((r) => {
-          const response = new ApiRequestResponse(r.data, r.status);
-          res(response);
+          res(r);
         })
         .catch((e) => {
-          const response = new ApiRequestResponse(e.response ? e.response.data : e, e.status ? e.status : null);
+          const response = new ApiRequestResponse(e.response ? e.response.data : e, e.error ? e.error : null);
           rej(response);
         });
       } catch (err) {
@@ -46,8 +41,11 @@ export class ApiService {
             message: `Error`
           })
         );
-      }*/
+      }
+    });
+
     return from(p);
+
   }
 
   getStatus(tag: string): Observable<any> {

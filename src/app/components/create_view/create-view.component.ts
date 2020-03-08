@@ -64,11 +64,13 @@ export class CreateViewComponent {
 
   async payForBoost() {
     await twetchPay.pay({
-      label: 'Purchase',
+      label: 'Boost Content',
       outputs: this.payOutputs,
       onPayment: (e) => {
         console.log('payment', e);
-        //this.router.navigate(['share', this.sessionKey]);
+        setTimeout(() => {
+          this.router.navigate(['job', e.txid]);
+        }, 3000);
       }
     });
   }

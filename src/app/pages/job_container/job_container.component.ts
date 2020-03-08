@@ -20,6 +20,7 @@ export class JobContainerComponent implements OnInit, OnDestroy {
   alerts$ = this.store.pipe(select(fromAlerts.getAlerts));
   uploadStatus$ = this.store.pipe(select(fromOffers.getUploadStatus));
   sessionKey$ = this.store.pipe(select(fromOffers.getSessionKey));
+  boostJob$ = this.store.pipe(select(fromOffers.getBoostJob));
 
   constructor(private store: Store<any>, public modalCom: ModalCommunicationService, private route: ActivatedRoute) {
   }
@@ -35,5 +36,4 @@ export class JobContainerComponent implements OnInit, OnDestroy {
   deleteAlert(id) {
     this.store.dispatch(new DeleteAlert(id));
   }
-
 }

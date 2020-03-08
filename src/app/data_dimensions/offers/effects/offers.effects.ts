@@ -13,6 +13,7 @@ import { environment } from '@environments/environment';
 import { apiMapErrorString } from '@app/helpers/apiErrorMapper';
 import { Router } from '@angular/router';
 import { parseStatus } from '@offers/parsers/parse-status';
+import { parseBoostJob } from '@offers/parsers/parse-boost-job';
 
 @Injectable()
 export class OffersEffects {
@@ -56,7 +57,6 @@ export class OffersEffects {
     })
   );
 
-/*
   @Effect()
   getBoostJob$: Observable<Action> = this.actions$.pipe(
     ofType<GetBoostJob>(OffersActionTypes.GetBoostJob),
@@ -65,8 +65,9 @@ export class OffersEffects {
         .getBoostJob(action.payload)
         .pipe(
           mergeMap((r: any) => {
+            console.log('r', r);
             return from([
-              new GetBoostJobComplete(parseBoostJob(r.response)),
+              new GetBoostJobComplete(parseBoostJob(r)),
               { type: ApplicationActionTypes.hideLoading }
             ]);
           }),
@@ -95,7 +96,7 @@ export class OffersEffects {
         );
     })
   );
-*/
+
   @Effect()
   redirectToUrl$: Observable<Action> = this.actions$.pipe(
     ofType<RedirectAction>(OffersActionTypes.RedirectAction),

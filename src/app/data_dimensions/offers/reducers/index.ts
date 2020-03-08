@@ -23,3 +23,9 @@ export const getSessionKey = createSelector(
   (state: fromOffers.State) => state.sessionKey
 );
 
+export const getBoostJob = createSelector(
+  offersTreeSelector,
+  (state: fromOffers.State) => state.job
+);
+
+
