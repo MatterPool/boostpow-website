@@ -46,7 +46,7 @@ export class CreateViewComponent {
 
     const boostJob = boost.BoostPowJob.fromObject({
       content: this.inputContent,
-      diff: this.inputDiff,
+      diff: Number(this.inputDiff),
       category: '00',
       metadata: '00',
       unique: '00',

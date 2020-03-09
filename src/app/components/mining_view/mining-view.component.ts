@@ -7,15 +7,17 @@ import { UploadStatus } from '@offers/models/upload-status.interface';
 import { NgForm } from '@angular/forms';
 import * as boost from 'boostpow-js';
 import { BoostPowJobModel } from 'boostpow-js/dist/boost-pow-job-model';
+import { BoostPowJobProofModel } from 'boostpow-js/dist/boost-pow-job-proof-model';
+import { BoostPowSimpleMinerModel } from 'boostpow-js/dist/boost-pow-simple-miner-model';
 
 declare var twetchPay;
 
 @Component({
-  selector: 'app-job-view',
-  templateUrl: './job-view.component.html',
-  styleUrls: ['./job-view.component.sass']
+  selector: 'app-mining-view',
+  templateUrl: './mining-view.component.html',
+  styleUrls: ['./mining-view.component.sass']
 })
-export class JobViewComponent {
+export class MiningViewComponent {
   @Input() alerts: Alert[]
   @Input() uploadStatus: UploadStatus;
   @Input() sessionKey: string;
@@ -25,15 +27,54 @@ export class JobViewComponent {
   inputContent: string;
   inputReward;
   inputDiff: number;
+  boostJobProof: BoostPowJobProofModel;
 
   show_category = true;
   show_tag = true;
   show_metadata = true;
   show_unique = true;
-
   addedFilesNow = [];
+  hashesDone = 0;
+  cancelNextTick = false;
+  isStarted = false;
 
   constructor(private router: Router, private store: Store<fromStore.State>) {
+  }
+
+  async startMiner() {
+    console.log('starting...');
+    this.isStarted = true;
+    const powResult =
+      BoostPowSimpleMinerModel.startMining(
+        this.boostJob,
+        this.boostJobProof,
+        0,
+        // Increment display
+        (counter) => {
+          this.hashesDone = counter;
+        },
+        // If to cancel
+        () => {
+          this.isStarted = false;
+          return this.cancelNextTick;
+        }
+      );
+      console.log('pow found boost', powResult);
+      console.log('pow found boost json', JSON.stringify(powResult));
+  }
+
+  async stopMiner() {
+    console.log('stopping..');
+    this.cancelNextTick = true;
+    console.log('stop triggered');
+  }
+
+  get boostReward(): string {
+    return (this.jobValue / 100000000) + '';
+  }
+
+  get jobValue(): number {
+    return this.boostJob && this.boostJob ? this.boostJob.getValue() : 0;
   }
 
   gotoAddMoreBoost() {
@@ -41,12 +82,12 @@ export class JobViewComponent {
     return false;
   }
 
-  get miningLink(): string {
-    return `/job/${this.jobTxid}/mining`
+  get jobLink(): string {
+    return `/job/${this.jobTxid}`
   }
 
-  gotoMiningLink() {
-    this.router.navigate(['job', this.jobTxid, 'mining']);
+  gotoJobLink() {
+    this.router.navigate(['job', this.jobTxid]);
     return false;
   }
 
@@ -75,14 +116,6 @@ export class JobViewComponent {
 
   isFieldVisible(field) {
     return this['show_' + field];
-  }
-
-  get boostReward(): string {
-    return (this.jobValue / 100000000) + '';
-  }
-
-  get jobValue(): number {
-    return this.boostJob && this.boostJob ? this.boostJob.getValue() : 0;
   }
 
   get jobTxid(): string {
@@ -132,6 +165,13 @@ export class JobViewComponent {
     this.inputContent = 'Hello Boost';
     this.inputReward = 0.01;
     this.inputDiff = 1;
+    this.boostJobProof = boost.BoostPowJobProof.fromObject({
+        signature: '0000000000000000000000000000000000000000000000000000000000000001',
+        minerPubKey: '0000000000000000000000000000000000000000000000000000000000000001',
+        time: '00000001',
+        minerNonce: '0000000000000001',
+        minerAddress: '0000000000000000000000000000000000000001',
+    })
   }
 
   get payOutputs(): any[] {

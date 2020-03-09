@@ -8,13 +8,15 @@ import { PreviewContainerComponent } from './preview_container/preview_container
 import { HomeContainerComponent } from './home_container/home_container.component';
 import { CreateContainerComponent } from './create_container/create_container.component';
 import { JobContainerComponent } from './job_container/job_container.component';
+import { MiningContainerComponent } from './mining_container/mining_container.component';
 export const PAGES = [
   UploadContainerComponent,
   StatusContainerComponent,
   PreviewContainerComponent,
   HomeContainerComponent,
   CreateContainerComponent,
-  JobContainerComponent
+  JobContainerComponent,
+  MiningContainerComponent
 ];
 
 @NgModule({
