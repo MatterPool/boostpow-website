@@ -20,6 +20,8 @@ export class JobViewComponent {
   @Input() uploadStatus: UploadStatus;
   @Input() sessionKey: string;
   @Input() boostJob: BoostPowJobModel;
+  @Input() boostJobUtxos: any[];
+
   fileUploads = [];
   isDocsOpen = false;
   inputContent: string;
@@ -34,6 +36,39 @@ export class JobViewComponent {
   addedFilesNow = [];
 
   constructor(private router: Router, private store: Store<fromStore.State>) {
+  }
+
+  get sumUnminedOutputs(): number {
+    if (!this.boostJob) {
+      return 0;
+    }
+    let sum = 0;
+    for (const item of this.boostJobUtxos) {
+        sum += item.satoshis;
+    }
+    return sum / 100000000;
+  }
+
+  get isMined(): boolean {
+    if (!this.boostJob) {
+      return true;
+    }
+    for (const item of this.boostJobUtxos) {
+      if (item.txid === this.boostJob.getTxid() && item.vout === this.boostJob.getVout()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  gotoBoostJobLink(txid: string) {
+    this.router.navigate(['job', txid, 'mining'])
+    return false;
+  }
+
+  boostJobLink(txid: string): string {
+    return `/job/${txid}/mining`
   }
 
   gotoAddMoreBoost() {

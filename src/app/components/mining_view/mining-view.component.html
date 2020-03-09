@@ -1,23 +1,24 @@
 <div class="container">
   <div class="row py-5">
     <div class="col-9">
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Start Mining</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/matterpool/boostpow-js" target="_blank">Javascript SDK</a>
-        </li>
-      </ul>
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Browser CPU Miner</h5>
-          <p class="card-text">Warning: your browser will lock up until a Boost Header is found (several hours)</p>
-          <p class="card-text">Hashes checked: {{hashesDone}}</p>
-          <a *ngIf="!isStarted" class="btn btn-primary" (click)="startMiner()">Start Miner</a>
-          <a *ngIf="isStarted" class="btn btn-danger" (click)="stopMiner()">Stop Miner</a>
+      <h3>Get started with Boost Development</h3>
+
+      <div class="card bg-ldight mb-3 mt-3">
+
+          <div class="card-body">
+            <p class="card-text">
+              <a href="https://github.com/matterpool/boostpow-miner" target="_blank">Download the Boost CPU Miner</a>
+            </p>
+            <p class="card-text">
+              <a href="https://pool.matterpool.io" target="_blank">Connect your ASIC Miners to MatterPool</a>
+            </p>
+            <p class="card-text">
+              <a href="https://github.com/matterpool/boostpow-js" target="_blank">Javascript SDK</a>
+            </p>
+
+
+          </div>
         </div>
-      </div>
     </div>
     <div class="col-3">
       <div class=" ">

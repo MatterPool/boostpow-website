@@ -6,7 +6,7 @@ import { Action, Store } from '@ngrx/store';
 import { Observable, from } from 'rxjs';
 import { AlertsActionTypes } from '@app/data_dimensions/alerts/actions/alerts';
 import ErrorConstants from '@app/helpers/error-constants';
-import { OffersActionTypes, RedirectAction,  GetStatus, GetStatusComplete, GetBoostJob, GetBoostJobComplete } from '../actions/offers.actions';
+import { OffersActionTypes, RedirectAction,  GetStatus, GetStatusComplete, GetBoostJob, GetBoostJobComplete, GetBoostJobUtxos, GetBoostJobUtxosComplete } from '../actions/offers.actions';
 import { ApiService } from '@app/services/api.service';
 import { ApplicationActionTypes } from '@application/actions/application';
 import { environment } from '@environments/environment';
@@ -68,6 +68,46 @@ export class OffersEffects {
             console.log('r', r);
             return from([
               new GetBoostJobComplete(parseBoostJob(r)),
+              { type: ApplicationActionTypes.hideLoading }
+            ]);
+          }),
+          catchError((err) => {
+            if (err.response.name === 'AuthorizationRequiredError') {
+              return from([
+                new RedirectAction(environment.redirect_after_account_logout),
+                { type: ApplicationActionTypes.hideLoading }
+              ]);
+            } else {
+              return from([
+                {
+                  type: AlertsActionTypes.PushAlert,
+                  payload: {
+                    type: 'danger',
+                    message: apiMapErrorString(err.errorMessage),
+                    id: 'accountLoginError',
+                    permanent: false,
+                    imperative: true
+                  }
+                },
+                { type: ApplicationActionTypes.hideLoading }
+              ]);
+            }
+          })
+        );
+    })
+  );
+  @Effect()
+  getBoostJobUtxos$: Observable<Action> = this.actions$.pipe(
+    ofType<GetBoostJobUtxos>(OffersActionTypes.GetBoostJobUtxos),
+    mergeMap(action => {
+      console.log('boost job utxos-------- effects', action.payload);
+      return this.apiService
+        .getBoostJobUtxos(action.payload)
+        .pipe(
+          mergeMap((r: any) => {
+            console.log('response from effect', r);
+            return from([
+              new GetBoostJobUtxosComplete(r),
               { type: ApplicationActionTypes.hideLoading }
             ]);
           }),

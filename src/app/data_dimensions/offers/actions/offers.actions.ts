@@ -10,6 +10,8 @@ export enum OffersActionTypes {
   SetSessionKey = 'SetSessionKey',
   GetBoostJob = 'GetBoostJob',
   GetBoostJobComplete = 'GetBoostJobComplete',
+  GetBoostJobUtxos = 'GetBoostJobUtxos',
+  GetBoostJobUtxosComplete = 'GetBoostJobUtxosComplete',
 }
 
 export class GetBoostJob implements Action {
@@ -19,6 +21,16 @@ export class GetBoostJob implements Action {
 
 export class GetBoostJobComplete implements Action {
   readonly type = OffersActionTypes.GetBoostJobComplete;
+  constructor(public payload: any) {}
+}
+
+export class GetBoostJobUtxos implements Action {
+  readonly type = OffersActionTypes.GetBoostJobUtxos;
+  constructor(public payload: string) {}
+}
+
+export class GetBoostJobUtxosComplete implements Action {
+  readonly type = OffersActionTypes.GetBoostJobUtxosComplete;
   constructor(public payload: any) {}
 }
 
@@ -48,7 +60,9 @@ export type OffersActions =
   | GetStatusComplete
   | SetSessionKey
   | GetBoostJob
-  | GetBoostJobComplete;
+  | GetBoostJobComplete
+  | GetBoostJobUtxos
+  | GetBoostJobUtxosComplete;
 
 
 

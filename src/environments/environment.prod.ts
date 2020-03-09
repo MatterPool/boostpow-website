@@ -9,5 +9,5 @@ export const environment = {
   fileupload_url: 'https://api2.bitcoinfiles.org/upload',
   fileupload_api_base: 'https://api2.bitcoinfiles.org',
   filepreview_base_url: 'https://media.bitcoinfiles.org',
-  website_base_url: 'https://www.bitcoinfiles.org',
+  website_base_url: 'https://boostpow.com',
 }

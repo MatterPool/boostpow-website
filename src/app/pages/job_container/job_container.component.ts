@@ -7,7 +7,7 @@ import { ModalCommunicationService } from '@app/services/modal-communication.ser
 import { DeleteAlert } from '@app/data_dimensions/alerts/actions/alerts';
 import { ShowLoadingAction } from '@application/actions/application';
 import * as fromOffers from '@offers/reducers';
-import { GetStatus, SetSessionKey, GetBoostJob } from '@offers/actions/offers.actions';
+import { GetStatus, SetSessionKey, GetBoostJob, GetBoostJobUtxos } from '@offers/actions/offers.actions';
 import uuidv1 from  'uuid/v1';
 
 @Component({
@@ -21,6 +21,7 @@ export class JobContainerComponent implements OnInit, OnDestroy {
   uploadStatus$ = this.store.pipe(select(fromOffers.getUploadStatus));
   sessionKey$ = this.store.pipe(select(fromOffers.getSessionKey));
   boostJob$ = this.store.pipe(select(fromOffers.getBoostJob));
+  boostJobUtxos$ = this.store.pipe(select(fromOffers.getBoostJobUtxos));
 
   constructor(private store: Store<any>, public modalCom: ModalCommunicationService, private route: ActivatedRoute) {
   }
@@ -28,6 +29,13 @@ export class JobContainerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const txid = this.route.snapshot.paramMap.get("txid");
     this.store.dispatch(new GetBoostJob(txid));
+
+    this.boostJob$.subscribe((record) => {
+      if (record && record.getScriptHash()) {
+        console.log('get boost scrip thash-----', record);
+        this.store.dispatch(new GetBoostJobUtxos(record.getScriptHash()));
+      }
+    })
   }
 
   ngOnDestroy() {

@@ -8,12 +8,20 @@ export interface State {
   uploadStatus?: UploadStatus,
   sessionKey?: string,
   job?: BoostPowJobModel,
+  jobUtxos: Array<{
+    scripthash: string,
+    txid: string,
+    vout: number,
+    satoshis: number,
+    height: number
+  }>,
 }
 
 export const initialState: State = {
   uploadStatus: null,
   sessionKey: null,
   job: null,
+  jobUtxos: [],
 };
 
 export function reducer(state = initialState, action: OffersActions): State {
@@ -32,6 +40,14 @@ export function reducer(state = initialState, action: OffersActions): State {
       return {
         ...state,
         job: action.payload
+      };
+    }
+
+    case OffersActionTypes.GetBoostJobUtxosComplete: {
+
+      return {
+        ...state,
+        jobUtxos: action.payload
       };
     }
 

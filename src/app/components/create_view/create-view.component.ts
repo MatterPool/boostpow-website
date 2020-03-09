@@ -41,11 +41,15 @@ export class CreateViewComponent {
     this.inputDiff = 1;
   }
 
+  get encodedContent(): string {
+    return this.inputContent; // Buffer.from(this.inputContent, 'hex').toString('hex');
+  }
+
   get payOutputs(): any[] {
     const outputs = [];
 
     const boostJob = boost.BoostPowJob.fromObject({
-      content: this.inputContent,
+      content: this.encodedContent,
       diff: Number(this.inputDiff),
       category: '00',
       metadata: '00',
@@ -85,7 +89,7 @@ export class CreateViewComponent {
   }
 
   get validForm(): boolean {
-    return this.inputContent && this.inputContent.length <= 32 && this.inputDiff >= 1 && this.inputReward >= 0.01;
+    return this.inputContent && this.inputContent.length <= 64 && this.inputDiff >= 1 && this.inputReward >= 0.01;
   }
 
 }

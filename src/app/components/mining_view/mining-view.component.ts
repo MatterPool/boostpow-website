@@ -22,6 +22,8 @@ export class MiningViewComponent {
   @Input() uploadStatus: UploadStatus;
   @Input() sessionKey: string;
   @Input() boostJob: BoostPowJobModel;
+  @Input() boostJobUtxos: any[];
+
   fileUploads = [];
   isDocsOpen = false;
   inputContent: string;
