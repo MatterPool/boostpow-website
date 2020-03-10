@@ -61,6 +61,12 @@ export class JobViewComponent {
     return true;
   }
 
+  get getBoostJob(): any {
+    if (!this.boostJob) {
+      return {};
+    }
+    return this.boostJob;
+  }
 
   gotoBoostJobLink(txid: string) {
     this.router.navigate(['job', txid, 'mining'])
@@ -72,8 +78,23 @@ export class JobViewComponent {
   }
 
   gotoAddMoreBoost() {
-    this.router.navigate(['create'])
+    this.router.navigate(['create'], {
+      queryParams: {
+        content: this.getBoostJob.getContentString(),
+        diff: this.getBoostJob.getDiff(),
+        tag: this.getBoostJob.getTagString(),
+        type: this.getBoostJob.getCategoryString(),
+        metadata: this.getBoostJob.getMetadataString(),
+        unique: this.getBoostJob.getUnique(),
+        useHex: false
+      },
+      queryParamsHandling: 'merge'
+    });
     return false;
+  }
+
+  get addMoreBoostUrl(): string{
+    return `/create?content=${this.getBoostJob.getContentString()}&diff=${this.getBoostJob.getDiff()}&type=${this.getBoostJob.getCategoryString()}&metadata=${this.getBoostJob.getMetadataString()}&tag=${this.getBoostJob.getTagString()}&unique=${this.getBoostJob.getUnique()}`
   }
 
   get miningLink(): string {

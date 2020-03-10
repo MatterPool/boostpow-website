@@ -15,6 +15,7 @@ export interface State {
     satoshis: number,
     height: number
   }>,
+
 }
 
 export const initialState: State = {

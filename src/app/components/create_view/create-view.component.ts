@@ -20,12 +20,18 @@ export class CreateViewComponent {
   @Input() alerts: Alert[]
   @Input() uploadStatus: UploadStatus;
   @Input() sessionKey: string;
-
+  @Input() defaultCreateJob: any;
   fileUploads = [];
   isDocsOpen = false;
   inputContent: string;
   inputReward;
   inputDiff: number;
+  inputCategory: string;
+  inputTag: string;
+  inputMetadata: string;
+  inputUnique: string;
+
+  useHex = false;
 
   @ViewChild("mb") public mbRef: ElementRef;
   @ViewChild("ro") public roRef: ElementRef;
@@ -36,33 +42,49 @@ export class CreateViewComponent {
   }
 
   ngOnInit() {
-    this.inputContent = 'Hello Boost';
+    this.inputContent = this.defaultCreateJob ? this.defaultCreateJob.content : '';
     this.inputReward = 0.01;
-    this.inputDiff = 1;
-  }
-
-  get encodedContent(): string {
-    return this.inputContent; // Buffer.from(this.inputContent, 'hex').toString('hex');
+    this.inputDiff = this.defaultCreateJob ? this.defaultCreateJob.diff : 1;
+    this.inputUnique = this.defaultCreateJob ? this.defaultCreateJob.unique : 0;
+    this.inputTag = this.defaultCreateJob ? this.defaultCreateJob.tag : '';
+    this.inputMetadata = this.defaultCreateJob ? this.defaultCreateJob.metadata : '';
+    this.inputCategory = this.defaultCreateJob ? this.defaultCreateJob.type : '';
+    this.useHex = this.defaultCreateJob ? this.defaultCreateJob.useHex : true;
   }
 
   get payOutputs(): any[] {
-    const outputs = [];
+    console.log('generating payoutputs: ', this.inputContent, this.inputCategory, this.inputMetadata, this.inputTag, this.inputUnique);
 
-    const boostJob = boost.BoostPowJob.fromObject({
-      content: this.encodedContent,
-      diff: Number(this.inputDiff),
-      category: '00',
-      metadata: '00',
-      unique: '00',
-      tag: '00',
-    });
-    // https://search.matterpool.io/tx/debbd830e80bdccf25d8659b98e8f77517fe0af4c5c161d645bf86a4e7fcd301
+    const outputs = [];
+    let boostJob;
+    if (this.useHex) {
+      boostJob = boost.BoostPowJob.fromObject({
+        content: Buffer.from(this.inputContent, 'hex').toString('hex'),
+        diff: Number(this.inputDiff),
+        category: Buffer.from(this.inputCategory, 'hex').toString('hex'),
+        metadata: Buffer.from(this.inputMetadata, 'hex').toString('hex'),
+        unique: Buffer.from(this.inputUnique, 'hex').toString('hex'),
+        tag: Buffer.from(this.inputTag, 'hex').toString('hex'),
+      });
+    } else {
+      boostJob = boost.BoostPowJob.fromObject({
+        content: Buffer.from(this.inputContent, 'utf8').toString('hex'),
+        diff: Number(this.inputDiff),
+        category: Buffer.from(this.inputCategory, 'utf8').toString('hex'),
+        metadata: Buffer.from(this.inputMetadata, 'utf8').toString('hex'),
+        unique: Buffer.from(this.inputUnique, 'utf8').toString('hex'),
+        tag: Buffer.from(this.inputTag, 'utf8').toString('hex'),
+      });
+      // https://search.matterpool.io/tx/debbd830e80bdccf25d8659b98e8f77517fe0af4c5c161d645bf86a4e7fcd301
+    }
+    console.log('constructed BoostJob: ', boostJob.toObject(), ", useHex: ", this.useHex);
+
     outputs.push({
       script: boostJob.toASM(),
       amount: this.inputReward,
       currency: "USD"
     })
-    console.log('outputs', outputs);
+    console.log('Payment outputs', outputs);
     return outputs;
   }
 

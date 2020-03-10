@@ -32,7 +32,6 @@ export class JobContainerComponent implements OnInit, OnDestroy {
 
     this.boostJob$.subscribe((record) => {
       if (record && record.getScriptHash()) {
-        console.log('get boost scrip thash-----', record);
         this.store.dispatch(new GetBoostJobUtxos(record.getScriptHash()));
       }
     })
