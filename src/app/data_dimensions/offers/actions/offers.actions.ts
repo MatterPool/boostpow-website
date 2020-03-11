@@ -12,6 +12,8 @@ export enum OffersActionTypes {
   GetBoostJobComplete = 'GetBoostJobComplete',
   GetBoostJobUtxos = 'GetBoostJobUtxos',
   GetBoostJobUtxosComplete = 'GetBoostJobUtxosComplete',
+  GetBoostSearch = 'GetBoostSearch',
+  GetBoostSearchComplete = 'GetBoostSearchComplete',
 }
 
 export class GetBoostJob implements Action {
@@ -21,6 +23,16 @@ export class GetBoostJob implements Action {
 
 export class GetBoostJobComplete implements Action {
   readonly type = OffersActionTypes.GetBoostJobComplete;
+  constructor(public payload: any) {}
+}
+
+export class GetBoostSearch implements Action {
+  readonly type = OffersActionTypes.GetBoostSearch;
+  constructor(public payload?: string) {}
+}
+
+export class GetBoostSearchComplete implements Action {
+  readonly type = OffersActionTypes.GetBoostSearchComplete;
   constructor(public payload: any) {}
 }
 
@@ -62,11 +74,9 @@ export type OffersActions =
   | GetBoostJob
   | GetBoostJobComplete
   | GetBoostJobUtxos
-  | GetBoostJobUtxosComplete;
-
-
-
-
+  | GetBoostJobUtxosComplete
+  | GetBoostSearch
+  | GetBoostSearchComplete;
 
 
 

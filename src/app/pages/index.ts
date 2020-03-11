@@ -9,6 +9,7 @@ import { HomeContainerComponent } from './home_container/home_container.componen
 import { CreateContainerComponent } from './create_container/create_container.component';
 import { JobContainerComponent } from './job_container/job_container.component';
 import { MiningContainerComponent } from './mining_container/mining_container.component';
+import { SearchContainerComponent } from './search_container/search_container.component';
 export const PAGES = [
   UploadContainerComponent,
   StatusContainerComponent,
@@ -16,7 +17,8 @@ export const PAGES = [
   HomeContainerComponent,
   CreateContainerComponent,
   JobContainerComponent,
-  MiningContainerComponent
+  MiningContainerComponent,
+  SearchContainerComponent
 ];
 
 @NgModule({

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row py-5">
+    <div class="col-12">
+      <div class="d-flex justify-content-center center-container">
+        <div>
+          <p class="lead">
+            Latest Boost Jobs
+          </p>
+          <table class="table table-striped">
+            <tr *ngFor="let boostResult of boostSearchResults">
+              <td>
+                {{boostResult.boostPowJob.getContentString()}} <br/>
+                <a [href]="boostJobLink(boostResult.boostPowJob.getTxid())" (click)="gotoBoostJobLink(boostResult.boostPowJob.getTxid())" class="txid-link">
+                    {{boostResult.boostPowJob.getTxid()}}
+                </a><br/>
+                {{valueFormat(boostResult.boostPowJob.getValue())}} BSV
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

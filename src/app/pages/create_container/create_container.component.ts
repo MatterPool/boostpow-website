@@ -25,9 +25,9 @@ export class CreateContainerComponent implements OnInit, OnDestroy {
     tag: '',
     type: '',
     metadata: '',
-    unique: 0,
+    unique: '',
     diff: 1
-  }
+  };
   constructor(private store: Store<any>, public modalCom: ModalCommunicationService, private route: ActivatedRoute) {
   }
 

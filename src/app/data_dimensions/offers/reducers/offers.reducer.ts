@@ -15,6 +15,7 @@ export interface State {
     satoshis: number,
     height: number
   }>,
+  boostSearchResults: Array<any>;
 
 }
 
@@ -23,10 +24,18 @@ export const initialState: State = {
   sessionKey: null,
   job: null,
   jobUtxos: [],
+  boostSearchResults: [],
 };
 
 export function reducer(state = initialState, action: OffersActions): State {
   switch (action.type) {
+
+    case OffersActionTypes.GetBoostSearchComplete: {
+      return {
+        ...state,
+        boostSearchResults: action.payload
+      };
+    }
 
     case OffersActionTypes.GetStatusComplete: {
 

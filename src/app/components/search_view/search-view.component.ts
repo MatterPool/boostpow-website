@@ -10,14 +10,15 @@ import { GetStatus } from '@offers/actions/offers.actions';
 declare var twetchPay;
 
 @Component({
-  selector: 'app-home-view',
-  templateUrl: './home-view.component.html',
-  styleUrls: ['./home-view.component.sass']
+  selector: 'app-search-view',
+  templateUrl: './search-view.component.html',
+  styleUrls: ['./search-view.component.sass']
 })
-export class HomeViewComponent {
+export class SearchViewComponent {
   @Input() alerts: Alert[]
   @Input() uploadStatus: UploadStatus;
   @Input() sessionKey: string;
+  @Input() boostSearchResults: any[];
 
   @ViewChild("dropzone") public dzRef: ElementRef;
   dropzone = null;
@@ -29,6 +30,19 @@ export class HomeViewComponent {
   addedFilesNow = [];
 
   constructor(private router: Router, private store: Store<fromStore.State>) {
+  }
+
+  valueFormat(item: number): number {
+    return item / 100000000;
+  }
+
+  gotoBoostJobLink(txid: string) {
+    this.router.navigate(['job', txid])
+    return false;
+  }
+
+  boostJobLink(txid: string): string {
+    return `/job/${txid}`
   }
 
   toggleDocs() {

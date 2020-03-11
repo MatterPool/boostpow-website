@@ -47,6 +47,43 @@ export class ApiService {
     return from(p);
   }
 
+  getBoostSearch(i?: string): Observable<any> {
+    const p = new Promise((res, rej) => {
+      if (environment.mock_mode) {
+        const mockData = {
+          success: true,
+          result: {
+
+          }
+        };
+
+        const response = new ApiRequestResponse(mockData, 200);
+        console.log('getBoostSearch mock data', mockData, response);
+        res(response);
+        return;
+      }
+      try {
+        return Boost.Graph().search({}, {})
+        .then((r) => {
+          res(r);
+        })
+        .catch((e) => {
+          const response = new ApiRequestResponse(e.response ? e.response.data : e, e.error ? e.error : null);
+          rej(response);
+        });
+      } catch (err) {
+        rej(
+          new ApiRequestResponse(null, {
+            message: `Error`
+          })
+        );
+      }
+    });
+
+    return from(p);
+
+  }
+
   getBoostJob(txid: string): Observable<any> {
     const p = new Promise((res, rej) => {
       if (environment.mock_mode) {

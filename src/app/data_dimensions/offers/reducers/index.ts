@@ -32,3 +32,10 @@ export const getBoostJobUtxos = createSelector(
   offersTreeSelector,
   (state: fromOffers.State) => state.jobUtxos
 );
+
+export const getBoostSearchResults = createSelector(
+  offersTreeSelector,
+  (state: fromOffers.State) => state.boostSearchResults
+);
+
+

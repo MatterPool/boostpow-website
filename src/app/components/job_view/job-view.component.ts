@@ -63,7 +63,9 @@ export class JobViewComponent {
 
   get getBoostJob(): any {
     if (!this.boostJob) {
-      return {};
+      return {
+
+      };
     }
     return this.boostJob;
   }
@@ -80,12 +82,11 @@ export class JobViewComponent {
   gotoAddMoreBoost() {
     this.router.navigate(['create'], {
       queryParams: {
-        content: this.getBoostJob.getContentString(),
-        diff: this.getBoostJob.getDiff(),
-        tag: this.getBoostJob.getTagString(),
-        type: this.getBoostJob.getCategoryString(),
-        metadata: this.getBoostJob.getMetadataString(),
-        unique: this.getBoostJob.getUnique(),
+        content: this.boostJobContent,
+        diff: this.boostJobDiff,
+        tag: this.boostJobTag,
+        type: this.boostJobCategory,
+        metadata: this.boostJobMetadata,
         useHex: false
       },
       queryParamsHandling: 'merge'
@@ -94,7 +95,7 @@ export class JobViewComponent {
   }
 
   get addMoreBoostUrl(): string{
-    return `/create?content=${this.getBoostJob.getContentString()}&diff=${this.getBoostJob.getDiff()}&type=${this.getBoostJob.getCategoryString()}&metadata=${this.getBoostJob.getMetadataString()}&tag=${this.getBoostJob.getTagString()}&unique=${this.getBoostJob.getUnique()}`
+    return `/create?content=${this.boostJobContent}&diff=${this.boostJobDiff}&type=${this.boostJobCategory}&metadata=${this.boostJobMetadata}&tag=${this.boostJobTag}`
   }
 
   get miningLink(): string {
