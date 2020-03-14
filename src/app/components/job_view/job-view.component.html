@@ -31,15 +31,15 @@
               </li>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                  <label class="boost-info-label">Metadata</label>
+                  <label class="boost-info-label">Additional Data</label>
                   <div>
                     <div *ngIf="boostJobTag !== ''" class="boost-info-field">
-                      {{boostJobMetadata}}
+                      {{boostJobAdditionalData}}
                     </div>
-                    <div *ngIf="isFieldVisible('metadata')" class="boost-info-hidden-field">
-                      {{boostJobMetadataHex}}
+                    <div *ngIf="isFieldVisible('additionalData')" class="boost-info-hidden-field">
+                      {{boostJobAdditionalDataHex}}
                     </div>
-                    <a href="#" (click)="toggleField('metadata')"><i class="fas fa-info-circle"></i></a>
+                    <a href="#" (click)="toggleField('additionalData')"><i class="fas fa-info-circle"></i></a>
                   </div>
                 </li>
                 <li class="list-group-item">
@@ -67,15 +67,15 @@
                   </div>
                 </li>
                 <li class="list-group-item">
-                  <label class="boost-info-label">Unique</label>
+                  <label class="boost-info-label">User Nonce</label>
                   <div>
-                      <div *ngIf="boostJobUnique" class="boost-info-field">
-                        {{boostJobUnique}}
+                      <div *ngIf="boostJobUserNonce" class="boost-info-field">
+                        {{boostJobUserNonce}}
                       </div>
-                      <div *ngIf="isFieldVisible('unique')" class="boost-info-hidden-field">
-                        {{boostJobUniqueHex}}
+                      <div *ngIf="isFieldVisible('userNonce')" class="boost-info-hidden-field">
+                        {{boostJobUserNonceHex}}
                       </div>
-                      <a href="#" (click)="toggleField('unique')"><i class="fas fa-info-circle"></i></a>
+                      <a href="#" (click)="toggleField('userNonce')"><i class="fas fa-info-circle"></i></a>
                   </div>
                 </li>
               </ul>

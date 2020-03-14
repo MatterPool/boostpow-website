@@ -30,8 +30,8 @@ export class JobViewComponent {
 
   show_category = true;
   show_tag = true;
-  show_metadata = true;
-  show_unique = true;
+  show_additionaldata = true;
+  show_usernonce = true;
 
   addedFilesNow = [];
 
@@ -86,7 +86,7 @@ export class JobViewComponent {
         diff: this.boostJobDiff,
         tag: this.boostJobTag,
         type: this.boostJobCategory,
-        metadata: this.boostJobMetadata,
+        additionalData: this.boostJobAdditionalData,
         useHex: false
       },
       queryParamsHandling: 'merge'
@@ -95,7 +95,7 @@ export class JobViewComponent {
   }
 
   get addMoreBoostUrl(): string{
-    return `/create?content=${this.boostJobContent}&diff=${this.boostJobDiff}&type=${this.boostJobCategory}&metadata=${this.boostJobMetadata}&tag=${this.boostJobTag}`
+    return `/create?content=${this.boostJobContent}&diff=${this.boostJobDiff}&type=${this.boostJobCategory}&additionalData=${this.boostJobAdditionalData}&tag=${this.boostJobTag}`
   }
 
   get miningLink(): string {
@@ -161,11 +161,11 @@ export class JobViewComponent {
     return this.boostJob && this.boostJob ? this.boostJob.getTagHex() : '';
   }
 
-  get boostJobMetadata(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getMetadataString() : '';
+  get boostJobAdditionalData(): string {
+    return this.boostJob && this.boostJob ? this.boostJob.getAdditionalDataString() : '';
   }
-  get boostJobMetadataHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getMetadataHex() : '';
+  get boostJobAdditionalDataHex(): string {
+    return this.boostJob && this.boostJob ? this.boostJob.getAdditionalDataHex() : '';
   }
 
   get boostJobCategory(): string {
@@ -178,11 +178,11 @@ export class JobViewComponent {
   get boostJobDiff(): number {
     return this.boostJob && this.boostJob ? this.boostJob.getDiff() : undefined;
   }
-  get boostJobUnique(): number {
-    return this.boostJob && this.boostJob ? this.boostJob.getUnique() : undefined;
+  get boostJobUserNonce(): number {
+    return this.boostJob && this.boostJob ? this.boostJob.getUserNonce() : undefined;
   }
-  get boostJobUniqueHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getUniqueHex() : '';
+  get boostJobUserNonceHex(): string {
+    return this.boostJob && this.boostJob ? this.boostJob.getUserNonceHex() : '';
   }
 
   ngOnInit() {
@@ -198,8 +198,8 @@ export class JobViewComponent {
       content: this.inputContent,
       diff: this.inputDiff,
       category: '00',
-      metadata: '00',
-      unique: '00',
+      additionalData: '00',
+      userNonce: '00',
       tag: '00',
     });
     // https://search.matterpool.io/tx/debbd830e80bdccf25d8659b98e8f77517fe0af4c5c161d645bf86a4e7fcd301

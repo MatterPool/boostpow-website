@@ -24,8 +24,8 @@ export class CreateContainerComponent implements OnInit, OnDestroy {
     content: '',
     tag: '',
     type: '',
-    metadata: '',
-    unique: '',
+    additionalData: '',
+    userNonce: '',
     diff: 1
   };
   constructor(private store: Store<any>, public modalCom: ModalCommunicationService, private route: ActivatedRoute) {
@@ -49,14 +49,14 @@ export class CreateContainerComponent implements OnInit, OnDestroy {
       if (params.type) {
         this.defaultCreateJob.type = params.type;
       }
-      if (params.metadata) {
-        this.defaultCreateJob.metadata = params.metadata;
+      if (params.additionalData) {
+        this.defaultCreateJob.additionalData = params.additionalData;
       }
       if (params.tag) {
         this.defaultCreateJob.tag = params.tag;
       }
-      if (params.unique) {
-        this.defaultCreateJob.unique = params.unique;
+      if (params.userNonce) {
+        this.defaultCreateJob.userNonce = params.userNonce;
       }
       if (params.diff) {
         this.defaultCreateJob.diff = params.diff;

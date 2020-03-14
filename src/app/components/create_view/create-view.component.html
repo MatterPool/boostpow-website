@@ -39,14 +39,14 @@
                 <small id="inputCategoryHelp" class="form-text text-muted">Content type (4 bytes)</small>
               </div>
                <div class="form-group">
-                <label for="inputMetadata">Metadata</label>
-                <input [(ngModel)]="inputMetadata" #ctrl="ngModel" required class="form-control" id="inputMetadata" aria-describedby="inputMetadataHelp">
-                <small id="inputMetadataHelp" class="form-text text-muted">Add arbitrary metadata (Optional 32 bytes)</small>
+                <label for="inputAdditionalData">Additional Data</label>
+                <input [(ngModel)]="inputAdditionalData" #ctrl="ngModel" required class="form-control" id="inputAdditionalData" aria-describedby="inputAdditionalDataHelp">
+                <small id="inputAdditionalDataHelp" class="form-text text-muted">Add arbitrary data (Optional 32 bytes)</small>
               </div>
               <div class="form-group">
-                <label for="inputUnique">Unique?</label>
-                <input [(ngModel)]="inputUnique" #ctrl="ngModel" required class="form-control" id="inputUnique" aria-describedby="inputUniqueHelp">
-                <small id="inputUniqueHelp" class="form-text text-muted">Add random uniqueness (Optional 4 bytes)</small>
+                <label for="inputUserNonce">User Nonce?</label>
+                <input [(ngModel)]="inputUserNonce" #ctrl="ngModel" required class="form-control" id="inputUserNonce" aria-describedby="inputUserNonceHelp">
+                <small id="inputUserNonceHelp" class="form-text text-muted">Add random uniqueness (Optional 4 bytes)</small>
               </div>
 
               <div class="form-group form-check">

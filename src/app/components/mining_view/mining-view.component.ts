@@ -7,7 +7,6 @@ import { UploadStatus } from '@offers/models/upload-status.interface';
 import { NgForm } from '@angular/forms';
 import * as boost from 'boostpow-js';
 import { BoostPowJobModel } from 'boostpow-js/dist/boost-pow-job-model';
-import { BoostPowJobProofModel } from 'boostpow-js/dist/boost-pow-job-proof-model';
 import { BoostPowSimpleMinerModel } from 'boostpow-js/dist/boost-pow-simple-miner-model';
 
 declare var twetchPay;
@@ -29,7 +28,6 @@ export class MiningViewComponent {
   inputContent: string;
   inputReward;
   inputDiff: number;
-  boostJobProof: BoostPowJobProofModel;
 
   show_category = true;
   show_tag = true;
@@ -42,35 +40,7 @@ export class MiningViewComponent {
 
   constructor(private router: Router, private store: Store<fromStore.State>) {
   }
-
-  async startMiner() {
-    console.log('starting...');
-    this.isStarted = true;
-    const powResult =
-      BoostPowSimpleMinerModel.startMining(
-        this.boostJob,
-        this.boostJobProof,
-        0,
-        // Increment display
-        (counter) => {
-          this.hashesDone = counter;
-        },
-        // If to cancel
-        () => {
-          this.isStarted = false;
-          return this.cancelNextTick;
-        }
-      );
-      console.log('pow found boost', powResult);
-      console.log('pow found boost json', JSON.stringify(powResult));
-  }
-
-  async stopMiner() {
-    console.log('stopping..');
-    this.cancelNextTick = true;
-    console.log('stop triggered');
-  }
-
+ 
   get boostReward(): string {
     return (this.jobValue / 100000000) + '';
   }
@@ -140,10 +110,10 @@ export class MiningViewComponent {
   }
 
   get boostJobMetadata(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getMetadataString() : '';
+    return this.boostJob && this.boostJob ? this.boostJob.getAdditionalDataString() : '';
   }
   get boostJobMetadataHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getMetadataHex() : '';
+    return this.boostJob && this.boostJob ? this.boostJob.getAdditionalDataHex() : '';
   }
 
   get boostJobCategory(): string {
@@ -157,23 +127,17 @@ export class MiningViewComponent {
     return this.boostJob && this.boostJob ? this.boostJob.getDiff() : undefined;
   }
   get boostJobUnique(): number {
-    return this.boostJob && this.boostJob ? this.boostJob.getUnique() : undefined;
+    return this.boostJob && this.boostJob ? this.boostJob.getUserNonce() : undefined;
   }
   get boostJobUniqueHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getUniqueHex() : '';
+    return this.boostJob && this.boostJob ? this.boostJob.getUserNonceHex() : '';
   }
 
   ngOnInit() {
     this.inputContent = 'Hello Boost';
     this.inputReward = 0.01;
     this.inputDiff = 1;
-    this.boostJobProof = boost.BoostPowJobProof.fromObject({
-        signature: '0000000000000000000000000000000000000000000000000000000000000001',
-        minerPubKey: '0000000000000000000000000000000000000000000000000000000000000001',
-        time: '00000001',
-        minerNonce: '0000000000000001',
-        minerAddress: '0000000000000000000000000000000000000001',
-    })
+
   }
 
   get payOutputs(): any[] {
@@ -183,8 +147,8 @@ export class MiningViewComponent {
       content: this.inputContent,
       diff: this.inputDiff,
       category: '00',
-      metadata: '00',
-      unique: '00',
+      additionalData: '00',
+      userNonce: '00',
       tag: '00',
     });
     // https://search.matterpool.io/tx/debbd830e80bdccf25d8659b98e8f77517fe0af4c5c161d645bf86a4e7fcd301

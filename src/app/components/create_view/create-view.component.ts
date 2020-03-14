@@ -27,8 +27,8 @@ export class CreateViewComponent {
   inputDiff: number;
   inputCategory: string;
   inputTag: string;
-  inputMetadata: string;
-  inputUnique: string;
+  inputAdditionalData: string;
+  inputUserNonce: string;
   showExtraOptions = false;
 
   useHex = false;
@@ -45,29 +45,23 @@ export class CreateViewComponent {
     this.inputContent = this.defaultCreateJob ? this.defaultCreateJob.content : '';
     this.inputReward = 0.01;
     this.inputDiff = this.defaultCreateJob ? this.defaultCreateJob.diff : 1;
-    this.inputUnique = this.defaultCreateJob ? this.defaultCreateJob.unique : '';
+    this.inputUserNonce = this.defaultCreateJob ? this.defaultCreateJob.userNonce : '';
     this.inputTag = this.defaultCreateJob ? this.defaultCreateJob.tag : '';
-    this.inputMetadata = this.defaultCreateJob ? this.defaultCreateJob.metadata : '';
+    this.inputAdditionalData = this.defaultCreateJob ? this.defaultCreateJob.additionalData : '';
     this.inputCategory = this.defaultCreateJob ? this.defaultCreateJob.type : '';
     this.useHex = this.defaultCreateJob ? this.defaultCreateJob.useHex : true;
   }
 
   get payOutputs(): any[] {
-    console.log('generating payoutputs: ',
-    '--', this.inputContent , '--a-', this.inputCategory, '--meta-',
-    this.inputMetadata, '-d-', this.inputTag, '-a-', this.inputDiff,
-    '-s-', this.inputUnique);
-
     const outputs = [];
     let boostJob;
     if (this.useHex) {
-      console.log('use hex', true);
       boostJob = boost.BoostPowJob.fromObject({
         content: Buffer.from(this.inputContent, 'hex').toString('hex'),
         diff: Number(this.inputDiff),
         category: Buffer.from(this.inputCategory, 'hex').toString('hex'),
-        metadata: Buffer.from(this.inputMetadata, 'hex').toString('hex'),
-        unique: Buffer.from(this.inputUnique, 'hex').toString('hex'),
+        additionalData: Buffer.from(this.inputAdditionalData, 'hex').toString('hex'),
+        userNonce: Buffer.from(this.inputUserNonce, 'hex').toString('hex'),
         tag: Buffer.from(this.inputTag, 'hex').toString('hex'),
       });
     } else {
@@ -75,10 +69,11 @@ export class CreateViewComponent {
         content: Buffer.from(this.inputContent, 'utf8').toString('hex'),
         diff: Number(this.inputDiff),
         category: this.inputCategory === '0' ? Buffer.from(this.inputCategory, 'hex').toString('hex') : Buffer.from(this.inputCategory, 'utf8').toString('hex'),
-        metadata: Buffer.from(this.inputMetadata, 'utf8').toString('hex'),
-        unique: Buffer.from(this.inputUnique, 'utf8').toString('hex'),
+        additionalData: Buffer.from(this.inputAdditionalData, 'utf8').toString('hex'),
+        userNonce: Buffer.from(this.inputUserNonce, 'utf8').toString('hex'),
         tag: Buffer.from(this.inputTag, 'utf8').toString('hex'),
       });
+      console.log('utf string 221');
       // https://search.matterpool.io/tx/debbd830e80bdccf25d8659b98e8f77517fe0af4c5c161d645bf86a4e7fcd301
     }
     console.log('constructed BoostJob: ', boostJob.toObject(), ", useHex: ", this.useHex);
