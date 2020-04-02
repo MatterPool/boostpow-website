@@ -47,7 +47,7 @@ export class ApiService {
     return from(p);
   }
 
-  getBoostSearch(i?: string): Observable<any> {
+  getBoostSearch(params: any): Observable<any> {
     const p = new Promise((res, rej) => {
       if (environment.mock_mode) {
         const mockData = {
@@ -63,7 +63,8 @@ export class ApiService {
         return;
       }
       try {
-        return Boost.Graph().search({}, {})
+        console.log('params', params);
+        return Boost.Graph().search(params)
         .then((r) => {
           res(r);
         })

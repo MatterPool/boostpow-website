@@ -28,7 +28,7 @@ export class GetBoostJobComplete implements Action {
 
 export class GetBoostSearch implements Action {
   readonly type = OffersActionTypes.GetBoostSearch;
-  constructor(public payload?: string) {}
+  constructor(public payload: any) {}
 }
 
 export class GetBoostSearchComplete implements Action {

@@ -7,6 +7,9 @@ import Dropzone from 'dropzone';
 import { environment } from '@environments/environment';
 import { UploadStatus } from '@offers/models/upload-status.interface';
 import { GetStatus } from '@offers/actions/offers.actions';
+import * as moment from 'moment';
+
+import { BoostSignalSummary } from 'boostpow-js/dist/boost-signal-summary-model';
 declare var twetchPay;
 
 @Component({
@@ -18,7 +21,7 @@ export class SearchViewComponent {
   @Input() alerts: Alert[]
   @Input() uploadStatus: UploadStatus;
   @Input() sessionKey: string;
-  @Input() boostSearchResults: any[];
+  @Input() boostSearchResults: BoostSignalSummary[];
 
   @ViewChild("dropzone") public dzRef: ElementRef;
   dropzone = null;
@@ -53,6 +56,38 @@ export class SearchViewComponent {
   ngOnChanges() {
     // this.renderMoneyButton();
     // this.renderRelay();
+  }
+
+  isTxid(boostResult: any) {
+    if (!boostResult || !boostResult.entity) {
+      return false;
+    }
+    try {
+     // console.log('boostResult.entity.additionalData', boostResult.entity.additionalData);
+      const j = JSON.parse(boostResult.entity.additionalData.trim());
+      console.log('j parsed', j);
+      if (j && j['t'] === 'txid') {
+        return true;
+      }
+    } catch (ex) {
+    }
+    return false;
+  }
+  tagLink(tag) {
+    let t = tag.replace(/^\0*/g, '');
+    return '/search?tag=' + t.trim(); // { queryParams: { tag: tag } });
+  }
+  contentLink(content) {
+    let t = content.replace(/^\0*/g, '');
+    return '/search?content=' + t.trim(); // { queryParams: { tag: tag } });
+  }
+  categoryLink(category) {
+    let t = category.replace(/^\0*/g, '');
+    return '/search?category=' + t.trim(); // { queryParams: { tag: tag } });
+  }
+
+  formatAgo(unixtime) {
+    return moment(unixtime * 1000).format('YYYY-MM-DD hh:mm:ss')
   }
 
   get getFormUploadReturn(): string {

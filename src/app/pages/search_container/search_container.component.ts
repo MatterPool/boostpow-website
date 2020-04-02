@@ -26,7 +26,26 @@ export class SearchContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetBoostSearch());
+
+
+    this.route.queryParams
+    .subscribe(recordsClone => {
+      const records = Object.assign({}, recordsClone);
+      if (records.content) {
+        records.contentutf8 = records.content;
+      }
+      if (records.tag) {
+        records.tagutf8 = records.tag;
+      }
+      if (records.category) {
+        records.categoryutf8 = records.category;
+      }
+      if (records.additionalData) {
+        records.additionaldatautf8 = records.additionalData;
+      }
+      this.store.dispatch(new GetBoostSearch(records));
+    });
+
   }
 
   ngOnDestroy() {

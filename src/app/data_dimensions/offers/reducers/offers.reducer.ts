@@ -3,6 +3,7 @@ import { UploadStatus } from '@offers/models/upload-status.interface';
 
 import { BoostPowJob } from 'boostpow-js';
 import { BoostPowJobModel } from 'boostpow-js/dist/boost-pow-job-model';
+import { BoostSignalModel } from 'boostpow-js/dist/boost-signal-model';
 
 export interface State {
   uploadStatus?: UploadStatus,
@@ -16,7 +17,6 @@ export interface State {
     height: number
   }>,
   boostSearchResults: Array<any>;
-
 }
 
 export const initialState: State = {

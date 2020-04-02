@@ -73,7 +73,6 @@ export class CreateViewComponent {
         userNonce: Buffer.from(this.inputUserNonce, 'utf8').toString('hex'),
         tag: Buffer.from(this.inputTag, 'utf8').toString('hex'),
       });
-      console.log('utf string 221');
       // https://search.matterpool.io/tx/debbd830e80bdccf25d8659b98e8f77517fe0af4c5c161d645bf86a4e7fcd301
     }
     console.log('constructed BoostJob: ', boostJob.toObject(), ", useHex: ", this.useHex);
@@ -98,7 +97,7 @@ export class CreateViewComponent {
         console.log('result boostjob', result);
         setTimeout(() => {
           this.router.navigate(['job', e.txid]);
-        }, 3000);
+        }, 6000);
       }
     });
   }
