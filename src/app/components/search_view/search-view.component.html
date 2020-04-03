@@ -16,18 +16,18 @@
             </div>
             <div class="card-body">
 
+              <a [href]="boostJobLinkEntity(boostResult)">
+                <p class="card-text">
+                  {{boostResult.entity.content}}
 
-              <p class="card-text">
-                {{boostResult.entity.content}}
+                  {{boostResult.entity.tag}}
 
-                {{boostResult.entity.tag}}
+                  {{boostResult.entity.category}}
 
-                {{boostResult.entity.category}}
+                  {{boostResult.entity.additionalData}}
 
-                {{boostResult.entity.additionalData}}
-
-              </p>
-
+                </p>
+              </a>
               <small class="text-muted">
                 {{formatAgo(boostResult.entity.time)}}
               </small>
