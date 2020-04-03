@@ -97,7 +97,7 @@ export class CreateViewComponent {
         console.log('result boostjob', result);
         setTimeout(() => {
           this.router.navigate(['job', e.txid]);
-        }, 6000);
+        }, 7000);
       }
     });
   }

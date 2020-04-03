@@ -45,7 +45,6 @@ export class SearchViewComponent {
   }
 
   boostJobLinkEntity(s: any): string {
-    console.log('s', s);
     return `/job/${s.entity.boostJobId}`
   }
 
