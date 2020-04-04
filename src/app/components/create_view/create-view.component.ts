@@ -58,7 +58,7 @@ export class CreateViewComponent {
     if (this.useHex) {
       boostJob = boost.BoostPowJob.fromObject({
         content: Buffer.from(this.inputContent, 'hex').toString('hex'),
-        diff: Number(this.inputDiff),
+        diff: Number(this.inputDiff > 100 ? 100 : this.inputDiff),
         category: Buffer.from(this.inputCategory, 'hex').toString('hex'),
         additionalData: Buffer.from(this.inputAdditionalData, 'hex').toString('hex'),
         userNonce: Buffer.from(this.inputUserNonce, 'hex').toString('hex'),
@@ -67,7 +67,7 @@ export class CreateViewComponent {
     } else {
       boostJob = boost.BoostPowJob.fromObject({
         content: Buffer.from(this.inputContent, 'utf8').toString('hex'),
-        diff: Number(this.inputDiff),
+        diff: Number(this.inputDiff > 100 ? 100 : this.inputDiff),
         category: this.inputCategory === '0' ? Buffer.from(this.inputCategory, 'hex').toString('hex') : Buffer.from(this.inputCategory, 'utf8').toString('hex'),
         additionalData: Buffer.from(this.inputAdditionalData, 'utf8').toString('hex'),
         userNonce: Buffer.from(this.inputUserNonce, 'utf8').toString('hex'),
@@ -79,8 +79,8 @@ export class CreateViewComponent {
 
     outputs.push({
       script: boostJob.toASM(),
-      amount: this.inputReward,
-      currency: "USD"
+      amount: boostJob.getDiff() * 0.0001,
+      currency: "BSV"
     })
     console.log('Payment outputs', outputs);
     return outputs;

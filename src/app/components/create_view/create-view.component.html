@@ -12,15 +12,9 @@
             </div>
             <div class="form-group">
               <label for="inputDiff">Difficulty</label>
-              <input [(ngModel)]="inputDiff" #ctrl="ngModel" required class="form-control" id="inputDiff" aria-describedby="inputDiffHelp" minimum="1">
-              <small id="inputDiffHelp" class="form-text text-muted">Choose how much energy to attach. Minimum difficulty 1.</small>
+              <input [(ngModel)]="inputDiff" #ctrl="ngModel" required class="form-control" id="inputDiff" aria-describedby="inputDiffHelp" minimum="1" maximum="100">
+              <small id="inputDiffHelp" class="form-text text-muted">Choose how much energy to attach. Minimum difficulty 1. Capped at max 100 for now.</small>
             </div>
-            <div class="form-group">
-              <label for="inputBoostReward">Boost Reward</label>
-              <input [(ngModel)]="inputReward" #ctrl="ngModel" required class="form-control" id="inputBoostReward" aria-describedby="inputBoostReward" minimum="0.01">
-              <small id="inputBoostRewardHelp" class="form-text text-muted">Choose the value of the Boost Reward for miners.</small>
-            </div>
-
             <hr/>
 
             <a (click)="showExtraOptions = !showExtraOptions" class="mt-3 px-5 d-block d-sm-inline-block btn-primary py-0 my-sm-auto">
