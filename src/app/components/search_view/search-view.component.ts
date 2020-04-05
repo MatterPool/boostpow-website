@@ -62,18 +62,23 @@ export class SearchViewComponent {
     // this.renderRelay();
   }
 
-  isTxid(boostResult: any) {
+  mediaLink(boostResult): string {
+    console.log('boost result', boostResult.entity);
+    return `https://media.bitcoinfiles.org/${boostResult.entity.contenthex}`;
+  }
+
+  isBFile(boostResult: any) {
     if (!boostResult || !boostResult.entity) {
       return false;
     }
-    try {
-     // console.log('boostResult.entity.additionalData', boostResult.entity.additionalData);
-      const j = JSON.parse(boostResult.entity.additionalData.trim());
-      console.log('j parsed', j);
-      if (j && j['t'] === 'txid') {
-        return true;
-      }
-    } catch (ex) {
+   // console.log('boostResult.entity.category', boostResult.entity, boostResult.entity.category);
+   console.log('---', boostResult.entity);
+    if (boostResult.entity.categoryhex == '00000042') {
+      console.log('boostResult.entity.category', boostResult.entity, boostResult.entity.category);
+
+      return true;
+    } else {
+      console.log('boostResult.entity.category',boostResult.entity.category);
     }
     return false;
   }

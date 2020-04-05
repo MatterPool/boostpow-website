@@ -63,7 +63,6 @@ export class ApiService {
         return;
       }
       try {
-        console.log('params', params);
         return Boost.Graph().search(params)
         .then((r) => {
           res(r);

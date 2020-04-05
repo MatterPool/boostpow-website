@@ -39,11 +39,13 @@ export class SearchContainerComponent implements OnInit, OnDestroy {
       }
       if (records.category) {
         records.categoryutf8 = records.category;
+      } else {
+        records.categoryutf8 = 'B';
       }
-      if (records.additionalData) {
-        records.additionaldatautf8 = records.additionalData;
+      if (records.additionalData || records.additionaldata) {
+        records.additionaldatautf8 = records.additionalData || records.additionaldata;
       }
-      this.store.dispatch(new GetBoostSearch(records));
+      this.store.dispatch(new GetBoostSearch(Object.assign({},records)))
     });
 
   }

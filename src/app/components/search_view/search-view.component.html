@@ -4,40 +4,37 @@
       <div class="d-flex justify-content-center center-container">
         <div>
           <p class="lead">
-            Boost Rank
+          Top Boosted Bitcoin Files
           </p>
-          <a href="https://graph.boostpow.com/api/v1/main/boost/search?tag=bitcoin-protocol&minedTimeStart=1585462382&minedTimeEnd=">Boost Graph Query Example</a>
+          <a href="https://graph.boostpow.com/api/v1/main/boost/search?tag=bitcoin-protocol&taghex=&category=B&categoryhex=&additionalData=&content=&contenthex=&minedTimeStart=1585462382&minedTimeEnd=">Boost Graph Query Example</a>
           <br/>
           <br/>
           <div *ngFor="let boostResult of boostSearchResults" class="card mb-3" >
-            <div *ngIf="isTxid(boostResult)">
-              <img src="..." class="card-img-top" alt="...">
-
+            <div *ngIf="isBFile(boostResult)">
+              <img [src]="mediaLink(boostResult)" class="card-img-top" alt="...">
             </div>
             <div class="card-body">
-
               <a [href]="boostJobLinkEntity(boostResult)">
                 <p class="card-text">
                   {{boostResult.entity.content}}
-
-                  {{boostResult.entity.tag}}
-
-                  {{boostResult.entity.category}}
-
-                  {{boostResult.entity.additionalData}}
-
+                  <br/>
+                  {{boostResult.entity.contenthex}}
                 </p>
               </a>
+              <p *ngIf="boostResult.entity.additionalData" class="card-text">
+                {{boostResult.entity.additionalData}}
+              </p>
+
               <small class="text-muted">
                 {{formatAgo(boostResult.entity.time)}}
               </small>
+              <a *ngIf="boostResult.entity.category" [href]="categoryLink(boostResult.entity.category)">
+                  <span class="badge badge-light">{{boostResult.entity.category}}</span>
+              </a>
 
               <a *ngIf="boostResult.entity.tag" [href]="tagLink(boostResult.entity.tag)">
                   <span class="badge badge-light">{{boostResult.entity.tag}}</span>
                </a>
-               <a *ngIf="boostResult.entity.category" [href]="categoryLink(boostResult.entity.category)">
-                  <span class="badge badge-light">{{boostResult.entity.category}}</span>
-              </a>
               <br/>
               <small class="badge badge-success badge-lg">Energy: {{boostResult.totalDifficulty}}</small>
             </div>
