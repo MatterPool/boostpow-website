@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { environment } from '@environments/environment';
 import { Router } from '@angular/router';
 
+declare var boostPublish;
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,15 +12,27 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
 
   constructor(private router: Router) {
-
   }
   get homepageUrl(): string {
     return environment.website_base_url;
   }
 
-  gotoCreate() {
+  async gotoCreate() {
 
-    this.router.navigate(['create']);
+    console.log('boostPublish', boostPublish);
+    await boostPublish.open({
+      label: 'Boost Content',
+      outputs: [],
+      onPayment: async (e, boostJobStatus) => {
+        console.log('payment', e);
+        console.log('result boostjob', boostJobStatus);
+        setTimeout(() => {
+          // window.location="https://boostpow.com/job/" + payment.txid;
+          this.router.navigate(['job', e.txid]);
+        }, 5000);
+      }
+    });
+    // this.router.navigate(['create']);
     return false;
   }
 }

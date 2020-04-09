@@ -79,7 +79,7 @@ export class CreateViewComponent {
 
     outputs.push({
       script: boostJob.toASM(),
-      amount: boostJob.getDiff() * 0.0001,
+      amount: boostJob.getDiff() * 0.00001,
       currency: "BSV"
     })
     console.log('Payment outputs', outputs);
