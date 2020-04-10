@@ -1,125 +1,23 @@
 <div class="container">
   <div class="row py-5">
     <div class="col-12">
-      <div class="d-flex justify-content-center center-container">
-        <div class="text-center" style="max-width: 650px">
-          <h2 class="jumbo-title">Content Ranking: Solved</h2>
+      <div class="d-flex center-container">
+        <div style="max-width: 800px">
+          <h3 class="jumbo-title"><span class="logo-color">Boost</span> is a signalling method for content.
+          <br/> It allows you to add energy to information.</h3>
           <p class="lead">
-            Boost is a new type of content ranking system that enables users to link a provable amount of spent energy to their messages.
+            What can I Boost for you today?
           </p>
         </div>
       </div>
     </div>
-    <div class="col-12 text-center py-2">
-      <a (click)="gotoCreate()" class="btn btn-small btn-secondary uppercase py-0 px-5 d-block mr-sm-4 d-sm-inline-block my-auto">
-        Create Boost
+    <div class="col-12 texdt-center py-2">
+      <a (click)="gotoCreate()" class="btn btn-small btn-primary uppercase py-0 px-5 d-block mr-sm-4 d-sm-inline-block my-auto">
+        Boost Content
       </a>
-      <a href="https://media.bitcoinfiles.org/52fb4bedc85854638af61a7f906bf8e93da847d2ddb522b1aec53cfc6a0b2023" class="btn btn-small mt-3 px-5 d-block d-sm-inline-block btn-primary uppercase py-0 my-sm-auto">
+      <a href="https://media.bitcoinfiles.org/52fb4bedc85854638af61a7f906bf8e93da847d2ddb522b1aec53cfc6a0b2023" class="btn btn-small mt-3 px-5 d-block d-sm-inline-block btn-secondary uppercase py-0 my-sm-auto">
         Whitepaper
       </a>
-    </div>
-  </div>
-  <div class="mb-wrapper">
-    <span #mb> </span>
-    <span #ro> </span>
-  </div>
-  <div class="ro-wrapper"></div>
-  <div *ngIf="isDocsOpen" class="docs-body">
-    <h5>Upload file (HTML Form)</h5>
-    <strong>POST /upload?tag=tagYourUploadsHere123</strong>
-    <p>
-      Perform a multi-part form upload using a standard form upload. Use the `tag` param as a pseudo session identifier for your uploads
-      to be able to query status later.
-    </p>
-    <div>
-      Example form:<br />
-      <code>
-        &lt;form action="https://api.bitcoinfiles.org/upload?tag=superUniquetagId42" method="post" enctype="multipart/form-data"&gt;
-        <br />
-        &lt;input type="file" name="file" /&gt;
-        <br />
-        &lt;input type="submit" /&gt;
-        <br />
-        &lt;/form&gt; </code
-      ><br /><br />
-
-      Response body: <br />
-
-      <code>
-        {{ getFormUploadReturn }}
-      </code>
-
-      <br />
-      <br />
-    </div>
-
-    <h5>Get Upload Status Batch</h5>
-    <strong>GET /status/:tagName</strong>
-    <p>
-      Retrieve the status of the uploads grouped by `tag`. Uploads will be stored on Bitcoin when a payment is received at the advertised
-      `payout_address` and the `payment_sats_needed` amount.
-    </p>
-    <div>
-      HTTP Request:<br />
-      <code>
-        GET https://api.bitcoinfiles.org/status/42ba6fc0-4f1a-11ea-9f2d-2ba2dddfa178
-        <br /><br />
-        // Returns <br />
-        {{ getStatusReturn }}
-      </code>
-
-      <br />
-      <br />
-    </div>
-
-    <h5>Get file</h5>
-    <strong>GET https://media.bitcoinfiles.org/:txid[.out.:index]</strong>
-    <p>
-      Retrieve a file from the Content Delivery Network (CDN). The [.out.:index] is optional but allows you to select specific output
-      index. (By default it scans all outputs and picks the first)
-    </p>
-    <div>
-      HTTP Request:<br />
-      <code>
-        GET https://media.bitcoinfiles.org/05e34844914249ea9c6287b88270553c39ee814318a0346e3fc5f321df52219a
-        <br /><br />
-        // Returns the raw payload file
-      </code>
-
-      <br />
-      <br />
-    </div>
-
-    <h5>Get transaction json</h5>
-    <strong>GET https://media.bitcoinfiles.org/tx/:txid</strong>
-    <p>
-      Retrieve the transaction json representation of the file
-    </p>
-    <div>
-      HTTP Request:<br />
-      <code>
-        GET https://media.bitcoinfiles.org/tx/05e34844914249ea9c6287b88270553c39ee814318a0346e3fc5f321df52219a
-        <br /><br />
-        // Returns the transaction json<br /><br />
-      </code>
-      <br />
-      <br />
-    </div>
-
-    <h5>Get transaction raw hex</h5>
-    <strong>GET https://media.bitcoinfiles.org/tx/:txid/raw</strong>
-    <p>
-      Retrieve the transaction hex raw representation of the file
-    </p>
-    <div>
-      HTTP Request:<br />
-      <code>
-        GET https://media.bitcoinfiles.org/tx/05e34844914249ea9c6287b88270553c39ee814318a0346e3fc5f321df52219a/raw
-        <br /><br />
-        // Returns the transaction raw hex<br /><br />
-      </code>
-      <br />
-      <br />
     </div>
   </div>
 </div>
