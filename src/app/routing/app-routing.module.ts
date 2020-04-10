@@ -9,6 +9,7 @@ import { SearchContainerComponent } from '@pages/search_container/search_contain
 const routes: Routes = [
   { path: '', component: HomeContainerComponent },
   { path: 'create', component: CreateContainerComponent },
+  { path: 'boost/:pow', component: JobContainerComponent },
   { path: 'job/:txid', component: JobContainerComponent },
   { path: 'job/:txid/mining', component: MiningContainerComponent },
   { path: 'search', component: SearchContainerComponent },

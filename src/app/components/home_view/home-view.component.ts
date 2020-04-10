@@ -9,6 +9,8 @@ import { UploadStatus } from '@offers/models/upload-status.interface';
 import { GetStatus } from '@offers/actions/offers.actions';
 declare var twetchPay;
 
+declare var boostPublish;
+
 @Component({
   selector: 'app-home-view',
   templateUrl: './home-view.component.html',
@@ -29,6 +31,23 @@ export class HomeViewComponent {
   addedFilesNow = [];
 
   constructor(private router: Router, private store: Store<fromStore.State>) {
+  }
+
+  async gotoCreate() {
+    await boostPublish.open({
+      label: 'Boost Content',
+      outputs: [],
+      onPayment: async (e, boostJobStatus) => {
+        console.log('payment', e);
+        console.log('result boostjob', boostJobStatus);
+        setTimeout(() => {
+          console.log('timeout fired');
+          // window.location="https://boostpow.com/job/" + payment.txid;
+          this.router.navigate(['job', e.txid]);
+        }, 5000);
+      }
+    });
+    return false;
   }
 
   toggleDocs() {

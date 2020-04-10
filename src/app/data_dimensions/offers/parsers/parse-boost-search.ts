@@ -1,12 +1,20 @@
 import { BoostSignalRankerModel } from 'boostpow-js/dist/boost-signal-ranker-model';
+import { BoostSignalSummarySerialize } from '@offers/models/boost-signal-summary-serialize.interface';
 
-
-export function parseBoostSearch(blob: BoostSignalRankerModel): Array<any> {
+export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSignalSummarySerialize> {
     const boostSignalSummaries = [];
     for (const item of blob.list) {
+
+        let recentSignal = 0;
+        for (const sig of item.signals) {
+            if (sig.time() >= recentSignal) {
+                recentSignal = sig.time();
+            }
+        }
         boostSignalSummaries.push({
             totalDifficulty: item.totalDifficulty,
             totalEnergy: item.totalDifficulty,
+            recentSignalTime: recentSignal,
             entity: {
                 boosthash: item.entity.getBoostPowString().hash(),
                 content: item.entity.content(),
@@ -26,11 +34,9 @@ export function parseBoostSearch(blob: BoostSignalRankerModel): Array<any> {
                 time: item.entity.time(),
                 difficulty: item.entity.difficulty(),
                 energy: item.entity.difficulty(),
- 
             },
             signals: item.signals
         });
-
     }
     return boostSignalSummaries;
 }

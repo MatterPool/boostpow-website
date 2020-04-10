@@ -18,8 +18,6 @@ export class HeaderComponent {
   }
 
   async gotoCreate() {
-
-    console.log('boostPublish', boostPublish);
     await boostPublish.open({
       label: 'Boost Content',
       outputs: [],
@@ -27,6 +25,7 @@ export class HeaderComponent {
         console.log('payment', e);
         console.log('result boostjob', boostJobStatus);
         setTimeout(() => {
+          console.log('timeout fired');
           // window.location="https://boostpow.com/job/" + payment.txid;
           this.router.navigate(['job', e.txid]);
         }, 5000);
