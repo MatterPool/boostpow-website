@@ -14,6 +14,7 @@ const linkifyHtml = require('linkifyjs/html');
 })
 export class ContentPreviewComponent implements OnInit {
   @Input() boostSignalSummary: BoostSignalSummarySerialize;
+  @Input() useInternalLink: boolean;
 
   previewText = '';
   contentType = null;
@@ -42,14 +43,13 @@ export class ContentPreviewComponent implements OnInit {
       label: 'Boost Content',
       content: this.boostSignalSummary.entity.contenthex,
       outputs: [],
-      onPayment: async (e, boostJobStatus) => {
-        console.log('payment', e);
-        console.log('result boostjob', boostJobStatus);
+      onPayment: async (e) => {
+        console.log('onPayment', e);
         setTimeout(() => {
           console.log('timeout fired');
-          // window.location="https://boostpow.com/job/" + payment.txid;
-          this.router.navigate(['job', e.txid]);
-        }, 5000);
+          this.router.navigate(['search']);
+          // this.router.navigate(['c', e.boostJobStatus.boostData.content]);
+        }, 500);
       }
     });
     // this.router.navigate(['create']);
@@ -60,7 +60,16 @@ export class ContentPreviewComponent implements OnInit {
     if (!this.boostSignalSummary) {
       return '';
     }
+
     return 'https://media.bitcoinfiles.org/' + this.boostSignalSummary.entity.contenthex;
+  }
+
+  get openLinkUrl(): string {
+    if (!this.boostSignalSummary) {
+      return '';
+    }
+
+    return '/c/' + this.boostSignalSummary.entity.contenthex;
   }
 
   get isImage(): boolean {
@@ -184,7 +193,7 @@ export class ContentPreviewComponent implements OnInit {
       return '';
     }
     const unixtime = this.boostSignalSummary.recentSignalTime;
-    return moment(unixtime * 1000).format('MMM, DD, YYYY hh:mm')
+    return moment(unixtime * 1000).format('MMM DD, YYYY hh:mm')
   }
 
 }

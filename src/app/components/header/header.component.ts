@@ -21,14 +21,13 @@ export class HeaderComponent {
     await boostPublish.open({
       label: 'Boost Content',
       outputs: [],
-      onPayment: async (e, boostJobStatus) => {
-        console.log('payment', e);
-        console.log('result boostjob', boostJobStatus);
+      onPayment: async (e) => {
+        console.log('onPayment', e);
         setTimeout(() => {
           console.log('timeout fired');
-          // window.location="https://boostpow.com/job/" + payment.txid;
-          this.router.navigate(['job', e.txid]);
-        }, 5000);
+          this.router.navigate(['search']);
+          // this.router.navigate(['c', e.boostJobStatus.boostData.content]);
+        }, 500);
       }
     });
     // this.router.navigate(['create']);

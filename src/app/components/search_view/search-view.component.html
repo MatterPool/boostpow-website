@@ -7,13 +7,14 @@
         <div class="col-md-auto">
           <div class="d-flex justify-content-center center-container">
             <div>
-              <h4 class="lead">
-                Boosted Bitcoin Files
-              </h4>
+              <h3>
+                Explore Boosted Content
+              </h3>
               <br/>
               <div *ngFor="let boostResult of boostSearchResults" class="card mb-3">
                 <app-content-preview
                   [boostSignalSummary]="boostResult"
+                  [useInternalLink]="true"
                 ></app-content-preview>
               </div>
             </div>

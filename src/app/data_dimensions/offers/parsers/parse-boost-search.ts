@@ -3,7 +3,9 @@ import { BoostSignalSummarySerialize } from '@offers/models/boost-signal-summary
 
 export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSignalSummarySerialize> {
     const boostSignalSummaries = [];
+
     for (const item of blob.list) {
+        let foundTags = {};
 
         let recentSignal = 0;
         for (const sig of item.signals) {
@@ -11,6 +13,18 @@ export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSigna
                 recentSignal = sig.time();
             }
         }
+        item.signals.map((sig) =>
+        {
+            if (/^0+$/.test(sig.tag(true))) {
+                return;
+            }
+            const tagUtf8 = Buffer.from(sig.tag(true), 'hex').reverse().toString('utf8');
+            if (!foundTags[tagUtf8]) {
+                foundTags[tagUtf8] = 0;
+            }
+            foundTags[tagUtf8] += sig.difficulty();
+        });
+
         boostSignalSummaries.push({
             totalDifficulty: item.totalDifficulty,
             totalEnergy: item.totalDifficulty,
@@ -35,6 +49,7 @@ export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSigna
                 difficulty: item.entity.difficulty(),
                 energy: item.entity.difficulty(),
             },
+            tags: foundTags,
             signals: item.signals
         });
     }

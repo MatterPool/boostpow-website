@@ -22,5 +22,8 @@ export interface BoostSignalSummarySerialize {
         difficulty: number,
         energy: number,
     },
+    tags: {
+        [key: string]: number
+    }
     signals: any[]
 };

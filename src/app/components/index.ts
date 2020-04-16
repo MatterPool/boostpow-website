@@ -43,6 +43,7 @@ import { JobViewComponent } from './job_view/job-view.component';
 import { MiningViewComponent } from './mining_view/mining-view.component';
 import { SearchViewComponent } from './search_view/search-view.component';
 import { ContentPreviewComponent } from './content-preview/content-preview.component';
+import { ContentViewComponent } from './content_view/content-view.component';
 
 export const COMPONENTS = [
   DatepickerDirective,
@@ -68,7 +69,8 @@ export const COMPONENTS = [
   JobViewComponent,
   MiningViewComponent,
   SearchViewComponent,
-  ContentPreviewComponent
+  ContentPreviewComponent,
+  ContentViewComponent,
 ];
 
 @NgModule({
