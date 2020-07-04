@@ -26,7 +26,7 @@ export class HeaderComponent {
         setTimeout(() => {
           console.log('timeout fired', e);
           //this.router.navigate(['search']);
-          this.router.navigate(['c', e.boostJobStatus.boostData.content]);
+          this.router.navigate(['job', e.boostJobStatus.boostJobId]);
         }, 500);
       }
     });
