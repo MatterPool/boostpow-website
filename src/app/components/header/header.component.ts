@@ -27,7 +27,7 @@ export class HeaderComponent {
           console.log('timeout fired', e);
           //this.router.navigate(['search']);
           this.router.navigate(['job', e.boostJobStatus.boostJobId]);
-        }, 500);
+        }, 4000);
       }
     });
     // this.router.navigate(['create']);
