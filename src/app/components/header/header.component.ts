@@ -24,9 +24,9 @@ export class HeaderComponent {
       onPayment: async (e) => {
         console.log('onPayment', e);
         setTimeout(() => {
-          console.log('timeout fired');
-          this.router.navigate(['search']);
-          // this.router.navigate(['c', e.boostJobStatus.boostData.content]);
+          console.log('timeout fired', e);
+          //this.router.navigate(['search']);
+          this.router.navigate(['c', e.boostJobStatus.boostData.content]);
         }, 500);
       }
     });
