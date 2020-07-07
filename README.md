@@ -1,4 +1,4 @@
-# Boost Websiet
+# Boost Website
 Front end of boostpow.com
 
 ## Running Locally
