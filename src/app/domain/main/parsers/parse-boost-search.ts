@@ -3,7 +3,7 @@ import { BoostSignalSummarySerialize } from '@main/models/boost-signal-summary-s
 
 export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSignalSummarySerialize> {
     const boostSignalSummaries = [];
-
+    console.log('parsingn');
     for (const item of blob.list) {
         let foundTags = {};
 
@@ -49,8 +49,7 @@ export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSigna
                 difficulty: item.entity.difficulty(),
                 energy: item.entity.difficulty(),
             },
-            tags: foundTags,
-            signals: item.signals
+            tags: foundTags
         });
     }
     return boostSignalSummaries;

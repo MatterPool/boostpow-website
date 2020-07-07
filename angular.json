@@ -34,8 +34,6 @@
               "includePaths": ["src/shared_styles"]
             },
             "scripts": [
-              "src/vendor/qrcode.min.js",
-              "src/vendor/Chart.min.js"
             ]
           },
           "configurations": {

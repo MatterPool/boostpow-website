@@ -50,7 +50,7 @@ export class SearchContainerComponent implements OnInit, OnDestroy {
       if (records.minedTimeFrom) {
         records.minedTimeFrom = records.minedTimeFrom;
       } else {
-        records.minedTimeFrom = ((new Date()).getTime() / 1000) - 3600 * 24 * 30; // Last month
+        records.minedTimeFrom = Math.round((new Date()).getTime() / 1000) - 3600 * 24 * 30; // Last month
       }
       if (records.minedTimeEnd) {
         records.minedTimeEnd = records.minedTimeEnd;

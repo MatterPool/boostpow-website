@@ -31,6 +31,7 @@ export function reducer(state = initialState, action: MainActions): State {
   switch (action.type) {
 
     case MainActionTypes.GetBoostSearchComplete: {
+
       return {
         ...state,
         boostSearchResults: action.payload

@@ -106,6 +106,7 @@ export class MainEffects {
         .getBoostSearch(action.payload)
         .pipe(
           mergeMap((r: any) => {
+            console.log('action --', r);
             return from([
               new GetBoostSearchComplete(parseBoostSearch(r)),
               { type: ApplicationActionTypes.hideLoading }
