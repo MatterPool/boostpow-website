@@ -3,12 +3,9 @@ import { Router } from '@angular/router';
 import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
-import { UploadStatus } from '@main/models/upload-status.interface';
 import { NgForm } from '@angular/forms';
 import * as boost from 'boostpow-js';
 import { BoostPowJobModel } from 'boostpow-js/dist/boost-pow-job-model';
-import { BoostPowSimpleMinerModel } from 'boostpow-js/dist/boost-pow-simple-miner-model';
-
 declare var twetchPay;
 
 @Component({
@@ -18,7 +15,6 @@ declare var twetchPay;
 })
 export class MiningViewComponent {
   @Input() alerts: Alert[]
-  @Input() uploadStatus: UploadStatus;
   @Input() sessionKey: string;
   @Input() boostJob: BoostPowJobModel;
   @Input() boostJobUtxos: any[];
@@ -40,7 +36,7 @@ export class MiningViewComponent {
 
   constructor(private router: Router, private store: Store<fromStore.State>) {
   }
- 
+
   get boostReward(): string {
     return (this.jobValue / 100000000) + '';
   }

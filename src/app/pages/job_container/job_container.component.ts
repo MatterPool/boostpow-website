@@ -5,10 +5,8 @@ import * as fromApplication from '@application/reducers';
 import * as fromAlerts from '@alerts/reducers';
 import { ModalCommunicationService } from '@app/services/modal-communication.service';
 import { DeleteAlert } from '@app/domain/alerts/actions/alerts';
-import { ShowLoadingAction } from '@application/actions/application';
 import * as fromMain from '@main/reducers';
-import { GetStatus, SetSessionKey, GetBoostJob, GetBoostJobUtxos } from '@main/actions/main.actions';
-import uuidv1 from  'uuid/v1';
+import { GetBoostJob, GetBoostJobUtxos } from '@main/actions/main.actions';
 
 @Component({
   selector: 'app-job-container',
@@ -18,8 +16,6 @@ import uuidv1 from  'uuid/v1';
 export class JobContainerComponent implements OnInit, OnDestroy {
   showLoading$ = this.store.pipe(select(fromApplication.showLoading));
   alerts$ = this.store.pipe(select(fromAlerts.getAlerts));
-  uploadStatus$ = this.store.pipe(select(fromMain.getUploadStatus));
-  sessionKey$ = this.store.pipe(select(fromMain.getSessionKey));
   boostJob$ = this.store.pipe(select(fromMain.getBoostJob));
   boostJobUtxos$ = this.store.pipe(select(fromMain.getBoostJobUtxos));
 
@@ -31,9 +27,9 @@ export class JobContainerComponent implements OnInit, OnDestroy {
     const splitted = txid.split('.');
     this.store.dispatch(new GetBoostJob(splitted[0]));
 
-    this.boostJob$.subscribe((record) => {
-      if (record && record.getScriptHash()) {
-        this.store.dispatch(new GetBoostJobUtxos(record.getScriptHash()));
+    this.boostJob$.subscribe((record: any) => {
+      if (record && record.scripthash) {
+        this.store.dispatch(new GetBoostJobUtxos(record.scripthash));
       }
     })
   }

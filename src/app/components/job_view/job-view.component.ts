@@ -1,14 +1,10 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
-import { UploadStatus } from '@main/models/upload-status.interface';
-import { NgForm } from '@angular/forms';
-import * as boost from 'boostpow-js';
-import { BoostPowJobModel } from 'boostpow-js/dist/boost-pow-job-model';
 
-declare var twetchPay;
+declare var boostPublish;
 
 @Component({
   selector: 'app-job-view',
@@ -17,9 +13,7 @@ declare var twetchPay;
 })
 export class JobViewComponent {
   @Input() alerts: Alert[]
-  @Input() uploadStatus: UploadStatus;
-  @Input() sessionKey: string;
-  @Input() boostJob: BoostPowJobModel;
+  @Input() boostJob: any;
   @Input() boostJobUtxos: any[];
 
   fileUploads = [];
@@ -54,7 +48,7 @@ export class JobViewComponent {
       return true;
     }
     for (const item of this.boostJobUtxos) {
-      if (item.txid === this.boostJob.getTxid() && item.vout === this.boostJob.getVout()) {
+      if (item.txid === this.boostJob.txid && item.vout === this.boostJob.vout) {
         return false;
       }
     }
@@ -79,39 +73,11 @@ export class JobViewComponent {
     return `/job/${txid}/mining`
   }
 
-  gotoAddMoreBoost() {
-    this.router.navigate(['create'], {
-      queryParams: {
-        content: this.boostJobContent,
-        diff: this.boostJobDiff,
-        tag: this.boostJobTag,
-        type: this.boostJobCategory,
-        additionalData: this.boostJobAdditionalData,
-        useHex: false
-      },
-      queryParamsHandling: 'merge'
-    });
-    return false;
-  }
-
-  get addMoreBoostUrl(): string{
-    return `/create?content=${this.boostJobContent}&diff=${this.boostJobDiff}&type=${this.boostJobCategory}&additionalData=${this.boostJobAdditionalData}&tag=${this.boostJobTag}`
-  }
-
-  get miningLink(): string {
-    return `/job/${this.jobTxid}/mining`
-  }
-
-  gotoMiningLink() {
-    this.router.navigate(['job', this.jobTxid, 'mining']);
-    return false;
-  }
-
   get transactionUrl(): string {
     if (!this.boostJob) {
       return '';
     }
-    return `https://search.matterpool.io/tx/` + this.boostJob.getTxid();
+    return `https://search.matterpool.io/tx/` + this.boostJob.txid;
   }
 
   get stylesLogScaleDiff(): string {
@@ -121,7 +87,7 @@ export class JobViewComponent {
     if (!this.boostJob) {
       return 0;
     }
-    const diff = Math.log(this.boostJob.getDiff());
+    const diff = Math.log(this.boostJob.diff);
     return diff < 1 ? 1 : Math.round(diff);
   }
 
@@ -139,50 +105,51 @@ export class JobViewComponent {
   }
 
   get jobValue(): number {
-    return this.boostJob && this.boostJob ? this.boostJob.getValue() : 0;
+    console.log('this.boostJob && this.boostJob ? this.boostJob.value : 0', this.boostJob);
+    return this.boostJob && this.boostJob ? this.boostJob.value : 0;
   }
 
   get jobTxid(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getTxid() : '';
+    return this.boostJob && this.boostJob ? this.boostJob.txid : '';
   }
 
   get boostJobContent(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getContentString() : '';
+    return this.boostJob && this.boostJob ? Buffer.from(this.boostJob.content, 'hex').toString('utf8') : '';
   }
 
   get boostJobContentHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getContentHex() : '';
+    return this.boostJob && this.boostJob ? this.boostJob.content : '';
   }
 
   get boostJobTag(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getTagString() : '';
+    return this.boostJob && this.boostJob ? Buffer.from(this.boostJob.tag, 'hex').toString('utf8') : '';
   }
   get boostJobTagHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getTagHex() : '';
+    return this.boostJob && this.boostJob ? this.boostJob.tag : '';
   }
 
   get boostJobAdditionalData(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getAdditionalDataString() : '';
+    return this.boostJob && this.boostJob ? Buffer.from(this.boostJob.additionalData, 'hex').toString('utf8') : '';
   }
   get boostJobAdditionalDataHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getAdditionalDataHex() : '';
+    return this.boostJob && this.boostJob ? this.boostJob.additionalData : '';
   }
 
   get boostJobCategory(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getCategoryString() : '';
+    return this.boostJob && this.boostJob ? Buffer.from(this.boostJob.category, 'hex').toString('utf8') : '';
   }
   get boostJobCategoryHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getCategoryHex() : '';
+    return this.boostJob && this.boostJob ?  this.boostJob.category : '';
   }
 
   get boostJobDiff(): number {
-    return this.boostJob && this.boostJob ? this.boostJob.getDiff() : undefined;
+    return this.boostJob && this.boostJob ? this.boostJob.diff : undefined;
   }
   get boostJobUserNonce(): number {
-    return this.boostJob && this.boostJob ? this.boostJob.getUserNonce() : undefined;
+    return this.boostJob && this.boostJob ? this.boostJob.userNonce : undefined;
   }
   get boostJobUserNonceHex(): string {
-    return this.boostJob && this.boostJob ? this.boostJob.getUserNonceHex() : '';
+    return this.boostJob && this.boostJob ? this.boostJob.userNonce : '';
   }
 
   ngOnInit() {
@@ -191,45 +158,21 @@ export class JobViewComponent {
     this.inputDiff = 1;
   }
 
-  get payOutputs(): any[] {
-    const outputs = [];
-
-    const boostJob = boost.BoostPowJob.fromObject({
-      content: this.inputContent,
-      diff: this.inputDiff,
-      category: '00',
-      additionalData: '00',
-      userNonce: '00',
-      tag: '00',
-    });
-    // https://search.matterpool.io/tx/debbd830e80bdccf25d8659b98e8f77517fe0af4c5c161d645bf86a4e7fcd301
-    outputs.push({
-      script: boostJob.toASM(),
-      amount: this.inputReward,
-      currency: "USD"
-    })
-    console.log('outputs', outputs);
-    return outputs;
-  }
-
-  async payForBoost() {
-    await twetchPay.pay({
-      label: 'Purchase',
-      outputs: this.payOutputs,
-      onPayment: (e) => {
-        console.log('payment', e);
-        //this.router.navigate(['share', this.sessionKey]);
+  payForBoost() {
+    console.log('open');
+    boostPublish.open({
+      label: 'Boost Content',
+      content: this.boostJobContentHex,
+      outputs: [],
+      onPayment: async (e) => {
+        console.log('onPayment', e);
+        setTimeout(() => {
+          console.log('timeout fired', e);
+          //this.router.navigate(['search']);
+          this.router.navigate(['job', e.boostJobStatus.boostJobId]);
+        }, 4000);
       }
     });
+    return false;
   }
-
-  onSubmit(f: NgForm) {
-    console.log(f.value);  // { first: '', last: '' }
-    console.log(f.valid);  // false
-  }
-
-  get validForm(): boolean {
-    return this.inputContent && this.inputContent.length <= 32 && this.inputDiff >= 1 && this.inputReward >= 0.01;
-  }
-
 }

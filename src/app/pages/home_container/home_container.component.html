@@ -4,8 +4,6 @@
   <app-alerts-messages [alerts]="alerts$ | async" (deleteAlert)="deleteAlert($event)"></app-alerts-messages>
   <app-home-view
     [alerts]="alerts$ | async"
-    [uploadStatus]="uploadStatus$ | async"
-    [sessionKey]="sessionKey$ | async"
   ></app-home-view>
 </main>
 </section>

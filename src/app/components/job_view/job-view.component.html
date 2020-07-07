@@ -80,10 +80,10 @@
                 </li>
               </ul>
               <div class="card-body">
-                <a [href]="addMoreBoostUrl" (click)="gotoAddMoreBoost()" class="btn btn-success btn-job-action">
+                <button href="#" (click)="payForBoost()" class="btn btn-success btn-job-action">
                   <i class="fas fa-bolt"></i>
-                  Add More Boost</a>
-                <a *ngIf="!isMined" [href]="miningLink"  (click)="gotoMiningLink" class="btn btn-link btn-job-action">Developer Tools</a>
+                  Add More Boost
+                </button>
               </div>
             </div>
           </div>

@@ -28,7 +28,6 @@ import { DatepickerDirective } from '@app/directives/datepicker/datepicker.direc
 import { OnlyNumberFiledDirective } from '@app/directives/only_number_field/only-number-field.directive';
 import { DropdownDatepickerDirective } from '../directives/dropdown_datepicker/dropdown_datepicker.directive';
 import { FooterComponent } from './footer/footer.component';
-import { PreviewViewComponent } from './preview_view/preview-view.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeViewComponent } from './home_view/home-view.component';
 import { CreateViewComponent } from './create_view/create-view.component';
@@ -53,7 +52,6 @@ export const COMPONENTS = [
   TimeDropdownComponent,
   AlertMessagesComponent,
   FooterComponent,
-  PreviewViewComponent,
   HeaderComponent,
   HomeViewComponent,
   CreateViewComponent,

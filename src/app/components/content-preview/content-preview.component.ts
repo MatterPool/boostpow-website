@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BoostSignalSummary } from 'boostpow-js/dist/boost-signal-summary-model';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { BoostSignalSummarySerialize } from '@main/models/boost-signal-summary-serialize.interface';
@@ -38,7 +37,6 @@ export class ContentPreviewComponent implements OnInit {
   }
 
   async addBoost() {
-    console.log('this.boostSignalSummary.entity.contenthex', this.boostSignalSummary.entity.contenthex);
     await boostPublish.open({
       label: 'Boost Content',
       content: this.boostSignalSummary.entity.contenthex,
@@ -46,10 +44,10 @@ export class ContentPreviewComponent implements OnInit {
       onPayment: async (e) => {
         console.log('onPayment', e);
         setTimeout(() => {
-          console.log('timeout fired');
-          this.router.navigate(['search']);
-          // this.router.navigate(['c', e.boostJobStatus.boostData.content]);
-        }, 500);
+          console.log('timeout fired', e);
+          //this.router.navigate(['search']);
+          this.router.navigate(['job', e.boostJobStatus.boostJobId]);
+        }, 4000);
       }
     });
     // this.router.navigate(['create']);

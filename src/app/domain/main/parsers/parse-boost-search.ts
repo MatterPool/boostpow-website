@@ -3,7 +3,6 @@ import { BoostSignalSummarySerialize } from '@main/models/boost-signal-summary-s
 
 export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSignalSummarySerialize> {
     const boostSignalSummaries = [];
-    console.log('parsingn');
     for (const item of blob.list) {
         let foundTags = {};
 

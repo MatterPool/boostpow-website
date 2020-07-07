@@ -7,8 +7,8 @@ import { ModalCommunicationService } from '@app/services/modal-communication.ser
 import { DeleteAlert } from '@app/domain/alerts/actions/alerts';
 import { ShowLoadingAction } from '@application/actions/application';
 import * as fromMain from '@main/reducers';
-import { GetStatus, SetSessionKey, GetBoostSearch } from '@main/actions/main.actions';
-import uuidv1 from  'uuid/v1';
+import { GetBoostSearch } from '@main/actions/main.actions';
+
 
 @Component({
   selector: 'app-search-container',
@@ -18,8 +18,6 @@ import uuidv1 from  'uuid/v1';
 export class SearchContainerComponent implements OnInit, OnDestroy {
   showLoading$ = this.store.pipe(select(fromApplication.showLoading));
   alerts$ = this.store.pipe(select(fromAlerts.getAlerts));
-  uploadStatus$ = this.store.pipe(select(fromMain.getUploadStatus));
-  sessionKey$ = this.store.pipe(select(fromMain.getSessionKey));
   boostSearchResults$ = this.store.pipe(select(fromMain.getBoostSearchResults));
 
   constructor(private store: Store<any>, public modalCom: ModalCommunicationService, private route: ActivatedRoute) {
@@ -50,7 +48,7 @@ export class SearchContainerComponent implements OnInit, OnDestroy {
       if (records.minedTimeFrom) {
         records.minedTimeFrom = records.minedTimeFrom;
       } else {
-        records.minedTimeFrom = Math.round((new Date()).getTime() / 1000) - 3600 * 24 * 30; // Last month
+        records.minedTimeFrom = Math.round((new Date()).getTime() / 1000) - 3600 * 24 * 14;
       }
       if (records.minedTimeEnd) {
         records.minedTimeEnd = records.minedTimeEnd;

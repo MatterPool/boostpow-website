@@ -1,5 +1,12 @@
-import { UploadStatus } from "@main/models/upload-status.interface";
+import { BoostPowJobModel } from 'boostpow-js/dist/boost-pow-job-model';
 
-export function parseBoostJob(blob: any): UploadStatus {
-    return blob;
+export function parseBoostJob(blob: BoostPowJobModel): any {
+    return {
+        ...blob.toObject(),
+        value: blob.getValue(),
+        vout: blob.getVout(),
+        txid: blob.getTxid(),
+        scripthash: blob.getScriptHash(),
+        additionalData: blob.getAdditionalDataHex()
+    }
 }

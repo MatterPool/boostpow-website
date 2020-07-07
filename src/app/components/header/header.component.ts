@@ -21,6 +21,7 @@ export class HeaderComponent {
     await boostPublish.open({
       label: 'Boost Content',
       outputs: [],
+      showTagField: true,
       onPayment: async (e) => {
         console.log('onPayment', e);
         setTimeout(() => {

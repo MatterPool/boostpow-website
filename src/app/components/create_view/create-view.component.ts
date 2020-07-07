@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
-import { environment } from '@environments/environment';
-import { UploadStatus } from '@main/models/upload-status.interface';
 import { NgForm } from '@angular/forms';
 import * as boost from 'boostpow-js';
 
@@ -17,7 +15,6 @@ declare var twetchPay;
 })
 export class CreateViewComponent {
   @Input() alerts: Alert[]
-  @Input() uploadStatus: UploadStatus;
   @Input() sessionKey: string;
   @Input() defaultCreateJob: any;
   fileUploads = [];

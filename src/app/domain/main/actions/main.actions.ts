@@ -1,12 +1,9 @@
 import { Action } from '@ngrx/store';
-import { UploadStatus } from '@main/models/upload-status.interface';
 import * as Boost from 'boostpow-js';
 
 console.log('Boost', Boost);
 export enum MainActionTypes {
   RedirectAction = 'MainActionTypes',
-  GetStatus = 'Getstatus',
-  GetStatusComplete = 'GetStatusComplete',
   SetSessionKey = 'SetSessionKey',
   GetBoostJob = 'GetBoostJob',
   GetBoostJobComplete = 'GetBoostJobComplete',
@@ -46,16 +43,6 @@ export class GetBoostJobUtxosComplete implements Action {
   constructor(public payload: any) {}
 }
 
-export class GetStatus implements Action {
-  readonly type = MainActionTypes.GetStatus;
-  constructor(public payload: string) {}
-}
-
-export class GetStatusComplete implements Action {
-  readonly type = MainActionTypes.GetStatusComplete;
-  constructor(public payload: UploadStatus) {}
-}
-
 export class SetSessionKey implements Action {
   readonly type = MainActionTypes.SetSessionKey;
   constructor(public payload: string) {}
@@ -68,8 +55,6 @@ export class RedirectAction implements Action {
 
 export type MainActions =
   | RedirectAction
-  | GetStatus
-  | GetStatusComplete
   | SetSessionKey
   | GetBoostJob
   | GetBoostJobComplete

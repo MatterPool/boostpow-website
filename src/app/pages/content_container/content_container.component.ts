@@ -7,8 +7,7 @@ import { ModalCommunicationService } from '@app/services/modal-communication.ser
 import { DeleteAlert } from '@app/domain/alerts/actions/alerts';
 import { ShowLoadingAction } from '@application/actions/application';
 import * as fromMain from '@main/reducers';
-import { GetStatus, SetSessionKey, GetBoostJob, GetBoostJobUtxos, GetBoostSearch } from '@main/actions/main.actions';
-import uuidv1 from  'uuid/v1';
+import { GetBoostSearch } from '@main/actions/main.actions';
 
 @Component({
   selector: 'app-content-container',
@@ -18,8 +17,6 @@ import uuidv1 from  'uuid/v1';
 export class ContentContainerComponent implements OnInit, OnDestroy {
   showLoading$ = this.store.pipe(select(fromApplication.showLoading));
   alerts$ = this.store.pipe(select(fromAlerts.getAlerts));
-  uploadStatus$ = this.store.pipe(select(fromMain.getUploadStatus));
-  sessionKey$ = this.store.pipe(select(fromMain.getSessionKey));
   boostJob$ = this.store.pipe(select(fromMain.getBoostJob));
   boostJobUtxos$ = this.store.pipe(select(fromMain.getBoostJobUtxos));
   boostSearchResults$ = this.store.pipe(select(fromMain.getBoostSearchResults));

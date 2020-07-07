@@ -1,27 +1,40 @@
-# MyApp
+# Boost Websiet
+Front end of boostpow.com
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.1.
+## Running Locally
 
-## Development server
+`npm install`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+`npm start`
 
-## Code scaffolding
+## Building
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+`npm run build` produces a `dist/` folder containing the entire application.
 
-## Build
+## Run Locally
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The `environment.ts` file controls the URL endpoints of the backend servers. Point it to your localhost hots
 
-## Running unit tests
+## Production Deploy
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`https://console.firebase.google.com/u/0/project/boowpow-website/hosting`
 
-## Running end-to-end tests
+`npm install -g firebase-tools`
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+`firebase login`
 
-## Further help
+`firebase init`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+Once your firebase environment is setup, it's as easy as `firebase deploy` to push code.
+
+### Setting up the Environment Variables
+The deployment process is still a work in progress. Right now a few changes are needed:
+todo: make a different `npm` script for dev vs prod
+
+#### Updating Environment Variables
+File: **src/.env.js**
+
+## License
+Private Use Only
+Copyright 2020 MatterPool Inc.
