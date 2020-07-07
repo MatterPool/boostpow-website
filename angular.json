@@ -6,8 +6,8 @@
     "boostpowwebsite": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
-          "style": "sass"
+        "@ngrx/schematics:component": {
+          "styleext": "sass"
         }
       },
       "root": "",

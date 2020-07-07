@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 
 import { TitleCasePipe } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
-import { AppComponent } from '@app/app_container/app.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '@app/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -39,7 +38,6 @@ import { AuthGuard } from './shared';
   imports: [
     HttpClientModule,
     BrowserModule,
-    ClipboardModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     AppRoutingModule,

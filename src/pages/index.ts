@@ -11,6 +11,7 @@ import { JobContainerComponent } from './job_container/job_container.component';
 import { MiningContainerComponent } from './mining_container/mining_container.component';
 import { SearchContainerComponent } from './search_container/search_container.component';
 import { ContentContainerComponent } from './content_container/content_container.component';
+
 export const PAGES = [
   UploadContainerComponent,
   StatusContainerComponent,
