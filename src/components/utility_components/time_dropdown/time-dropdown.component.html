@@ -1,0 +1,46 @@
+<div class="input-container--icon icon-right dropdown-wrapper" [ngClass]="{ inline: inline }">
+  <i *ngIf="!isDisabled()" class="icon icon-chevron-down"></i>
+  <div
+    *ngIf="!isDisabled()"
+    class="select-dropdown cs-skin-border cs-active"
+    (focusout)="focusOut()"
+    tabindex="0"
+    [ngClass]="{ 'cs-active': expanded }"
+  >
+    <span class="cs-placeholder cs-selected-option" (click)="toggle()">{{ initialValueText }}</span>
+    <div class="arrow-container" (click)="toggle()">
+      <div class="arrow-circle">
+        <div class="arrow"></div>
+      </div>
+    </div>
+    <div class="cs-options">
+      <ul class="list-items__container">
+        <li *ngFor="let item of itemsList" (click)="handleItemSelection(item)">
+          <span
+            [ngClass]="{ 'level-1': item.level == 1, 'level-2': item.level == 2, 'no-level': isItemText(item) }"
+            [title]="getItemCaption(item)"
+            >{{ getItemCaption(item) }}</span
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    *ngIf="isDisabled()"
+    class="select-dropdown dropdown-border cs-active"
+    (focusout)="focusOut()"
+    tabindex="0"
+    [ngClass]="{ 'cs-active': expanded }"
+  >
+    <span class="cs-placeholder dropdown-no-cursor cs-selected-option" (click)="toggle()">{{ initialValueText }}</span>
+    <div class="cs-options">
+      <ul class="list-items__container">
+        <li *ngFor="let item of itemsList" (click)="handleItemSelection(item)">
+          <span [ngClass]="{ 'level-1': item.level == 1, 'level-2': item.level == 2, 'no-level': isItemText(item) }">{{
+            getItemCaption(item)
+          }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

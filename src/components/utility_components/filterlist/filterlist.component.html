@@ -1,0 +1,20 @@
+<div class="input-container">
+  <div class="select-dropdown cs-skin-border cs-active" tabindex="0" [ngClass]="{ 'cs-active': expanded }">
+    <input
+      [(ngModel)]="value"
+      (focus)="focusIn($event)"
+      (focusout)="focusOut()"
+      (keyup)="typeOwner($event)"
+      type="text"
+      [placeholder]="this.placeholder"
+    />
+    <div class="cs-options">
+      <ul class="list-items__container">
+        <!-- Make sure to use (mousedown) and not (click) otherwise the click will not be fired on elements hidden by (focusout) -->
+        <li *ngFor="let item of filteredList" (mousedown)="handleItemSelection(item)">
+          <span class="no-level">{{ getItemCaption(item) }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

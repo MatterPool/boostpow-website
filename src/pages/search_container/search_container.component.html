@@ -1,0 +1,12 @@
+<section >
+<main class="d-flex flex-column container-fluid flex-grow">
+  <app-loading [show]="showLoading$ | async"></app-loading>
+  <app-alerts-messages [alerts]="alerts$ | async" (deleteAlert)="deleteAlert($event)"></app-alerts-messages>
+  <app-search-view
+    [alerts]="alerts$ | async"
+    [uploadStatus]="uploadStatus$ | async"
+    [sessionKey]="sessionKey$ | async"
+    [boostSearchResults]="boostSearchResults$ | async"
+  ></app-search-view>
+</main>
+</section>

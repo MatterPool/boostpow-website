@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row py-5">
+    <div class="col-9">
+      <h3>Get started with Boost Development</h3>
+
+      <div class="card bg-ldight mb-3 mt-3">
+
+          <div class="card-body">
+            <p class="card-text">
+              <a href="https://blog.matterpool.io/mining-boost-with-your-cpu-and-gpu/" target="_blank">Mining Boost with CPU, GPU and ASICs (beta)</a>
+            </p>
+            <p class="card-text">
+              <a href="https://pool.matterpool.io" target="_blank">Connect your ASIC Miners to MatterPool</a>
+            </p>
+            <p class="card-text">
+              <a href="https://github.com/matterpool/boostpow-js" target="_blank">Javascript SDK</a>
+            </p>
+
+
+          </div>
+        </div>
+    </div>
+    <div class="col-3">
+      <div class=" ">
+          <div class="form-group">
+            <div class="card" style="max-width: 32rem;">
+              <div class="card-header boost-card-header d-flex justify-content-between align-items-center">
+                <div class="card-header-split">{{boostReward}} BSV </div>
+                <div class="card-header-split">
+                    <div class="features-icons-icon feature-bitcoin">
+                      <a [href]="transactionUrl" target="_blank" class="feature-bitcoin-link"><i class="fab fa-bitcoin "></i></a>
+                    </div>
+                   </div>
+              </div>
+              <div class="card-body">
+                <label class="boost-info-label">Content</label>
+                <h5 class="card-title">{{boostJobContent}}</h5>
+                <div>
+                    {{boostJobContentHex}}
+                </div>
+              </div>
+              <li class="list-group-item">
+                <label class="boost-info-label">Difficulty: {{boostJobDiff}}</label>
+                <div>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" [style.width]="stylesLogScaleDiff" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </li>
+              <div class="card-body">
+                <a [href]="jobLink"  (click)="gotoJobLink"class="btn btn-outline-primary btn-job-action">
+                  View Details</a>
+              </div>
+            </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="time-range-component-container">
+  <div class="form-group no-bottom-margin">
+    <div class="input-container">
+      <div class="time-hour-ampm-wrapper">
+        <div class="time-hour-wrapper">
+          <app-time-dropdown
+            name="startTimeHour"
+            [itemsList]="startTimes"
+            [initialValueText]="initialStartTimeHour"
+            (itemSelected)="startTimeHourSelected($event)"
+          ></app-time-dropdown>
+        </div>
+        <div class="time-ampm-wrapper">
+          <app-dropdown
+            name="startTimeAmPm"
+            [itemsList]="['AM', 'PM']"
+            [initialValueText]="initialStartTimeAmPm"
+            (itemSelected)="startTimeAmPmSelected($event)"
+          ></app-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="input-info-inline">
+      TO
+    </div>
+    <div class="input-container">
+      <div class="time-hour-ampm-wrapper">
+        <div class="time-hour-wrapper">
+          <app-time-dropdown
+            name="endTimeHour"
+            [itemsList]="startTimes"
+            [initialValueText]="initialEndTimeHour"
+            (itemSelected)="endTimeHourSelected($event)"
+          ></app-time-dropdown>
+        </div>
+        <div class="time-ampm-wrapper">
+          <app-dropdown
+            name="endTimeAmPm"
+            [itemsList]="['AM', 'PM']"
+            [initialValueText]="initialEndTimeAmPm"
+            (itemSelected)="endTimeAmPmSelected($event)"
+          ></app-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
