@@ -1,6 +1,6 @@
 {
   "name": "boostpowwebsite",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,6 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
+  },
+  "browser": {
+    "crypto": true
   },
   "private": true,
   "dependencies": {
@@ -23,6 +26,7 @@
     "@ngrx/entity": "^9.2.0",
     "@ngrx/router-store": "^9.2.0",
     "@ngrx/store": "^9.2.0",
+    "@ngrx/store-devtools": "^9.2.0",
     "axios": "^0.19.2",
     "boostpow-js": "^1.2.20",
     "bsv": "^1.2.0",

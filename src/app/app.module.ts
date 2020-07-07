@@ -12,9 +12,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '@environments/environment';
 
 // Routing
-import { AppRoutingModule } from '@app/routing/app-routing.module';
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
-import { CustomRouterStateSerializer } from '@app/routing/route-serializer';
+import { CustomRouterStateSerializer } from '@app/route-serializer';
 
 // Pages
 import { PagesCollectionModule } from '@app/pages';
@@ -27,11 +26,11 @@ import { ComponentCollectionModule } from '@app/components';
 
 // Shared services
 import { AlertsModule } from '@app/domain/alerts/alerts.module';
-import { ModalCommunicationService } from '@app/services/modal-communication.service';
+import { ModalCommunicationService } from   '@app/services/modal-communication.service';
 import { MainModule } from './domain/main/main.module';
 import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthGuard } from './shared';
+import { AuthGuard } from '../shared';
 
 @NgModule({
   declarations: [AppComponent],

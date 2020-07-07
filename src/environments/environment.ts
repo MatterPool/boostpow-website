@@ -3,7 +3,25 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  api_base: 'http://localhost:3000/api',
+  mock_mode: false,
+  redirect_after_account_create: 'http://localhost:4200/get-started',
+  redirect_after_get_started_workergroup: 'http://localhost:4200/setup-payout',
+  redirect_after_account_login: 'http://localhost:4200',
+  redirect_after_account_logout: 'http://localhost:4200/login',
+
+  // Production usage
+  fileupload_url: 'https://api.bitcoinfiles.org/upload',
+  fileupload_api_base: 'https://api.bitcoinfiles.org',
+  filepreview_base_url: 'https://media.bitcoinfiles.org',
+  website_base_url: 'http://localhost:4200', // Use local machine to test pages even though server is Prod
+
+  // Localhost: (When running BitcoinFiles-Server API locally)
+  // fileupload_url: 'http://localhost:8000/upload',
+  // fileupload_api_base: 'http://localhost:8000',
+  // filepreview_base_url: 'http://localhost:8000',
+  // website_base_url: 'http://localhost:4200',
 };
 
 /*
