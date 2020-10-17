@@ -31,11 +31,12 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeViewComponent } from './home_view/home-view.component';
 import { CreateViewComponent } from './create_view/create-view.component';
-import { JobViewComponent } from './job_view/job-view.component';
+import { JobsViewComponent } from './jobs_view/jobs-view.component';
 import { MiningViewComponent } from './mining_view/mining-view.component';
 import { SearchViewComponent } from './search_view/search-view.component';
 import { ContentPreviewComponent } from './content-preview/content-preview.component';
 import { ContentViewComponent } from './content_view/content-view.component';
+import { GeneratorViewComponent } from './generator_view/generator-view.component';
 
 export const COMPONENTS = [
   DatepickerDirective,
@@ -55,11 +56,12 @@ export const COMPONENTS = [
   HeaderComponent,
   HomeViewComponent,
   CreateViewComponent,
-  JobViewComponent,
+  JobsViewComponent,
   MiningViewComponent,
   SearchViewComponent,
   ContentPreviewComponent,
   ContentViewComponent,
+  GeneratorViewComponent,
 ];
 
 @NgModule({

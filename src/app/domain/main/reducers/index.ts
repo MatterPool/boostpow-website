@@ -18,6 +18,13 @@ export const getBoostJob = createSelector(
   (state: fromMain.State) => state.job
 );
 
+
+export const getBoostJobs = createSelector(
+  mainTreeSelector,
+  (state: fromMain.State) => state.jobs
+);
+
+
 export const getBoostJobUtxos = createSelector(
   mainTreeSelector,
   (state: fromMain.State) => state.jobUtxos

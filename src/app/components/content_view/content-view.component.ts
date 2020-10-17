@@ -4,7 +4,7 @@ import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
 
-import { BoostSignalSummary } from 'boostpow-js/dist/boost-signal-summary-model';
+import { BoostSignalSummary } from '@matterpool/boostpow-js/dist/boost-signal-summary-model';
 import { BoostSignalSummarySerialize } from '@main/models/boost-signal-summary-serialize.interface';
 
 declare var twetchPay;

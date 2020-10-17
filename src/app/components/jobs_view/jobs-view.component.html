@@ -1,0 +1,95 @@
+<div class="container py-5">
+  <div *ngIf="isCompleted">
+    <h3><i class="far fa-check-circle completed-status"></i> Completed</h3>
+  </div>
+  <div *ngIf="!isCompleted">
+    <div class="info-message text-center">
+      <h3>
+        Your Boost proof-of-work string will be ready soon.
+      </h3>
+    </div>
+
+    <div class="row py-3">
+      <div class="col-12">
+        <div class="blobs-container">
+          <div class="blob white"></div>
+          <div class="blob red"></div>
+          <div class="blob orange"></div>
+          <div class="blob yellow"></div>
+          <div class="blob blue"></div>
+          <div class="blob green"></div>
+          <div class="blob purple"></div>
+          <div class="blob"></div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center center-container">
+      <a [href]="getJobLink()" target="_blank">
+        View receipt on explorer
+      </a>
+    </div>
+  </div>
+
+  <div *ngFor="let sig of eachBoostSignals" class="row py-2">
+    <div class="col-12">
+      <h4>Hash: {{boostHash(sig)}}</h4>
+        <button *ngIf="!getShowDetails(sig)" (click)="updateShowDetails(sig, true)" type="button" class="btn btn-light btn-sm">Show details</button>
+        <button *ngIf="getShowDetails(sig)" (click)="updateShowDetails(sig, false)" type="button" class="btn btn-light btn-sm">Hide details</button>
+
+        <a class="twitter-share-button"
+          [href]="twitterLink(sig)"
+          data-size="large">
+        Share Tweet
+      </a>
+
+        <br/>
+        <div *ngIf="getShowDetails(sig)">
+          {{boostJobPowString(sig)}}
+          <br/>
+          <a [href]="getJobLink()">
+            View on explorer
+          </a>
+        </div>
+      <br/>
+
+      <div>
+        <div>
+          <div class="form-group">
+            <div class="card">
+              <div class="card-body">
+
+                <label class="boost-info-label">Content</label>
+                <h5 class="card-title">{{boostJobContent(sig)}}</h5>
+                <div>
+                  {{boostJobContentHex(sig)}}
+                </div>
+              </div>
+              <li class="list-group-item">
+                <label class="boost-info-label">Difficulty: {{boostJobDiff(sig)}}</label>
+                <div>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" [style.width]="stylesLogScaleDiff" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="boostJobTime(sig)" class="list-group-item">
+                <label class="boost-info-label">Time: {{boostJobTime(sig)}}</label>
+              </li>
+              <li *ngIf="boostJobCategory(sig)" class="list-group-item">
+                <label class="boost-info-label">Category: {{boostJobCategoryHex(sig)}} </label><br/>
+              </li>
+              <li *ngIf="boostJobAdditionalData(sig)" class="list-group-item">
+                <label class="boost-info-label">Data: {{boostJobAdditionalDataHex(sig)}} </label><br/>
+              </li>
+              <li *ngIf="boostJobTag(sig)" class="list-group-item">
+                <label class="boost-info-label">Tag: {{boostJobTagHex(sig)}} </label><br/>
+              </li>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

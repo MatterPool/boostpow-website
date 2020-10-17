@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
-import { BoostSignalSummary } from 'boostpow-js/dist/boost-signal-summary-model';
+import { BoostSignalSummary } from '@matterpool/boostpow-js/dist/boost-signal-summary-model';
 
 @Component({
   selector: 'app-search-view',

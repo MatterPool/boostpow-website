@@ -1,4 +1,6 @@
-<section >
+<app-header></app-header>
+<section>
+
 <main class="d-flex flex-column container flex-grow">
   <app-loading [show]="showLoading$ | async"></app-loading>
   <app-alerts-messages [alerts]="alerts$ | async" (deleteAlert)="deleteAlert($event)"></app-alerts-messages>
@@ -8,3 +10,4 @@
   ></app-content-view>
 </main>
 </section>
+<app-footer></app-footer>

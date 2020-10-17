@@ -1,0 +1,377 @@
+@import 'variables'
+
+.input-boostname
+
+  font-size: 1.1em
+  padding: 15px
+
+.text-error
+  color: red
+
+.jumbo-title
+  font-weight: bold
+  padding-bottom: 0.5em
+  font-size: 2.2em
+  line-height: 1.4
+
+.info-text
+  padding-top: 1em
+
+.jumbo-title-main
+  font-weight: bold
+  font-size: 2.0em
+  margin-bottom: 0px
+  padding-bottom: 0px
+
+.logo-color
+  color: #007bff
+
+
+a.homepage-link
+  &:hover
+    text-decoration: none
+
+.dz-message
+  position: relative
+  top: 190px
+
+  .title
+    font-size: 1.2em
+    font-weight: 600
+    color: $primary
+    display: inline-block
+    margin-top: 0.5em
+
+  .note
+    color: rgba(0,0,0, 0.6)
+    color: rgba(0,0,0,.7)
+
+  margin: 0px
+  padding: 0px
+
+.center-container
+  max-width: 100%
+  margin: 0 auto
+  position: relative
+  padding: 0px
+  border-radius: 3px
+  margin-top: 7em
+  justify-content: center
+
+.add-more-files-btn
+  background: white
+  border: 1px solid #5890DC
+  color: #5890DC
+  font-size: 14px
+  line-height: 18px
+
+.btn-clickable
+  cursor: pointer
+
+.upload-form-inner
+  border: 7px $primary dashed
+  border-radius: 5px
+  position: absolute
+  top: 15px
+  left: 15px
+  right: 15px
+  bottom: 15px
+
+.upload-form-inner:after
+  content: ''
+  position: absolute
+  left: -6px
+  top: -6px
+  right: -6px
+  bottom: -6px
+  border: 6px solid $lightgrey
+
+.dropzone
+  min-height: 500px
+  // display: flex
+  margin: 0px
+  border: 0px none
+  align-items: center
+  justify-content: center
+  align-self: center
+
+.dropzone:after
+  position: absolute
+  left: -6px
+  top: -6px
+  bottom: -6px
+  right: -6px
+  border: 6px solid $lightgrey
+
+.bitcoinfiles-header
+  font-weight: bold
+  background-color: rgba(0,0,0,0.03)
+  font-size: 1.3em
+  font-style: italic
+
+.action-section
+  display: flex
+  justify-content: center
+  align-items: center
+  margin: 0 auto
+  margin-bottom: 1em
+  margin-top: 1em
+
+.view-dev-docs
+
+  &:hover
+    text-decoration: underline !important
+
+.docs-body
+  padding: 10px
+
+
+.btn-continue
+  font-size: 14px
+  line-height: 18px
+  background: #5890DC
+  border: 1px solid #5890DC
+
+.upload-title
+  padding-bottom: 1em
+  color: $primary
+
+  .light-blue
+    font-weight: bold
+
+.btn.btn-light-blue
+  background-color: #56CCF2
+
+.btn.btn-light-blue.disabled
+  cursor: not-allowed
+  background-color: #56CCF2
+
+.docs-section
+  margin-top: 1em
+  display: flex
+  justify-content: center
+
+.footer-section
+  margin-top: 6em
+  display: flex
+  justify-content: center
+  align-items: center
+
+  img
+    max-width: 150px
+
+.copy-section
+  margin-top: 1em
+  display: flex
+  justify-content: center
+  align-items: center
+  .powered-by
+    font-style: normal
+    font-size: 0.9em
+    color: rgba(0,0,0,0.8)
+
+.filesize
+  display: block
+  color: darken($lightgrey, 30)
+  text-align: center
+  margin-top: 160px
+
+
+
+.blobs-container
+  display: flex
+
+
+.blob
+  background: black
+  border-radius: 50%
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1)
+  margin: 10px
+  height: 20px
+  width: 20px
+  transform: scale(1)
+  animation: pulse-black 2s infinite
+
+
+@keyframes pulse-black
+  0%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7)
+
+
+  70%
+    transform: scale(1)
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0)
+
+
+  100%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0)
+
+
+
+.blob.white
+  background: white
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 1)
+  animation: pulse-white 2s infinite
+
+
+@keyframes pulse-white
+  0%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7)
+
+
+  70%
+    transform: scale(1)
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0)
+
+
+  100%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0)
+
+
+
+.blob.red
+  background: rgba(255, 82, 82, 1)
+  box-shadow: 0 0 0 0 rgba(255, 82, 82, 1)
+  animation: pulse-red 2s infinite
+
+
+@keyframes pulse-red
+  0%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7)
+
+
+  70%
+    transform: scale(1)
+    box-shadow: 0 0 0 10px rgba(255, 82, 82, 0)
+
+
+  100%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0)
+
+
+
+.blob.orange
+  background: rgba(255, 121, 63, 1)
+  box-shadow: 0 0 0 0 rgba(255, 121, 63, 1)
+  animation: pulse-orange 2s infinite
+
+
+@keyframes pulse-orange
+  0%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(255, 121, 63, 0.7)
+
+
+  70%
+    transform: scale(1)
+    box-shadow: 0 0 0 10px rgba(255, 121, 63, 0)
+
+
+  100%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(255, 121, 63, 0)
+
+
+
+.blob.yellow
+  background: rgba(255, 177, 66, 1)
+  box-shadow: 0 0 0 0 rgba(255, 177, 66, 1)
+  animation: pulse-yellow 2s infinite
+
+
+@keyframes pulse-yellow
+  0%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(255, 177, 66, 0.7)
+
+
+  70%
+    transform: scale(1)
+    box-shadow: 0 0 0 10px rgba(255, 177, 66, 0)
+
+
+  100%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(255, 177, 66, 0)
+
+
+
+.blob.blue
+  background: rgba(0, 109, 255, 1)
+  box-shadow: 0 0 0 0 rgba(0, 109, 255, 1)
+  animation: pulse-blue 2s infinite
+  display: inline-block
+
+.blob-medium
+  height: 30px
+  width: 30px
+  margin: 15px
+
+@keyframes pulse-blue
+  0%
+    transform: scale(0.85)
+    box-shadow: 0 0 0 0 rgba(0, 109, 255, 0.7)
+
+
+  70%
+    transform: scale(1)
+    box-shadow: 0 0 0 10px rgba(0, 109, 255, 0)
+
+
+  100%
+    transform: scale(0.85)
+    box-shadow: 0 0 0 0 rgba(0, 109, 255, 0)
+
+
+
+.blob.green
+  background: rgba(51, 217, 178, 1)
+  box-shadow: 0 0 0 0 rgba(51, 217, 178, 1)
+  animation: pulse-green 2s infinite
+
+
+@keyframes pulse-green
+  0%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0.7)
+
+
+  70%
+    transform: scale(1)
+    box-shadow: 0 0 0 10px rgba(51, 217, 178, 0)
+
+
+  100%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0)
+
+
+
+.blob.purple
+  background: rgba(142, 68, 173, 1)
+  box-shadow: 0 0 0 0 rgba(142, 68, 173, 1)
+  animation: pulse-purple 2s infinite
+
+
+@keyframes pulse-purple
+  0%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(142, 68, 173, 0.7)
+
+
+  70%
+    transform: scale(1)
+    box-shadow: 0 0 0 10px rgba(142, 68, 173, 0)
+
+
+  100%
+    transform: scale(0.95)
+    box-shadow: 0 0 0 0 rgba(142, 68, 173, 0)
+
+

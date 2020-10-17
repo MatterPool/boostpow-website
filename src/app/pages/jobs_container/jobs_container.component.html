@@ -3,11 +3,12 @@
 <main class="d-flex flex-column container-fluid flex-grow">
   <app-loading [show]="showLoading$ | async"></app-loading>
   <app-alerts-messages [alerts]="alerts$ | async" (deleteAlert)="deleteAlert($event)"></app-alerts-messages>
-  <app-mining-view
+  <app-jobs-view
     [alerts]="alerts$ | async"
     [boostJob]="boostJob$ | async"
+    [boostJobs]="boostJobs$ | async"
     [boostJobUtxos]="boostJobUtxos$ | async"
-  ></app-mining-view>
+  ></app-jobs-view>
 </main>
 </section>
 <app-footer></app-footer>

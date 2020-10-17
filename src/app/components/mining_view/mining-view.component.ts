@@ -4,8 +4,8 @@ import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
 import { NgForm } from '@angular/forms';
-import * as boost from 'boostpow-js';
-import { BoostPowJobModel } from 'boostpow-js/dist/boost-pow-job-model';
+import * as boost from '@matterpool/boostpow-js';
+import { BoostPowJobModel } from '@matterpool/boostpow-js/dist/boost-pow-job-model';
 declare var twetchPay;
 
 @Component({

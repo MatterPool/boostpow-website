@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex center-container mx-auto">
+        <div>
+          <div style="display: flex; align-items: center;">
+            <h2 class="jumbo-title-main">
+              Hello, I'm Boost Bot.
+            </h2>
+            <div class="blob blue blob-medium "></div>
+          </div>
+
+          <p class="lead"> I can help you add energy to your information with <a href="https://boostpow.com">Boost POW </a> strings.</p>
+          <div class="form-group" [ngClass]="{'field-error': isErrorContent}">
+            <input type="text" class="form-control input-boostname" (focusout)="updateProperty('content', $event)"  placeholder="Name or description (Up to 32 characters)">
+            <small *ngIf="isErrorContent" id="error" class="form-text text-error">Field invalid. Please specify input between 1 and 32 characters.</small>
+            <small *ngIf="!isErrorContent" id="emailHelp" class="form-text inpdut-lg text-muted">Give your Boost POW string a nice name. You can create as many as you wish.</small>
+          </div>
+
+
+          <div class="form-group" [ngClass]="{'field-error': isErrorBoostValue}">
+            <div class="input-group dmb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Satoshis</span>
+              </div>
+              <input type="text" value="10000" class="form-control input-boostvalue" (focusout)="updateProperty('boostvalue', $event)"  placeholder="Ex: 1500">
+            </div>
+            <small *ngIf="isErrorBoostValue" id="error" class="form-text text-error">Field invalid. Please specify Satoshis value between 1500 and 10000000</small>
+            <small *ngIf="!isErrorBoostValue" id="emailHelp" class="form-text inpdut-lg text-muted">Specify the amount of Satoshis worth of energy you want to add to your content.</small>
+          </div>
+          <div>
+
+            <div>
+              <!-- https://codepen.io/FlorinPop17/pen/drJJzK -->
+              <button *ngIf="!isError" (click)="publishBoost()" class="btn btn-success uppercase">
+                Create Boost pow string
+              </button>
+              <button *ngIf="isError" class="btn btn-success uppercase disabled" [disabled]="true">
+                  Create Boost pow string
+              </button>
+              <div class="blobs-container d-none">
+                  <div class="blob white"></div>
+                  <div class="blob red"></div>
+                  <div class="blob orange"></div>
+                  <div class="blob yellow"></div>
+                  <div class="blob blue"></div>
+                  <div class="blob green"></div>
+                  <div class="blob purple"></div>
+                  <div class="blob"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

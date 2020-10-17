@@ -1,7 +1,8 @@
 import { MainActions, MainActionTypes } from '@main/actions/main.actions';
-import { BoostPowJobModel } from 'boostpow-js/dist/boost-pow-job-model';
+import { BoostPowJobModel } from '@matterpool/boostpow-js/dist/boost-pow-job-model';
 export interface State {
   job?: BoostPowJobModel,
+  jobs?: BoostPowJobModel[],
   jobUtxos: Array<{
     scripthash: string,
     txid: string,
@@ -14,6 +15,7 @@ export interface State {
 
 export const initialState: State = {
   job: null,
+  jobs: [],
   jobUtxos: [],
   boostSearchResults: [],
 };
@@ -36,6 +38,13 @@ export function reducer(state = initialState, action: MainActions): State {
         job: action.payload
       };
     }
+    case MainActionTypes.GetBoostJobsComplete: {
+
+      return {
+        ...state,
+        jobs: action.payload
+      };
+    }
 
     case MainActionTypes.GetBoostJobUtxosComplete: {
 
@@ -43,7 +52,7 @@ export function reducer(state = initialState, action: MainActions): State {
         ...state,
         jobUtxos: action.payload
       };
-    } 
+    }
 
     default: {
       return state;

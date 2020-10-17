@@ -1,11 +1,10 @@
-<section >
+
+<section>
 <main class="d-flex flex-column container-fluid flex-grow">
   <app-loading [show]="showLoading$ | async"></app-loading>
   <app-alerts-messages [alerts]="alerts$ | async" (deleteAlert)="deleteAlert($event)"></app-alerts-messages>
-  <app-job-view
+  <app-generator-view
     [alerts]="alerts$ | async"
-    [boostJob]="boostJob$ | async"
-    [boostJobUtxos]="boostJobUtxos$ | async"
-  ></app-job-view>
+  ></app-generator-view>
 </main>
 </section>

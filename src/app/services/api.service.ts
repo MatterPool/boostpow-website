@@ -5,7 +5,7 @@ import { environment } from '@environments/environment';
 import * as fromRoot from '@app/reducers';
 import ApiRequestResponse from './api-request-response';
 import * as axios from 'axios';
-import * as Boost from 'boostpow-js';
+import * as Boost from '@matterpool/boostpow-js';
 
 @Injectable()
 export class ApiService {
@@ -64,6 +64,42 @@ export class ApiService {
       }
       try {
         return Boost.Graph().search(params)
+        .then((r) => {
+          res(r);
+        })
+        .catch((e) => {
+          const response = new ApiRequestResponse(e.response ? e.response.data : e, e.error ? e.error : null);
+          rej(response);
+        });
+      } catch (err) {
+        rej(
+          new ApiRequestResponse(null, {
+            message: `Error`
+          })
+        );
+      }
+    });
+
+    return from(p);
+
+  }
+  getBoostJobs(txid: string): Observable<any> {
+    const p = new Promise((res, rej) => {
+      if (environment.mock_mode) {
+        const mockData = {
+          success: true,
+          result: {
+
+          }
+        };
+
+        const response = new ApiRequestResponse(mockData, 200);
+        console.log('getBoostJobs mock data', mockData, response);
+        res(response);
+        return;
+      }
+      try {
+        return Boost.Graph().getBatchBoostJobRequestStatus(txid)
         .then((r) => {
           res(r);
         })

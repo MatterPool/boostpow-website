@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import * as Boost from 'boostpow-js';
+import * as Boost from '@matterpool/boostpow-js';
 
 console.log('Boost', Boost);
 export enum MainActionTypes {
@@ -7,10 +7,22 @@ export enum MainActionTypes {
   SetSessionKey = 'SetSessionKey',
   GetBoostJob = 'GetBoostJob',
   GetBoostJobComplete = 'GetBoostJobComplete',
+  GetBoostJobs = 'GetBoostJobs',
+  GetBoostJobsComplete = 'GetBoostJobsComplete',
   GetBoostJobUtxos = 'GetBoostJobUtxos',
   GetBoostJobUtxosComplete = 'GetBoostJobUtxosComplete',
   GetBoostSearch = 'GetBoostSearch',
   GetBoostSearchComplete = 'GetBoostSearchComplete',
+}
+
+export class GetBoostJobs implements Action {
+  readonly type = MainActionTypes.GetBoostJobs;
+  constructor(public payload: string) {}
+}
+
+export class GetBoostJobsComplete implements Action {
+  readonly type = MainActionTypes.GetBoostJobsComplete;
+  constructor(public payload: any) {}
 }
 
 export class GetBoostJob implements Action {
@@ -61,7 +73,9 @@ export type MainActions =
   | GetBoostJobUtxos
   | GetBoostJobUtxosComplete
   | GetBoostSearch
-  | GetBoostSearchComplete;
-
+  | GetBoostSearchComplete
+  | GetBoostJobs
+  | GetBoostJobsComplete;
+  
 
 

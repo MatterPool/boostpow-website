@@ -4,7 +4,7 @@ import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
 import { NgForm } from '@angular/forms';
-import * as boost from 'boostpow-js';
+import * as boost from '@matterpool/boostpow-js';
 
 declare var twetchPay;
 

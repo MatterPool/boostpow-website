@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { BoostSignalSummarySerialize } from '@main/models/boost-signal-summary-serialize.interface';

@@ -1,4 +1,4 @@
-import { BoostSignalRankerModel } from 'boostpow-js/dist/boost-signal-ranker-model';
+import { BoostSignalRankerModel } from '@matterpool/boostpow-js/dist/boost-signal-ranker-model';
 import { BoostSignalSummarySerialize } from '@main/models/boost-signal-summary-serialize.interface';
 
 export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSignalSummarySerialize> {
@@ -37,7 +37,7 @@ export function parseBoostSearch(blob: BoostSignalRankerModel): Array<BoostSigna
                 userNonce: item.entity.userNonce(),
                 userNoncehex: item.entity.userNonce(true),
                 additionalData: item.entity.additionalData(),
-                additionalDatahex: item.entity.content(true),
+                additionalDatahex: item.entity.additionalData(true),
                 tag: item.entity.tag(),
                 taghex: item.entity.tag(true),
                 boostJobId: item.entity.getBoostJobId(),
