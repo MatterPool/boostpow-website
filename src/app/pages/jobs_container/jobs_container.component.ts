@@ -26,14 +26,7 @@ export class JobsContainerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const txid = this.route.snapshot.paramMap.get("txid");
     const splitted = txid.split('.');
-    this.store.dispatch(new GetBoostJob(splitted[0]));
     this.store.dispatch(new GetBoostJobs(splitted[0]));
-
-    this.boostJob$.subscribe((record: any) => {
-      if (record && record.scripthash) {
-        this.store.dispatch(new GetBoostJobUtxos(record.scripthash));
-      }
-    })
   }
 
   ngOnDestroy() {

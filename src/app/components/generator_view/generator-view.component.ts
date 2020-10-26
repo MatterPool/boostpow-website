@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { environment } from '@environments/environment';
 declare var twetchPay;
 import * as boost from '@matterpool/boostpow-js';
+import { RedirectAction } from '@main/actions/main.actions';
 
 declare var boostPublish;
 
@@ -53,13 +54,13 @@ export class GeneratorViewComponent {
         alreadyProcessed = true;
         console.log('onPayment', e);
         const submitted = await boost.Graph({
-         // graph_api_url: 'http://localhost:3000'
+         graph_api_url: 'http://localhost:3000'
         }).submitBatchBoostJobRequest(e.rawtx, {
           content: this.content
         });
         console.log('submitted', submitted);
-        window.location.href = 'https://boostpow.com/jobs/' + submitted.jobId;
-        setTimeout(() => {
+        this.store.dispatch(new RedirectAction('https://boostpow.com/jobs/' + submitted.jobId));
+        /*setTimeout(() => {
           console.log('timeout fired', e);
           boost.Graph({
             // graph_api_url: 'http://localhost:3000'
@@ -67,7 +68,7 @@ export class GeneratorViewComponent {
             content: this.content
           });
           this.router.navigate(['jobs', submitted.jobId]);
-        }, 5000);
+        }, 5000);*/
       }
     });
     return false;
@@ -86,7 +87,7 @@ export class GeneratorViewComponent {
   }
 
   get isErrorBoostValue(): boolean {
-    if (this.dirtyFlags.boostvalue && (this.boostvalue > 100000000 || this.boostvalue < 1500)) {
+    if (this.dirtyFlags.boostvalue && (this.boostvalue > 100000000 || this.boostvalue < 800)) {
       return true;
     }
     return false;

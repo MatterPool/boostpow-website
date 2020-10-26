@@ -37,7 +37,7 @@ export class JobsViewComponent implements OnInit {
 
 
   twitterLink(sig: BoostSignalModel): string {
-    return 'https://twitter.com/intent/tweet?text=' + 'I added ' + sig.difficulty()  + ' units of Boost difficulty to my content \"' + sig.content() + '\"' + 'https://boostpow.com/jobs/' + this.boostJobs.jobId + ' #boostpow #helloboost';
+    return 'https://twitter.com/intent/tweet?text=' + 'I added ' + sig.difficulty()  + ' units of Boost difficulty to my content \"' + sig.content() + '\"' + ' https://boostpow.com/jobs/' + this.boostJobs.jobId + ' #boostpow #helloboost';
   }
   getJobLink(): string {
     return 'https://search.matterpool.io/tx/' + this.boostJobs.jobId;
@@ -225,7 +225,7 @@ export class JobsViewComponent implements OnInit {
     if (this.boostJobs && this.boostJobs.status !== 'COMPLETE') {
       setTimeout(() => {
         window.location.href = 'https://boostpow.com/jobs/' + this.boostJobs.jobId;
-      }, 20000);
+      }, 30000);
     }
   }
 

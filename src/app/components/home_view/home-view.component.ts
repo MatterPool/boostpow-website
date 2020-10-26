@@ -4,6 +4,7 @@ import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
 import { environment } from '@environments/environment';
+import { RedirectAction } from '@main/actions/main.actions';
 declare var twetchPay;
 
 declare var boostPublish;
@@ -36,7 +37,7 @@ export class HomeViewComponent {
         setTimeout(() => {
           console.log('timeout fired', e);
           //this.router.navigate(['search']);
-          this.router.navigate(['job', e.boostJobStatus.boostJobId]);
+          this.store.dispatch(new RedirectAction('https://boostpow.com/jobs/' + e.txid));
         }, 4000);
       }
     });

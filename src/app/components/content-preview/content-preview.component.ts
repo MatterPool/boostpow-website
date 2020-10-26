@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { BoostSignalSummarySerialize } from '@main/models/boost-signal-summary-serialize.interface';
 import Axios from 'axios';
+import { RedirectAction } from '@main/actions/main.actions';
+import * as fromStore from '../../reducers';
+import { Store } from '@ngrx/store';
+
 declare var boostPublish;
 const linkifyHtml = require('linkifyjs/html');
 
@@ -20,7 +24,7 @@ export class ContentPreviewComponent implements OnInit {
   contentType = null;
   contentSnippet = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store<fromStore.State>) {
   }
 
   get tag(): string {
@@ -47,7 +51,8 @@ export class ContentPreviewComponent implements OnInit {
         setTimeout(() => {
           console.log('timeout fired', e);
           //this.router.navigate(['search']);
-          this.router.navigate(['job', e.boostJobStatus.boostJobId]);
+          // this.router.navigate(['job', e.boostJobStatus.boostJobId]);
+          this.store.dispatch(new RedirectAction('https://boostpow.com/jobs/' + e.txid));
         }, 4000);
       }
     });

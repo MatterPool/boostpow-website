@@ -9,8 +9,10 @@ import { GeneratorContainerComponent } from '@pages/generator_container/generato
 const routes: Routes = [
   { path: '', component: HomeContainerComponent },
   { path: 'jobs/:txid', component: JobsContainerComponent },
+  { path: 'job/:txid', component: JobsContainerComponent },
   { path: 'search', component: SearchContainerComponent },
   { path: 'c/:contenthex', component: ContentContainerComponent },
+  { path: 'content/:contenthex', component: ContentContainerComponent },
   { path: 'bot', component: GeneratorContainerComponent },
 ];
 
