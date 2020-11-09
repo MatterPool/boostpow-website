@@ -54,7 +54,7 @@ export class GeneratorViewComponent {
         alreadyProcessed = true;
         console.log('onPayment', e);
         const submitted = await boost.Graph({
-         graph_api_url: 'http://localhost:3000'
+         // graph_api_url: 'http://localhost:3000'
         }).submitBatchBoostJobRequest(e.rawtx, {
           content: this.content
         });
