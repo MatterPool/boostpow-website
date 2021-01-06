@@ -40,7 +40,7 @@ export class JobsViewComponent implements OnInit {
     return 'https://twitter.com/intent/tweet?text=' + 'I added ' + sig.difficulty()  + ' units of Boost difficulty to my content \"' + sig.content() + '\"' + ' https://boostpow.com/jobs/' + this.boostJobs.jobId + ' #boostpow #helloboost';
   }
   getJobLink(): string {
-    return 'https://search.matterpool.io/tx/' + this.boostJobs.jobId;
+    return 'https://www.bitcoinfiles.org/tx/' + this.boostJobs.jobId;
   }
 
   get eachBoostSignals(): any[] {
@@ -116,7 +116,7 @@ export class JobsViewComponent implements OnInit {
     if (!this.boostJob) {
       return '';
     }
-    return `https://search.matterpool.io/tx/` + this.boostJob.txid;
+    return `https://www.bitcoinfiles.org/tx/` + this.boostJob.txid;
   }
 
   get stylesLogScaleDiff(): string {

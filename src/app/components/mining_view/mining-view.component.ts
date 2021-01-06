@@ -63,7 +63,7 @@ export class MiningViewComponent {
     if (!this.boostJob) {
       return '';
     }
-    return `https://search.matterpool.io/tx/` + this.boostJob.getTxid();
+    return `https://www.bitcoinfiles.org/tx/` + this.boostJob.getTxid();
   }
 
   get stylesLogScaleDiff(): string {
@@ -147,7 +147,7 @@ export class MiningViewComponent {
       userNonce: '00',
       tag: '00',
     });
-    // https://search.matterpool.io/tx/debbd830e80bdccf25d8659b98e8f77517fe0af4c5c161d645bf86a4e7fcd301
+    
     outputs.push({
       script: boostJob.toASM(),
       amount: this.inputReward,
