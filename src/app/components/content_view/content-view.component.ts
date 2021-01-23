@@ -80,8 +80,6 @@ export class ContentViewComponent implements OnInit, OnChanges {
       }
     }
 
-    console.log('topic', topicTotals)
-
     this.overallRank = overallRank;
     this.topicRanks = topicRanks;
   }
