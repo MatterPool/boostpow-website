@@ -64,10 +64,11 @@ export class ContentViewComponent implements OnInit, OnChanges {
 
     this.boostSearchResults.forEach(item => {
       for (var topic in item.tags) {
-        topic = topic.replace(/^\0*/g, '');
-        if (!topicTotals[topic]) continue;
-        if (!topicTotals[topic][item.entity.contenthex]) topicTotals[topic][item.entity.contenthex] = 0; 
-        topicTotals[topic][item.entity.contenthex] += item.tags[topic];
+        let topic_ = topic.replace(/^\0*/g, '');
+        if (!topicTotals[topic_]) continue;
+        if (!topicTotals[topic_][item.entity.contenthex]) topicTotals[topic_][item.entity.contenthex] = 0; 
+
+        topicTotals[topic_][item.entity.contenthex] += item.tags[topic];
       }
     });
 
@@ -78,6 +79,8 @@ export class ContentViewComponent implements OnInit, OnChanges {
         }
       }
     }
+
+    console.log('topic', topicTotals)
 
     this.overallRank = overallRank;
     this.topicRanks = topicRanks;
