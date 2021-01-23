@@ -10,10 +10,26 @@
               <h3>
                 Explore Boosted Content
               </h3>
+              <div class="form-group form-inline">
+                <label for="input-topic">in Topic</label>&nbsp;
+                <input type="text" class="form-control input-topic" [value]="topic" (focusout)="updateProperty('topic', $event)"  placeholder="Topic">&nbsp;
+                <label for="input-timeframe">within the last</label>&nbsp;
+                <select class="form-control" name="timeframe" [value]="timeframe" (focusout)="updateProperty('timeframe', $event)"> 
+                  <option>hour</option>
+                  <option>day</option>
+                  <option>fortnight</option>
+                  <option>year</option>
+                  <option>decade</option>
+                </select>&nbsp;
+                <button class="btn btn-outline-success" (click)="clickSearch()">Search</button>
+              </div>
+
               <br/>
-              <div *ngFor="let boostResult of boostSearchResults" class="card mb-3">
+              <div *ngFor="let boostResult of boostSearchResults; let i = index;" class="card mb-3">
                 <app-content-preview
                   [boostSignalSummary]="boostResult"
+                  [overallRank]="i+1"
+                  [contentPage]="false"
                   [useInternalLink]="true"
                 ></app-content-preview>
               </div>

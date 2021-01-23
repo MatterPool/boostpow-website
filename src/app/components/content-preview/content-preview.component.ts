@@ -18,6 +18,9 @@ const linkifyHtml = require('linkifyjs/html');
 })
 export class ContentPreviewComponent implements OnInit {
   @Input() boostSignalSummary: BoostSignalSummarySerialize;
+  @Input() contentPage: boolean;
+  @Input() overallRank: number;
+  @Input() timeframe: string;
   @Input() useInternalLink: boolean;
 
   previewText = '';
@@ -25,6 +28,14 @@ export class ContentPreviewComponent implements OnInit {
   contentSnippet = '';
 
   constructor(private router: Router, private store: Store<fromStore.State>) {
+  }
+
+  updateTimeframe (evt) {
+    if (!this.boostSignalSummary){
+      return '';
+    }
+    this.router.navigate(['content', this.boostSignalSummary.entity.contenthex], { queryParams: { timeframe: evt.target.value } });
+    return false;
   }
 
   get tag(): string {

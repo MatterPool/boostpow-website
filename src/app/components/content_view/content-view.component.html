@@ -6,9 +6,12 @@
 
         </div>
         <div class="col-11">
-          <div *ngFor="let boostResult of boostSearchResults" class="card mb-3">
+          <div *ngFor="let boostResult of contentResults()" class="card mb-3">
             <app-content-preview
               [boostSignalSummary]="boostResult"
+              [overallRank]="overallRank"
+              [timeframe]="timeframe"
+              [contentPage]="true"
               [useInternalLink]="false"
             ></app-content-preview>
           </div>
@@ -18,7 +21,8 @@
     <div class="col-md-4">
         <div class="content-header">
           <div class="tag-section">
-            <a *ngFor="let tag of getTags()" [href]="tagLink(tag)" type="button" class="btn btn-light btn-sm">{{tag}}</a>
+            <div class="btn btn-light btn-sm">Overall {{overallRank}}</div> 
+            <a *ngFor="let topic of getTopics()" [href]="topicLink(topic)" type="button" class="btn btn-light btn-sm">{{topic}} {{topicRanks[topic]}}</a>
           </div>
         </div>
         <div class="d-none">
