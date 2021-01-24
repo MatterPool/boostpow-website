@@ -21,8 +21,8 @@
     <div class="col-md-4">
         <div class="content-header">
           <div class="tag-section">
-            <div class="btn btn-light btn-sm">Overall {{overallRank}}</div> 
-            <a *ngFor="let topic of getTopics()" [href]="topicLink(topic)" type="button" class="btn btn-light btn-sm">{{topic}} {{topicRanks[topic]}}</a>
+            <span class="btn btn-light btn-sm">Overall Rank {{overallRank}}</span> 
+            <a *ngFor="let topic of getTopics()" [href]="topicLink(topic)" type="button" class="btn btn-light btn-sm">{{topic}} - Rank {{topicRanks[topic]}}</a>
           </div>
         </div>
         <div class="d-none">

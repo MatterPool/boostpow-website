@@ -43,6 +43,11 @@ export class SearchViewComponent {
     return false;
   }
 
+  topicEnter (evt:any) {
+    this.updateProperty('topic', evt);
+    this.clickSearch();
+  }
+
   clickSearch() {     
     this.router.navigate(['/search'], { queryParams: { topic: this.topic, timeframe: this.timeframe } }); 
   }

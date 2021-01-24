@@ -12,7 +12,7 @@
               </h3>
               <div class="form-group form-inline">
                 <label for="input-topic">in Topic</label>&nbsp;
-                <input type="text" class="form-control input-topic" [value]="topic" (focusout)="updateProperty('topic', $event)"  placeholder="Topic">&nbsp;
+                <input type="text" maxlength="20" class="form-control input-topic" [value]="topic" (keyup.enter)="topicEnter($event)" (focusout)="updateProperty('topic', $event)"  placeholder="Topic">&nbsp;
                 <label for="input-timeframe">within the last</label>&nbsp;
                 <select class="form-control" name="timeframe" [value]="timeframe" (focusout)="updateProperty('timeframe', $event)"> 
                   <option>hour</option>

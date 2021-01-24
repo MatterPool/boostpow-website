@@ -11,3 +11,6 @@ export function timeframeToTimestamp (timeframe: string): number {
   if (timeframe === 'decade') return now - 3600 * 24 * 365 * 10;
   return undefined;
 }
+
+// tried rendering these with ngFor but then the option was not selected automatically
+export const TIMEFRAME_OPTIONS = ['hour','day','fortnight','year','decade'];
