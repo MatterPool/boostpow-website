@@ -9,6 +9,8 @@ import { ShowLoadingAction } from '@application/actions/application';
 import * as fromMain from '@main/reducers';
 import { GetBoostSearch } from '@main/actions/main.actions';
 
+import { timeframeToTimestamp } from '@app/helpers/boost-helpers';
+
 @Component({
   selector: 'app-content-container',
   templateUrl: './content_container.component.html',
@@ -25,10 +27,30 @@ export class ContentContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const contenthex = this.route.snapshot.paramMap.get("contenthex");
-    this.store.dispatch(new GetBoostSearch({
-      contenthex: contenthex
-    }));
+    //const contenthex = this.route.snapshot.paramMap.get("contenthex");
+    //this.store.dispatch(new GetBoostSearch({
+    //  contenthex: contenthex
+    //}));
+
+    this.route.queryParams.subscribe(recordsClone => {
+      const records = Object.assign({}, recordsClone);
+      
+      records.categoryutf8 = 'B';
+
+      if (!records.timeframe) {
+        records.timeframe = 'fortnight';
+      }
+
+      let minedTimeFrom = timeframeToTimestamp(records.timeframe);
+
+      if (minedTimeFrom !== undefined) {
+        records.minedTimeFrom = minedTimeFrom;
+      }
+
+      this.store.dispatch(new GetBoostSearch(Object.assign({}, records)))
+    });
+
+    
     /*this.boostJob$.subscribe((record) => {
       if (record && record.getScriptHash()) {
         this.store.dispatch(new GetBoostJobUtxos(record.getScriptHash()));

@@ -10,6 +10,8 @@ import * as fromMain from '@main/reducers';
 import { GetBoostSearch } from '@main/actions/main.actions';
 
 
+import { timeframeToTimestamp } from '@app/helpers/boost-helpers';
+
 @Component({
   selector: 'app-search-container',
   templateUrl: './search_container.component.html',
@@ -34,6 +36,9 @@ export class SearchContainerComponent implements OnInit, OnDestroy {
       if (records.tag) {
         records.tagutf8 = records.tag;
       }
+      if (records.topic) {
+        records.tagutf8 = records.topic;
+      }
       if (records.category) {
         records.categoryutf8 = records.category;
       } else {
@@ -45,14 +50,25 @@ export class SearchContainerComponent implements OnInit, OnDestroy {
       if (records.tag) {
         records.tagutf8 = records.tag;
       }
-      if (records.minedTimeFrom) {
-        records.minedTimeFrom = records.minedTimeFrom;
-      } else {
-        records.minedTimeFrom = Math.round((new Date()).getTime() / 1000) - 3600 * 24 * 14;
+      //if (records.minedTimeFrom) {
+      //  records.minedTimeFrom = records.minedTimeFrom;
+      //} else {
+      //  records.minedTimeFrom = Math.round((new Date()).getTime() / 1000) - 3600 * 24 * 14;
+      //}
+      //if (records.minedTimeEnd) {
+      //  records.minedTimeEnd = records.minedTimeEnd;
+      //}
+
+      if (!records.timeframe) {
+        records.timeframe = 'fortnight';
       }
-      if (records.minedTimeEnd) {
-        records.minedTimeEnd = records.minedTimeEnd;
+
+      let minedTimeFrom = timeframeToTimestamp(records.timeframe);
+
+      if (minedTimeFrom !== undefined) {
+        records.minedTimeFrom = minedTimeFrom;
       }
+
       this.store.dispatch(new GetBoostSearch(Object.assign({}, records)))
     });
 

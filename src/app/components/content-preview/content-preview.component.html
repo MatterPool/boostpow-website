@@ -28,7 +28,19 @@
   </div>
   <div class="action-section">
       <div>
-        <strong class="boost-counter">{{energy}}</strong> <span class="text-muted boost-label"> Boosts</span>
+        <strong class="boost-counter" *ngIf="overallRank">Rank {{overallRank}} -&nbsp;</strong> 
+        <strong class="boost-counter">{{energy}}</strong>
+        <span class="text-muted boost-label"> Boosts</span>
+        <div class="form-inline" *ngIf="contentPage">
+          <label for="input-timeframe" class="text-muted boost-label">Within the last</label> &nbsp;
+          <select class="form-control" name="timeframe" [value]="timeframe" (change)="updateTimeframe($event)"> 
+            <option>hour</option>
+            <option>day</option>
+            <option>fortnight</option>
+            <option>year</option>
+            <option>decade</option>
+          </select>&nbsp;
+        </div>
       </div>
       <div>
         <button class="btn btn-outline-success" (click)="addBoost()">Add Boost</button>
