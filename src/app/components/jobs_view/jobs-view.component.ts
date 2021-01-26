@@ -1,12 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Alert } from '@alerts/models/alert.interface';
 import * as fromStore from '../../reducers';
 import { Store } from '@ngrx/store';
 import * as boost from '@matterpool/boostpow-js';
 import { BoostSignalModel } from '@matterpool/boostpow-js/dist/boost-signal-model';
+
+import Axios from 'axios';
 import * as moment from 'moment';
 declare var boostPublish;
+
+const snarkdown = require('snarkdown').default;
 
 @Component({
   selector: 'app-jobs-view',
@@ -18,6 +22,8 @@ export class JobsViewComponent implements OnInit {
   @Input() boostJob: any;
   @Input() boostJobs: any;
   @Input() boostJobUtxos: any[];
+
+  previews = {};
 
   fileUploads = [];
   isDocsOpen = false;
@@ -35,16 +41,16 @@ export class JobsViewComponent implements OnInit {
   constructor(private router: Router, private store: Store<fromStore.State>) {
   }
 
-
   twitterLink(sig: BoostSignalModel): string {
     return 'https://twitter.com/intent/tweet?text=' + 'I added ' + sig.difficulty()  + ' units of Boost difficulty to my content \"' + sig.content() + '\"' + ' https://boostpow.com/jobs/' + this.boostJobs.jobId + ' #boostpow #helloboost';
   }
+
   getJobLink(): string {
     return 'https://www.bitcoinfiles.org/tx/' + this.boostJobs.jobId;
   }
 
   get eachBoostSignals(): any[] {
-    if (!this.boostJobs) {
+    if (!this.boostJobs || !this.boostJobs.boostJobs) {
       return [];
     }
     const formatted = [];
@@ -57,6 +63,13 @@ export class JobsViewComponent implements OnInit {
       );
     }
     return formatted;
+  }
+
+  get eachBoostJobs(): any[] {
+    if (!this.boostJobs || !this.boostJobs.boostJobs) {
+      return [];
+    }
+    return this.boostJobs.boostJobs;
   }
 
   get isCompleted(): boolean {
@@ -122,6 +135,7 @@ export class JobsViewComponent implements OnInit {
   get stylesLogScaleDiff(): string {
     return (this.logScaleDiff40) * 2.5 + '%';
   }
+
   get logScaleDiff40(): number {
     if (!this.boostJob) {
       return 0;
@@ -163,6 +177,7 @@ export class JobsViewComponent implements OnInit {
   boostJobAdditionalData(sig: BoostSignalModel): string {
     return sig ? sig.additionalData() : '';
   }
+
   boostJobAdditionalDataHex(sig: BoostSignalModel): string {
     return sig ? sig.additionalData(true) : '';
   }
@@ -202,6 +217,7 @@ export class JobsViewComponent implements OnInit {
   boostJobCategory(sig: BoostSignalModel): any {
     return sig ? sig.category() : '';
   }
+
   boostJobCategoryHex(sig: BoostSignalModel): any {
     return sig ? sig.category(true) : '';
   }
@@ -210,9 +226,47 @@ export class JobsViewComponent implements OnInit {
     return sig ? sig.difficulty() : undefined;
   }
 
+  fileUrl(contenthex): string {
+    return 'https://media.bitcoinfiles.org/' + contenthex;
+  }
+
+  isImage(contentType: string): boolean {
+    return /(image\/jpe?g)|(gif)|(png)|(svg)/.test(contentType);
+  }
+
+  isNonImageFileDocument(contentType: string): boolean {
+    return (!this.isImage(contentType) && /(text\/plain)|(html)|(markdown)/.test(contentType));
+  }
+
+  isMarkdown(contentType: string): boolean {
+    return /(markdown)/.test(contentType);
+  }
+
+  async fetchPreview (contenthex: string) {
+    let contentType:string;
+    let preview:string;
+
+    try {
+      let resp1 = await Axios.head(this.fileUrl(contenthex));
+      contentType = resp1.headers['content-type'];
+      if (this.isNonImageFileDocument(contentType)) {
+        let resp2 = await Axios.get(this.fileUrl(contenthex));
+        if (this.isMarkdown(contentType)) {
+          preview = snarkdown(resp2.data);
+        } else {
+          preview = resp2.data;
+        }
+      }
+    } catch (ex) {
+      //pass
+    }
+    return { contenthex, contentType, preview };
+  } 
+
   get boostJobUserNonce(): number {
     return this.boostJob && this.boostJob ? this.boostJob.userNonce : undefined;
   }
+
   get boostJobUserNonceHex(): string {
     return this.boostJob && this.boostJob ? this.boostJob.userNonce : '';
   }
@@ -229,5 +283,13 @@ export class JobsViewComponent implements OnInit {
     }
   }
 
+  async ngOnChanges () {
+    if (this.boostJobs && this.boostJobs.boostJobs) {
+      for (let i = 0; i < this.boostJobs.boostJobs.length; i++) {
+        let job = this.boostJobs.boostJobs[i];
+        this.previews[job.boostData.content] = await this.fetchPreview(job.boostData.content);
+      }
+    }
+  }
 
 }

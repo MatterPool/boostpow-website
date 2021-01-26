@@ -28,28 +28,47 @@
         View receipt on explorer
       </a>
     </div>
+    <br>
+    <div *ngFor="let job of eachBoostJobs" class="row py-2">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <label class="boost-info-label">Content</label>
+            <h5 class="card-title">{{job.boostData.content}}</h5>
+            <div>
+                <div *ngIf="previews[job.boostData.content] && isImage(previews[job.boostData.content].contentType)" class="content-preview-image">
+                    <img [src]="fileUrl(job.boostData.content)" class="img-responsive"/>
+                </div>
+                <div *ngIf="previews[job.boostData.content] && isNonImageFileDocument(previews[job.boostData.content].contentType)" 
+                  class="paragraph-break content-preview-text" [innerHTML]="previews[job.boostData.content].preview">
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div *ngFor="let sig of eachBoostSignals" class="row py-2">
     <div class="col-12">
-      <h4>Hash: {{boostHash(sig)}}</h4>
-        <button *ngIf="!getShowDetails(sig)" (click)="updateShowDetails(sig, true)" type="button" class="btn btn-light btn-sm">Show details</button>
-        <button *ngIf="getShowDetails(sig)" (click)="updateShowDetails(sig, false)" type="button" class="btn btn-light btn-sm">Hide details</button>
+      <h4 class="workstring">Work string: {{boostHash(sig)}}</h4>
+      <button *ngIf="!getShowDetails(sig)" (click)="updateShowDetails(sig, true)" type="button" class="btn btn-light btn-sm">Show details</button>
+      <button *ngIf="getShowDetails(sig)" (click)="updateShowDetails(sig, false)" type="button" class="btn btn-light btn-sm">Hide details</button>
 
-        <a class="twitter-share-button"
-          [href]="twitterLink(sig)"
-          data-size="large">
+      <a class="twitter-share-button"
+        [href]="twitterLink(sig)"
+        data-size="large">
         Share Tweet
       </a>
 
+      <br/>
+      <div *ngIf="getShowDetails(sig)" class="powstring">
+        {{boostJobPowString(sig)}}
         <br/>
-        <div *ngIf="getShowDetails(sig)">
-          {{boostJobPowString(sig)}}
-          <br/>
-          <a [href]="getJobLink()">
-            View on explorer
-          </a>
-        </div>
+        <a [href]="getJobLink()">
+          View on explorer
+        </a>
+      </div>
       <br/>
 
       <div>
@@ -59,9 +78,14 @@
               <div class="card-body">
 
                 <label class="boost-info-label">Content</label>
-                <h5 class="card-title">{{boostJobContent(sig)}}</h5>
+                <h5 class="card-title">{{boostJobContentHex(sig)}}</h5>
                 <div>
-                  {{boostJobContentHex(sig)}}
+                    <div *ngIf="previews[boostJobContentHex(sig)] && isImage(previews[boostJobContentHex(sig)].contentType)" class="content-preview-image">
+                      <img [src]="fileUrl(boostJobContentHex(sig))" class="img-responsive"/>
+                    </div>
+                    <div *ngIf="previews[boostJobContentHex(sig)] && isNonImageFileDocument(previews[boostJobContentHex(sig)].contentType)" 
+                      class="paragraph-break content-preview-text" [innerHTML]="previews[boostJobContentHex(sig)].preview">
+                    </div>
                 </div>
               </div>
               <li class="list-group-item">
@@ -84,7 +108,6 @@
               <li *ngIf="boostJobTag(sig)" class="list-group-item">
                 <label class="boost-info-label">Tag: {{boostJobTagHex(sig)}} </label><br/>
               </li>
-
             </div>
           </div>
         </div>
