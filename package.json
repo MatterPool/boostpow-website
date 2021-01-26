@@ -38,6 +38,7 @@
     "natives": "^1.1.6",
     "pikaday": "^1.8.0",
     "rxjs": "~6.6.0",
+    "snarkdown": "^2.0.0",
     "stream": "0.0.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

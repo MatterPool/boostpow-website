@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 
 declare var boostPublish;
 const linkifyHtml = require('linkifyjs/html');
+const snarkdown = require('snarkdown').default;
+
 
 @Component({
   selector: 'app-content-preview',
@@ -18,7 +20,7 @@ const linkifyHtml = require('linkifyjs/html');
 })
 export class ContentPreviewComponent implements OnInit {
   @Input() boostSignalSummary: BoostSignalSummarySerialize;
-  @Input() contentPage: boolean;
+  @Input() showTimeframeSelect: boolean;
   @Input() overallRank: number;
   @Input() timeframe: string;
   @Input() useInternalLink: boolean;
@@ -104,6 +106,10 @@ export class ContentPreviewComponent implements OnInit {
     return false;
   }
 
+  get isMarkdown(): boolean {
+    return /(markdown)/.test(this.contentType);
+  }
+
   get isMiscFile(): boolean {
     if (this.isImage || this.isNonImageFileDocument()) {
       return false;
@@ -167,10 +173,11 @@ export class ContentPreviewComponent implements OnInit {
       return '';
     }
 
+    if (this.isMarkdown) {
+      return snarkdown(this.getFileContent());
+    }
     if (this.isFile) {
-      const trunc =  this.truncate(this.getFileContent());
-
-      return linkifyHtml(trunc, {
+      return linkifyHtml(this.getFileContent(), {
         defaultProtocol: 'https',
         target: "_blank"
       });

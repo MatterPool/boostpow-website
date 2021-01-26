@@ -1,9 +1,9 @@
 <div class="component-container">
-  <a *ngIf="isImage && !useInternalLink" [href]="fileUrl" target="_blank"><img [src]="fileUrl" class="img-responsive"/></a>
-  <a *ngIf="isImage && useInternalLink" [href]="openLinkUrl"><img [src]="fileUrl" class="img-responsive"/></a>
-  <div *ngIf="isNonImageFileDocument() || isMiscFile" class="card-body">
-    <div *ngIf="isNonImageFileDocument()" class="paragraph-break" [innerHTML]="contentSummary">
-    </div>
+  <a *ngIf="isImage && !useInternalLink" [href]="fileUrl" target="_blank" class="content-preview-image"><img [src]="fileUrl" class="img-responsive"/></a>
+  <a *ngIf="isImage && useInternalLink" [href]="openLinkUrl" class="content-preview-image"><img [src]="fileUrl" class="img-responsive" /></a>
+  <div *ngIf="isNonImageFileDocument()" class="paragraph-break content-preview-text" [innerHTML]="contentSummary"></div>
+  <div *ngIf="isMiscFile" class="card-body">
+
     <div *ngIf="isMiscFile && !useInternalLink" class="card-text">
         <a [href]="fileUrl" target="_blank">Open File <i class="fas fa-download"></i> </a>
     </div>
@@ -18,9 +18,6 @@
 
   </div>
   <div class="info-section">
-    <small class="text-muted">
-      <a class="text-muted" [href]="contentLink" (click)="contentLink" target="_blank">{{formatAgo()}}</a>
-    </small>
     <a class="text-muted" [href]="fileUrl" target="_blank">
       <span class="badge badge-light">{{contentType}}</span>
     </a>
@@ -28,10 +25,12 @@
   </div>
   <div class="action-section">
       <div>
-        <strong class="boost-counter" *ngIf="overallRank">Rank {{overallRank}} -&nbsp;</strong> 
-        <strong class="boost-counter">{{energy}}</strong>
+        <a class="content-link" [href]="contentLink" (click)="contentLink" target="_blank">
+          <strong class="boost-counter" *ngIf="overallRank">Rank {{overallRank}} -&nbsp;</strong> 
+          <strong class="boost-counter">{{energy}}</strong>
+        </a>
         <span class="text-muted boost-label"> Boosts</span>
-        <div class="form-inline" *ngIf="contentPage">
+        <div class="form-inline" *ngIf="showTimeframeSelect">
           <label for="input-timeframe" class="text-muted boost-label">Within the last</label> &nbsp;
           <select class="form-control" name="timeframe" [value]="timeframe" (change)="updateTimeframe($event)"> 
             <option>hour</option>
