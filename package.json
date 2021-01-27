@@ -27,7 +27,7 @@
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
     "assert": "^1.4.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "boostpow-js": "^1.2.22",
     "bsv": "~1.5.4",
     "buffer": "^5.4.3",
