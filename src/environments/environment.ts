@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api_base: 'https://api.matterpool.io/api',
-  // api_base: 'http://localhost:3000/api',
+  // api_base: 'https://api.matterpool.io/api',
+  api_base: 'http://localhost:3000/api',
   mock_mode: false,
   redirect_after_account_create: 'http://localhost:4200/get-started',
   redirect_after_get_started_workergroup: 'http://localhost:4200/setup-payout',
