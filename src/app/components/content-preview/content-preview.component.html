@@ -4,15 +4,16 @@
   <div *ngIf="isNonImageFileDocument()" class="paragraph-break content-preview-text" [innerHTML]="contentSummary"></div>
   <div *ngIf="isMiscFile" class="card-body">
 
-    <div *ngIf="isMiscFile && !useInternalLink" class="card-text">
+    <div *ngIf="!useInternalLink && contentType" class="card-text">
         <a [href]="fileUrl" target="_blank">Open File <i class="fas fa-download"></i> </a>
     </div>
-    <div *ngIf="isMiscFile && useInternalLink" class="card-text">
+    <div *ngIf="useInternalLink && contentType" class="card-text">
       <a [href]="openLinkUrl">Open File <i class="fas fa-download"></i> </a>
     </div>
 
-    <p *ngIf="!isImage && !isNonImageFileDocument() && !isMiscFile" class="card-text">
-      {{contentHex}}
+    <p *ngIf="!contentType" class="card-text">
+      <!-- {{contentSnippet}} -->
+      {{ boostSignalSummary.entity.content }}
     </p>
    <!-- bbba7 68121f65fa97f758f2bfbcc77ddd964807cfa61ff799cdc1e0937301ab0 -->
 
