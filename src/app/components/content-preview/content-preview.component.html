@@ -26,14 +26,12 @@
   </div>
   <div class="action-section">
       <div>
-        <a class="content-link" [href]="contentLink" (click)="contentLink" target="_blank">
-          <strong class="boost-counter" *ngIf="overallRank">Rank {{overallRank}} -&nbsp;</strong> 
-          <strong class="boost-counter">{{energy}}</strong>
-        </a>
+        <strong class="boost-counter" *ngIf="overallRank">Rank {{overallRank}} -&nbsp;</strong>
+        <strong class="boost-counter">{{energy | boostNumberFormat}}</strong>
         <span class="text-muted boost-label"> Boosts</span>
         <div class="form-inline" *ngIf="showTimeframeSelect">
           <label for="input-timeframe" class="text-muted boost-label">Within the last</label> &nbsp;
-          <select class="form-control" name="timeframe" [value]="timeframe" (change)="updateTimeframe($event)"> 
+          <select class="form-control" name="timeframe" [value]="timeframe" (change)="updateTimeframe($event)">
             <option>hour</option>
             <option>day</option>
             <option>fortnight</option>

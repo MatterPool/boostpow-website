@@ -14,3 +14,9 @@ export function timeframeToTimestamp (timeframe: string): number {
 
 // tried rendering these with ngFor but then the option was not selected automatically
 export const TIMEFRAME_OPTIONS = ['hour','day','fortnight','year','decade'];
+
+function formatBoostNumber(number) {
+	const num = Math.round(number);
+	if (num > 9999) return number.toExponential(1);
+	return num;
+}
