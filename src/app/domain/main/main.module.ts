@@ -3,6 +3,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { MainEffects } from '@main/effects/main.effects';
 import { reducers } from '@main/reducers';
+import { BoostNumberFormatPipe } from '../../pipes/boostNumberFormat.pipe';
+
 
 @NgModule({
   imports: [
@@ -24,6 +26,9 @@ import { reducers } from '@main/reducers';
      */
     EffectsModule.forFeature([MainEffects])
   ],
-  declarations: []
+  declarations: [],
+  providers: [
+    BoostNumberFormatPipe
+  ]
 })
 export class MainModule {}

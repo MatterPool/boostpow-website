@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { TitleCasePipe } from '@angular/common';
+import { BoostNumberFormatPipe } from './pipes/boostNumberFormat.pipe';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '@app/reducers';
@@ -55,7 +56,8 @@ import { AuthGuard } from '../shared';
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
     ModalCommunicationService,
     ApiService,
-    AuthGuard
+    AuthGuard,
+    BoostNumberFormatPipe
   ],
   bootstrap: [AppComponent]
 })

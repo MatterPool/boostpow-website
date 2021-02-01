@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterTextPipe } from '@app/pipes/filtertext.pipe';
 import { ToUsdWithSignPipe } from '@app/pipes/to-usd-with-sign.pipe';
 import { ToUsdOrDefaultPipe } from '@app/pipes/to-usd-or-default.pipe';
+import { BoostNumberFormatPipe } from '@app/pipes/boostNumberFormat.pipe'; 
 
 // Utility components
 import { DropdownFilterComponent } from '@components/utility_components/dropdown_filterlist/dropdown-filterlist.component';
@@ -45,6 +46,7 @@ export const COMPONENTS = [
   FilterTextPipe,
   ToUsdWithSignPipe,
   ToUsdOrDefaultPipe,
+  BoostNumberFormatPipe, 
   DropdownFilterComponent,
   FilterlistComponent,
   TimeRangeComponent,
