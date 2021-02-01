@@ -27,7 +27,7 @@
   <div class="action-section">
       <div>
         <strong class="boost-counter" *ngIf="overallRank">Rank {{overallRank}} -&nbsp;</strong>
-        <strong class="boost-counter">{{energy | boostNumberFormat}}</strong>
+        <strong class="boost-counter">{{energy | boostNumberFormat}}<span *ngIf="energy > 9999" class="exponent">e<sup>{{energy | boostNumberFormat:true}}</sup></span></strong>
         <span class="text-muted boost-label"> Boosts</span>
         <div class="form-inline" *ngIf="showTimeframeSelect">
           <label for="input-timeframe" class="text-muted boost-label">Within the last</label> &nbsp;
