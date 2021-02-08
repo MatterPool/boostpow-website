@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <a routerLink="/search"><fa-icon [icon]="faArrowLeft"></fa-icon> Back to search</a>
+    </div>
+
+    <div class="col-md-12" *ngIf="content">
+      <app-display [content]="content"></app-display>
+    </div>
+    <div class="col-md-12" *ngIf="content?.categories?.length">
+      <h5 class="mt-3 mb-1">Categories</h5>
+      <a class="tag" routerLink="/search" [queryParams]="{category: category}" *ngFor="let category of content.categories">{{ category }}</a>
+    </div>
+  </div>
+</div>

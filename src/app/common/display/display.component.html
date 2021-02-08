@@ -1,0 +1,44 @@
+<div class="card my-3" [ngClass]="{'compact': compact}">
+  <div class="viewer d-flex" [ngClass]="{ 'loading': !loaded }" (click)="openLink()">
+    <fa-icon class="centered" *ngIf="!loaded" [icon]="faSpinner" [size]="4" [spin]="true"></fa-icon>
+    <div class="image" *ngIf="type==='image'">
+      <img [src]="'https://media.bitcoinfiles.org/'+content.content" [ngClass]="{ 'hide': !loaded }" (load)="loaded = true">
+    </div>
+    <div #md class="markdown px-3 pt-3" [ngClass]="{ 'hide': !loaded }" *ngIf="type==='markdown' || type==='text' || type==='unknown'">
+      <markdown (load)="fixB()" [src]="'https://media.bitcoinfiles.org/'+content.content+'.md'"></markdown>
+    </div>
+    <div class="pdf" *ngIf="type==='pdf'">
+      <ngx-extended-pdf-viewer [src]="'https://media.bitcoinfiles.org/'+content.content+'.pdf'" useBrowserLocale="true" height="80vh"></ngx-extended-pdf-viewer>
+    </div>
+    <div class="video" *ngIf="type==='video'" [ngClass]="{ 'hide': !loaded }">
+      <video #video controls (canplay)="loaded = true">
+        <source src="https://media.bitcoinfiles.org/{{content.content}}"
+                type="{{fileType}}">
+        Sorry, your browser doesn't support embedded videos.
+      </video>
+    </div>
+    <div class="video" *ngIf="type==='audio'" [ngClass]="{ 'hide': !loaded }" (loadeddata)="loaded = true">
+      <audio controls (canplay)="loaded = true">
+        <source src="https://media.bitcoinfiles.org/{{content.content}}"
+                type="{{fileType}}">
+        Sorry, your browser doesn't support embedded audio.
+      </audio>
+    </div>
+    <div class="none" [ngClass]="{ 'hide': !loaded }" *ngIf="type==='' && loaded">
+      <div class="text px-3 py-3">{{ plainText }} {{ content.content }}</div>
+    </div>
+  </div>
+  <div class="row px-3">
+    <div class="col-6 py-3 my-auto">
+      <span class="font-weight-bold d-flex" *ngIf="content.rank">Rank #{{ content.rank }} </span>
+      <span class="mimetype d-flex pt-1">{{ fileType }}</span>
+    </div>
+    <div class="col-6 py-3 text-right">
+      <a class="boost-btn ml-auto my-auto" (click)="addBoost()">
+        <span class="my-auto">{{ content.diff | boostNumberFormat }}<span *ngIf="content.diff>9999">e<sup>{{ content.diff | boostNumberFormat:true }}</sup></span><span class="d-none d-md-inline-flex">&nbsp;{{ content.diff === 1 ? "Boost" : "Boosts" }}</span></span>
+        <img class="ml-2 logo-mini my-auto" loading="lazy" src="../../../assets/boost-glyph.svg">
+      </a>
+    </div>
+  </div>
+</div>
+

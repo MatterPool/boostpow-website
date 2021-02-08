@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+// $fa-font-path: "../node_modules/font-awesome/fonts";
+@import './styles/variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/font-awesome/scss/font-awesome';
+
+body * {
+  -webkit-appearance:none;
+}
+
+// img {
+//   display: flex;
+//   width: 100% !important;
+// }
+
+.markdown {
+  img {
+    display: flex;
+    width: 100% !important;
+  }
+}

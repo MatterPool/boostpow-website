@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" routerLink="">
+    <img class="logo" src="../../../assets/boost.svg">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <ul class="navbar-nav flex-row ml-auto">
+      <li class="d-none d-md-inline-flex nav-item my-auto mr-3">
+        <a class="nav-link" routerLink="search">Top Content</a>
+      </li>
+      <li class="d-none d-md-inline-flex nav-item my-auto mr-3">
+        <a class="nav-link" routerLink="c/dbe0f0cdeb0e399dde37764cdc84415d51c95a01c42a0037a3c639c7ae4fe0b3">Whitepaper</a>
+      </li>
+
+      <li class="d-none d-md-inline-flex nav-item my-auto mr-3">
+        <a class="nav-link" href="https://www.bitcoinfiles.org/">Upload Files</a>
+      </li>
+
+      <li class="nav-item mx-1 my-auto ml-auto">
+        <a class="btn-md text-uppercase btn btn-primary" (click)="createBoost()"><fa-icon [icon]="faPlus"></fa-icon><span class="d-none ml-2 d-sm-inline-block"> Boost Content</span></a>
+      </li>
+    </ul>
+</nav>
