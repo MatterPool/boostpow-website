@@ -7,10 +7,10 @@ import { JobsComponent } from './pages/jobs/jobs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'c/:id', component: ContentComponent },
   { path: 'j', component: JobsComponent },
   { path: 'j/:id', component: JobsComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'c/:id', component: ContentComponent },
   { path: '**', redirectTo: '' }
 ];
 
