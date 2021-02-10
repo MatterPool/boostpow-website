@@ -62,6 +62,10 @@ export class APIService {
     this.boostSubject.next(finalResults);
   }
 
+  async searchIncompleteBoost(t?:number) {
+
+  }
+
   public get boostsValue(): any {
     return this.boostSubject.value;
   }
@@ -95,4 +99,35 @@ export class APIService {
     console.log(finalResults);
     return finalResults;
   }
-}
+};
+
+export const TimeSelectOptions = [
+  {
+    title: "all time",
+    value: 0
+  },
+  {
+    title: "hour",
+    value: 3600
+  },
+  {
+    title: "day",
+    value: 86400
+  },
+  {
+    title: "week",
+    value: 86400*7
+  },
+  {
+    title: "fortnight",
+    value: 86400*14
+  },
+  {
+    title: "year",
+    value: 86400*365.25
+  },
+  {
+    title: "decade",
+    value: 86400*365.25*10
+  }
+];

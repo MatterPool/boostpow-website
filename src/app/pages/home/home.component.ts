@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     await boostPublish.open({
       label: 'Boost Content',
       outputs: [],
-      showTagField: true,
+      topic: {
+        show: true
+      },
       onPayment: async (e: any) => {
         console.log('onPayment', e);
         setTimeout(() => {

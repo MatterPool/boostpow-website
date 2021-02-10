@@ -26,6 +26,7 @@ import { LazyImgDirective } from './_directives/lazy.directive';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ContentComponent } from './pages/content/content.component';
+import { JobsComponent } from './pages/jobs/jobs.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ContentComponent } from './pages/content/content.component';
     HomeComponent,
     HeaderComponent,
     SearchComponent,
+    JobsComponent,
     ContentComponent,
     FooterComponent,
     DisplayComponent,

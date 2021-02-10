@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { APIService } from 'src/app/_services/api.service';
+import { APIService, TimeSelectOptions } from 'src/app/_services/api.service';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
