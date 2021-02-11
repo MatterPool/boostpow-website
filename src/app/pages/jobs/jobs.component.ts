@@ -10,7 +10,6 @@ import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './jobs.component.html',
   styleUrls: ['./jobs.component.scss']
 })
-
 export class JobsComponent implements OnInit {
   faSpinner = faSpinner;
   faSearch = faSearch;
@@ -20,7 +19,7 @@ export class JobsComponent implements OnInit {
   searchForm: FormGroup;
 
   subscriptions: Subscription[] = [];
-  boosts = [];
+  incompleteBoosts = [];
   searching = false;
   searched = false;
 
@@ -37,9 +36,10 @@ export class JobsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscriptions = [
-      this.api.boosts.subscribe(boosts => {
+      this.api.incompleteBoosts.subscribe(boosts => {
         this.searching = false;
-        this.boosts = boosts;
+        this.incompleteBoosts = boosts;
+        console.log("incompleteBoosts is ", boosts);
       })
     ];
   }
@@ -50,6 +50,28 @@ export class JobsComponent implements OnInit {
     this.router.navigate(['j'], { queryParams: { timeframe: this.timeframe } });
     await this.api.searchIncompleteBoost(this.timeframe);
     this.searched = true;
+  }
+
+  async addBoost() {
+    await boostPublish.open({
+      label: 'Boost Content',
+      content: { diff: 1 },
+      outputs: [],
+      topic: {
+        show: true
+      },
+      onPayment: async (e) => {
+        console.log('onPayment', e);
+        setTimeout(() => {
+          console.log('timeout fired', e);
+        }, 4000);
+      }
+    });
+    return false;
+  }
+
+  openContent(content:string){
+    this.router.navigate(['/c/'+content]);
   }
 
   ngOnDestroy() {

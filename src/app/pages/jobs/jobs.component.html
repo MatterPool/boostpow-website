@@ -19,15 +19,22 @@
         </form>
       </div>
     </div>
-    <ng-container *ngIf="!searching">
-      <div class="col-md-8 offset-md-2 ease" *ngFor="let boost of boosts">
-        <app-display [content]="boost"></app-display>
+    <ng-container *ngIf="incompleteBoosts.length > 0">
+      <div class="col-md-8 offset-md-2 ease" *ngFor="let boost of incompleteBoosts">
+        <div class="card my-3">
+          <div class="unmined">
+            <h4>Profitabiltiy: {{boost.profitability}}</h4>
+            Script hash: {{boost.scriptHash}}<br>
+            <ul>
+              <li *ngFor="let outpoint of boost.outpoints">
+                <a href="https://bitcoinfiles.org/tx/{{outpoint.txid}}">{{outpoint.txid}}.{{outpoint.index}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </ng-container>
-    <div class="col-md-8 offset-md-2 ease" *ngIf="searching || !searched">
-      <p class="text-center searching my-5" >Searching <fa-icon [icon]="faSpinner" [spin]="true"></fa-icon></p>
-    </div>
-    <div class="col-md-8 offset-md-2 ease" *ngIf="!searching && searched && !boosts.length">
+    <div class="col-md-8 offset-md-2 ease" *ngIf="!incompleteBoosts.length || incompleteBoosts.length == 0">
       <p class="text-center searching my-5" >No boosts found. Why not <a (click)="addBoost()">create one</a>?</p>
     </div>
   </div>

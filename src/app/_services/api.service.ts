@@ -11,6 +11,9 @@ export class APIService {
   private boostSubject: BehaviorSubject<any>;
   public boosts: Observable<any>;
 
+  private incompleteBoostSubject: BehaviorSubject<any>;
+  public incompleteBoosts: Observable<any>;
+
   private searchSubject: BehaviorSubject<any>;
   public search: Observable<any>;
 
@@ -19,6 +22,8 @@ export class APIService {
     this.boosts = this.boostSubject.asObservable();
     this.searchSubject = new BehaviorSubject<any>([]);
     this.search = this.searchSubject.asObservable();
+    this.incompleteBoostSubject = new BehaviorSubject<any>([]);
+    this.incompleteBoosts = this.incompleteBoostSubject.asObservable();
     // this.searchBoost("B", 86400*14);
   }
 
@@ -30,7 +35,7 @@ export class APIService {
     //Create query params
     let query:string[] = [];
     if(!!q){
-      query.push("categoryutf8=" + q)
+      query.push("tag=" + q)
     }
     if(!!t && t>0) {
       const t2 = Math.floor(new Date().getTime()/1000) - t;
@@ -55,7 +60,8 @@ export class APIService {
       }
     });
     //Convert to array and order by PoW
-    finalResults = Object.keys(finalResults).map(k => { return { content: k, ...finalResults[k], diff: Math.round(finalResults[k].diff) } }).sort((a,b) => {return b.diff - a.diff}).map((x, i) => {
+    finalResults = Object.keys(finalResults).map(k => { 
+      return { content: k, ...finalResults[k], diff: Math.round(finalResults[k].diff) } }).sort((a,b) => {return b.diff - a.diff}).map((x, i) => {
       return {...x, rank: i+1};
     });
     //Assign to behaviour subject to make cascading changes
@@ -63,7 +69,65 @@ export class APIService {
   }
 
   async searchIncompleteBoost(t?:number) {
+    this.searchSubject.next({timeframe: t});
+    //Set API URL
+    let searchUrl = `${environment.apiUrl}/search`;
 
+    //Create query params
+    let query:string[] = [];
+    if(!!t && t>0) {
+      const t2 = Math.floor(new Date().getTime()/1000) - t;
+      query.push("createdTimeFrom=" + t2);
+    }
+    query.push("unmined=only");
+    if(query.length){
+      searchUrl+="?"+query.join("&");
+    }
+
+    //Execute search
+    const results: any = await this.http.get(searchUrl).toPromise();
+
+    console.log("results.unmined = ", results.unmined);
+
+    //Group results by unique boost content
+    let finalResults = Object(null);
+    results.unmined.forEach(r => {
+      const outpointArray = r.boostJobId.split(".");
+      const outpoint = {
+        txid : outpointArray[0],
+        index : outpointArray[1]
+      };
+      if(finalResults[r.boostJob.scripthash]){
+        finalResults[r.boostJob.scripthash].value += r.boostJob.value;
+        finalResults[r.boostJob.scripthash].outpoints.push(outpoint);
+      } else {
+        Object.assign(finalResults, { [r.boostJob.scripthash]: { 
+          diff: r.boostJob.diff, 
+          value: r.boostJob.value , 
+          outpoints: [outpoint] 
+        } });
+      }
+    });
+    console.log("B final results = ", finalResults);
+    
+    //Convert to array and order by profitability
+    finalResults = Object.keys(finalResults).map(k => { 
+      const v = finalResults[k];
+      return { 
+        scriptHash: k, 
+        diff: v.diff,
+        value: v.value,
+        profitability: v.value / v.diff, 
+        outpoints: v.outpoints, 
+        content: v.content
+      } 
+    }).sort((a,b) => {
+      return b.profitability - a.profitability
+    });
+
+    console.log("C final results = ", finalResults);
+    //Assign to behaviour subject to make cascading changes
+    this.incompleteBoostSubject.next(finalResults);
   }
 
   public get boostsValue(): any {
