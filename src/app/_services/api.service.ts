@@ -28,7 +28,7 @@ export class APIService {
   }
 
   async searchBoost(q?:string, t?:number) {
-    this.searchSubject.next({ category: q, timeframe: t});
+    this.searchSubject.next({ topic: q, timeframe: t});
     //Set API URL
     let searchUrl = `${environment.apiUrl}/search`;
 
@@ -44,6 +44,8 @@ export class APIService {
     if(query.length){
       searchUrl+="?"+query.join("&");
     }
+
+    console.log("search query is ", searchUrl);
 
     //Execute search
     const results: any = await this.http.get(searchUrl).toPromise();
@@ -148,15 +150,15 @@ export class APIService {
       value: 0,
       diff: 0,
       rank: 0,
-      categories: [],
+      tags: [],
       jobs: []
     };
     results.mined.forEach(r => {
       finalResults.value += r.boostJob.value;
       finalResults.diff += r.boostJob.diff;
       finalResults.jobs.push(r.boostJob);
-      if(r.boostData.categoryutf8 && finalResults.categories.indexOf(r.boostData.categoryutf8)<0){
-        finalResults.categories.push(r.boostData.categoryutf8);
+      if(r.boostData.tagutf8 && finalResults.tags.indexOf(r.boostData.tagutf8)<0){
+        finalResults.tags.push(r.boostData.tagutf8);
       }
     });
     finalResults.diff = Math.round(finalResults.diff);
