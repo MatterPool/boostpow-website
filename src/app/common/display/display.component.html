@@ -34,7 +34,7 @@
       <span class="mimetype d-flex pt-1">{{ fileType }}</span>
     </div>
     <div class="col-6 py-3 text-right">
-      <a class="boost-btn ml-auto my-auto" (click)="addBoost()">
+      <a class="boost-btn ml-auto my-auto" (click)="addBoost()" title="{{ content.diff | number }} {{ content.diff === 1 ? 'Boost' : 'Boosts' }}">
         <span class="my-auto">{{ content.diff | boostNumberFormat }}<span *ngIf="content.diff>9999">e<sup>{{ content.diff | boostNumberFormat:true }}</sup></span><span class="d-none d-md-inline-flex">&nbsp;{{ content.diff === 1 ? "Boost" : "Boosts" }}</span></span>
         <img class="ml-2 logo-mini my-auto" loading="lazy" src="../../../assets/boost-glyph.svg">
       </a>
