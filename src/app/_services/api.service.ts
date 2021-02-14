@@ -17,13 +17,27 @@ export class APIService {
   private searchSubject: BehaviorSubject<any>;
   public search: Observable<any>;
 
+  private ranksSubject: BehaviorSubject<any>;
+  public ranks: Observable<any>;
+
+  private topicsSubject: BehaviorSubject<any>;
+  public topics: Observable<any>;
+
   constructor(private http: HttpClient) {
     this.boostSubject = new BehaviorSubject<any>([]);
     this.boosts = this.boostSubject.asObservable();
+
     this.searchSubject = new BehaviorSubject<any>([]);
     this.search = this.searchSubject.asObservable();
+
     this.incompleteBoostSubject = new BehaviorSubject<any>([]);
     this.incompleteBoosts = this.incompleteBoostSubject.asObservable();
+
+    this.ranksSubject = new BehaviorSubject<any>([]);
+    this.ranks = this.ranksSubject.asObservable();
+
+    this.topicsSubject = new BehaviorSubject<any>([]);
+    this.topics = this.topicsSubject.asObservable();
     // this.searchBoost("B", 86400*14);
   }
 
@@ -45,29 +59,29 @@ export class APIService {
       searchUrl+="?"+query.join("&");
     }
 
-    console.log("search query is ", searchUrl);
-
     //Execute search
     const results: any = await this.http.get(searchUrl).toPromise();
 
     //Group results by unique boost content
-    let finalResults = Object(null);
+    let grouped = Object(null);
     results.mined.forEach(r => {
-      if(finalResults[r.boostData.content]){
-        finalResults[r.boostData.content].value += r.boostJob.value;
-        finalResults[r.boostData.content].diff += r.boostJob.diff;
-        finalResults[r.boostData.content].jobs.push(r.boostJob);
+      if(grouped[r.boostData.content]){
+        grouped[r.boostData.content].value += r.boostJob.value;
+        grouped[r.boostData.content].diff += r.boostJob.diff;
+        grouped[r.boostData.content].jobs.push(r.boostJob);
       } else {
-        Object.assign(finalResults, { [r.boostData.content]: { ...r.boostData, jobs: [r.boostJob], diff: r.boostJob.diff, value: r.boostJob.value } });
+        Object.assign(grouped, { [r.boostData.content]: { ...r.boostData, jobs: [r.boostJob], diff: r.boostJob.diff, value: r.boostJob.value } });
       }
     });
+
     //Convert to array and order by PoW
-    finalResults = Object.keys(finalResults).map(k => { 
-      return { content: k, ...finalResults[k], diff: Math.round(finalResults[k].diff) } }).sort((a,b) => {return b.diff - a.diff}).map((x, i) => {
+    let ranked = Object.keys(grouped).map(k => { 
+      return { content: k, ...grouped[k], diff: Math.round(grouped[k].diff) } }).sort((a,b) => {return b.diff - a.diff}).map((x, i) => {
       return {...x, rank: i+1};
     });
+
     //Assign to behaviour subject to make cascading changes
-    this.boostSubject.next(finalResults);
+    this.boostSubject.next(ranked);
   }
 
   async searchIncompleteBoost(t?:number) {
@@ -89,8 +103,6 @@ export class APIService {
     //Execute search
     const results: any = await this.http.get(searchUrl).toPromise();
 
-    console.log("results.unmined = ", results.unmined);
-
     //Group results by unique boost content
     let finalResults = Object(null);
     results.unmined.forEach(r => {
@@ -110,7 +122,6 @@ export class APIService {
         } });
       }
     });
-    console.log("B final results = ", finalResults);
     
     //Convert to array and order by profitability
     finalResults = Object.keys(finalResults).map(k => { 
@@ -127,7 +138,6 @@ export class APIService {
       return b.profitability - a.profitability
     });
 
-    console.log("C final results = ", finalResults);
     //Assign to behaviour subject to make cascading changes
     this.incompleteBoostSubject.next(finalResults);
   }
@@ -165,6 +175,105 @@ export class APIService {
     console.log(finalResults);
     return finalResults;
   }
+
+  async getRanksData(id:string, t:number) {
+    let searchUrl = `${environment.apiUrl}/search`;
+
+    //Create query params
+    let query:string[] = [];
+    if(t>0) {
+      const t2 = Math.floor(new Date().getTime()/1000) - t;
+      query.push("minedTimeFrom=" + t2);
+    }
+    if(query.length){
+      searchUrl+="?"+query.join("&");
+    }
+
+    console.log("loading ranks data");
+
+    //Execute search
+    const results: any = await this.http.get(searchUrl).toPromise();
+
+    console.log("results = ", results);
+
+    let topics = Object(null);
+
+    let grouped = Object(null);
+    results.mined.forEach(r => {
+      if(r.boostData.content == id && !topics[r.boostData.tagutf8]) {
+        Object.assign(topics, {[r.boostData.tagutf8] : null});
+      }
+      if(grouped[r.boostData.content]){
+        grouped[r.boostData.content] += r.boostJob.diff;
+      } else {
+        Object.assign(grouped, { [r.boostData.content]: r.boostJob.diff });
+      }
+    });
+
+    console.log("topics = ", topics);
+    console.log("grouped = ", grouped);
+
+    //Assign to behaviour ranks to make cascading changes
+    this.ranksSubject.next(Object.keys(topics).map(topic => {
+
+      let g = Object(null);
+      if (topic == '') {
+        g = grouped;
+      } else {
+        results.mined.forEach(r => {
+          if(r.boostData.tag == topic && g[r.boostData.content]){
+            g[r.boostData.content] += r.boostJob.diff;
+          } else {
+            Object.assign(g, { [r.boostData.content]: r.boostJob.diff });
+          }
+        });
+      }
+
+      let ranked = Object.keys(g).map(k => { 
+        return { content: k, difficulty: grouped[k] } }).sort((a,b) => {return b.difficulty - a.difficulty});
+
+      for(let i = 0; i < ranked.length; i++) {
+        if (ranked[i].content == id) return {topic: topic, rank: i + 1, difficulty: ranked[i].difficulty};
+      }
+    }));
+  }
+
+  async getTopicsData(t:number) {
+    let searchUrl = `${environment.apiUrl}/search`;
+
+    //Create query params
+    let query:string[] = [];
+    if(t>0) {
+      const t2 = Math.floor(new Date().getTime()/1000) - t;
+      query.push("minedTimeFrom=" + t2);
+    }
+    if(query.length){
+      searchUrl+="?"+query.join("&");
+    }
+
+    //Execute search
+    const results: any = await this.http.get(searchUrl).toPromise();
+
+    console.log("topics search results = ", results);
+
+    let topics = {'':0};
+
+    results.mined.forEach(r => {
+      if(r.boostData.tagutf8 != '') {
+        if(topics[r.boostData.tagutf8]){
+          topics[r.boostData.tagutf8] += r.boostJob.diff;
+        } else {
+          Object.assign(topics, { [r.boostData.tagutf8]: r.boostJob.diff });
+        }
+      }
+      Object.assign(topics, { ['']: r.boostJob.diff });
+    });
+
+    //Assign to behaviour topics to make cascading changes
+    this.topicsSubject.next(Object.keys(topics).map(topic => { 
+      return { topic: topic, difficulty: topics[topic] } }).sort((a,b) => { return b.difficulty - a.difficulty }));
+  }
+
 };
 
 export const TimeSelectOptions = [

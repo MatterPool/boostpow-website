@@ -6,11 +6,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faSpinner, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-jobs',
-  templateUrl: './jobs.component.html',
-  styleUrls: ['./jobs.component.scss']
+  selector: 'app-topics',
+  templateUrl: './topics.component.html',
+  styleUrls: ['./topics.component.scss']
 })
-export class JobsComponent implements OnInit {
+export class TopicsComponent implements OnInit {
   faSpinner = faSpinner;
   faSearch = faSearch;
   timeSelectOptions = TimeSelectOptions;
@@ -19,7 +19,7 @@ export class JobsComponent implements OnInit {
   searchForm: FormGroup;
 
   subscriptions: Subscription[] = [];
-  incompleteBoosts = [];
+  topics = [];
   searching = false;
   searched = false;
 
@@ -36,9 +36,9 @@ export class JobsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscriptions = [
-      this.api.incompleteBoosts.subscribe(boosts => {
+      this.api.topics.subscribe(topics => {
         this.searching = false;
-        this.incompleteBoosts = boosts;
+        this.topics = topics;
       })
     ];
   }
@@ -46,13 +46,14 @@ export class JobsComponent implements OnInit {
   async search() {
     this.searching = true;
     this.timeframe = this.searchForm.controls['timeframe'].value;
-    this.router.navigate(['j'], { queryParams: { timeframe: this.timeframe } });
-    await this.api.searchIncompleteBoost(this.timeframe);
+    this.router.navigate(['topics'], { queryParams: { timeframe: this.timeframe } });
+    await this.api.getTopicsData(this.timeframe);
+    console.log("topics = ", this.topics);
     this.searched = true;
   }
 
-  openContent(content:string){
-    this.router.navigate(['/c/'+content]);
+  openTopic(topic:string){
+    this.router.navigate(['/search?topic='+topic+'&timeframe='+this.timeframe]);
   }
 
   ngOnDestroy() {

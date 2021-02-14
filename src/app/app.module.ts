@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 import { DisplayComponent } from './common/display/display.component';
+import { BoostComponent } from './common/boost/boost.component';
 import { FooterComponent } from './common/footer/footer.component';
 
 //Pipes
@@ -27,6 +28,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ContentComponent } from './pages/content/content.component';
 import { JobsComponent } from './pages/jobs/jobs.component';
+import { TopicsComponent } from './pages/topics/topics.component';
 
 
 @NgModule({
@@ -36,9 +38,11 @@ import { JobsComponent } from './pages/jobs/jobs.component';
     HeaderComponent,
     SearchComponent,
     JobsComponent,
+    TopicsComponent,
     ContentComponent,
     FooterComponent,
     DisplayComponent,
+    BoostComponent,
     BoostNumberFormatPipe,
     LazyImgDirective
   ],

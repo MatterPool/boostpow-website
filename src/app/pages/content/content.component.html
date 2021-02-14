@@ -3,13 +3,13 @@
     <div class="col-md-12">
       <a routerLink="/search"><fa-icon [icon]="faArrowLeft"></fa-icon> Back to search</a>
     </div>
-
-    <div class="col-md-12" *ngIf="content">
-      <app-display [content]="content"></app-display>
+    <div class="col-md-12">
+      <app-display [compact]="false" [content]=id></app-display>
     </div>
-    <div class="col-md-12" *ngIf="content?.categories?.length">
-      <h5 class="mt-3 mb-1">Categories</h5>
-      <a class="tag" routerLink="/search" [queryParams]="{category: category}" *ngFor="let category of content.categories">{{ category }}</a>
+    <div class="col-md-12" *ngIf="ranks?.length">
+      <div *ngFor="let topic of ranks">
+        <app-boost [content]="id" [topic]="topic.topic" [difficulty]="topic.difficulty" [rank]="topic.rank"></app-boost>
+      </div>
     </div>
   </div>
 </div>

@@ -25,7 +25,7 @@ export class DisplayComponent implements OnInit {
   constructor(private api: APIService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getFileType(this.content.content);
+    this.getFileType(this.content);
   }
 
   async getFileType(c:string){
@@ -65,7 +65,7 @@ export class DisplayComponent implements OnInit {
 
   openLink(){
     if(this.compact){
-      this.router.navigate(['/c/'+this.content.content]);
+      this.router.navigate(['/c/'+this.content]);
     }
   }
 
@@ -76,21 +76,6 @@ export class DisplayComponent implements OnInit {
       str += String.fromCharCode(parseInt(s.substr(n, 2), 16));
     }
     return str;
-  }
-
-  async addBoost() {
-    await boostPublish.open({
-      label: 'Boost Content',
-      content: this.content.content,
-      outputs: [],
-      onPayment: async (e) => {
-        console.log('onPayment', e);
-        setTimeout(() => {
-          console.log('timeout fired', e);
-        }, 4000);
-      }
-    });
-    return false;
   }
 
   fixB () {

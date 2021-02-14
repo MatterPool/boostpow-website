@@ -1,0 +1,15 @@
+<div class="row px-3">
+  <div class="col-6 py-3 my-auto">
+    <span class="font-weight-bold d-flex" *ngIf="rank">Rank #{{ rank }}</span>
+    <span *ngIf="topic"> in <span class="font-weight-bold d-flex">{{ topic }}</span></span>
+  </div>
+  <div class="col-6 py-3 text-right">
+    <a class="boost-btn ml-auto my-auto" (click)="addBoost()">
+      <div class="my-auto">{{ difficulty | boostNumberFormat }}
+          <span *ngIf="difficulty>9999">e<sup>{{ difficulty | boostNumberFormat:true }}</sup></span>
+          <span class="d-none d-md-inline-flex">&nbsp;Difficulty</span>
+      </div>
+      <img class="ml-2 logo-mini my-auto" loading="lazy" src="../../../assets/boost-glyph.svg">
+    </a>
+  </div>
+</div>
