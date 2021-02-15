@@ -216,22 +216,27 @@ export class APIService {
     //Assign to behaviour ranks to make cascading changes
     this.ranksSubject.next(Object.keys(topics).map(topic => {
 
+      console.log("  checking topic = ", topic);
       let g = Object(null);
       if (topic == '') {
         g = grouped;
       } else {
         results.mined.forEach(r => {
-          if(r.boostData.tag == topic && g[r.boostData.content]){
-            g[r.boostData.content] += r.boostJob.diff;
-          } else {
-            Object.assign(g, { [r.boostData.content]: r.boostJob.diff });
+          if(r.boostData.tagutf8 == topic) {
+            if (g[r.boostData.content]){
+              g[r.boostData.content] += r.boostJob.diff;
+            } else {
+              Object.assign(g, { [r.boostData.content]: r.boostJob.diff });
+            }
           }
         });
       }
 
+      console.log("  g = ", g);
       let ranked = Object.keys(g).map(k => { 
-        return { content: k, difficulty: grouped[k] } }).sort((a,b) => {return b.difficulty - a.difficulty});
+        return { content: k, difficulty: g[k] } }).sort((a,b) => {return b.difficulty - a.difficulty});
 
+        console.log("  ranked = ", ranked);
       for(let i = 0; i < ranked.length; i++) {
         if (ranked[i].content == id) return {topic: topic, rank: i + 1, difficulty: ranked[i].difficulty};
       }

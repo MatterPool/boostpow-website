@@ -8,11 +8,13 @@
         <app-display [compact]="false" [content]=id></app-display>
       </div>
       <div class="col-md-12" *ngIf="ranks?.length">
-        <div> In the last 
-          <form [formGroup]="searchForm" (change)="search()">
-            <select id="inputState" style="display:inline" formControlName="timeframe" class="form-control d-block">
+        <div> 
+          <form [formGroup]="searchForm" (change)="getRanks()" class="form-inline">
+            <span>In the last &nbsp;</span>
+            <select id="inputState" formControlName="timeframe" class="custom-select form-control-sm">
               <option *ngFor="let opt of timeSelectOptions" value="{{opt.value}}">{{opt.title}}</option>
-            </select>, this content has achieved
+            </select>
+            <span>, this content has achieved</span>
           </form>
         </div>
         <div *ngFor="let topic of ranks">

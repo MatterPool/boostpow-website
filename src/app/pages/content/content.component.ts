@@ -23,17 +23,18 @@ export class ContentComponent implements OnInit {
   ranks: any;
 
   id: string;
+  timeframe:number;
 
   constructor(private api:APIService, private fb: FormBuilder, private route: ActivatedRoute, private router:Router) {
     this.id = this.route.snapshot.params['id'];
-    let timeframe = this.route.snapshot.queryParams['timeframe'] || 86400*14;
-    if(!this.timeSelectOptions.find(o => { return o.value == timeframe})){
-      timeframe = 86400*14;
+    this.timeframe = this.route.snapshot.queryParams['timeframe'] || 86400*14;
+    if(!this.timeSelectOptions.find(o => { return o.value == this.timeframe})){
+      this.timeframe = 86400*14;
     }
     this.searchForm = this.fb.group({
-      timeframe: [timeframe]
+      timeframe: [this.timeframe]
     });
-    this.getRanks(this.id, timeframe);
+    this.getRanks();
   }
 
   ngOnInit(): void {
@@ -46,11 +47,12 @@ export class ContentComponent implements OnInit {
     ];
   }
 
-  async getRanks(id:string, timeframe:number) {
+  async getRanks() {
     this.searching = true;
-    this.router.navigate(['c/' + id], { queryParams: { timeframe: timeframe } });
+    this.timeframe = this.searchForm.controls['timeframe'].value;
+    this.router.navigate(['c/' + this.id], { queryParams: { timeframe: this.timeframe } });
     try {
-      await this.api.getRanksData(id, timeframe);
+      await this.api.getRanksData(this.id, this.timeframe);
     } catch(e) {
       console.error(e);
     }
