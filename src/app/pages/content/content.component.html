@@ -3,12 +3,19 @@
     <div class="col-md-12">
       <a routerLink="/search"><fa-icon [icon]="faArrowLeft"></fa-icon> Back to search</a>
     </div>
-    <div class="col-md-12">
-      <app-display [compact]="false" [content]=id></app-display>
-    </div>
-    <div class="col-md-12" *ngIf="ranks?.length">
-      <div *ngFor="let topic of ranks">
-        <app-boost [content]="id" [topic]="topic.topic" [difficulty]="topic.difficulty" [rank]="topic.rank"></app-boost>
+    <div class="card my-3">
+      <div class="col-md-12">
+        <app-display [compact]="false" [content]=id></app-display>
+      </div>
+      <div class="col-md-12" *ngIf="ranks?.length">
+        <div> In the last 
+        <select id="inputState" formControlName="timeframe" class="form-control d-block">
+          <option *ngFor="let opt of timeSelectOptions" value="{{opt.value}}">{{opt.title}}</option>
+        </select>, this content has achieved
+        <div>
+        <div *ngFor="let topic of ranks">
+          <app-boost [content]="id" [topic]="topic.topic" [difficulty]="topic.difficulty" [rank]="topic.rank"></app-boost>
+        </div>
       </div>
     </div>
   </div>

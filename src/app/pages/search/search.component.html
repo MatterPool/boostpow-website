@@ -24,8 +24,10 @@
     </div>
     <ng-container *ngIf="!searching">
       <div class="col-md-8 offset-md-2 ease" *ngFor="let boost of boosts">
-        <app-display [compact]="true" [content]="boost.content"></app-display>
-        <app-boost [content]="boost.content" [topic]="topic" [difficulty]="boost.diff" [rank]="boost.rank"></app-boost>
+        <div class="card my-3">
+          <app-display [compact]="true" [content]="boost.content"></app-display>
+          <app-boost [content]="boost.content" [topic]="topic" [difficulty]="boost.diff" [rank]="boost.rank"></app-boost>
+        </div>
       </div>
     </ng-container>
     <div class="col-md-8 offset-md-2 ease" *ngIf="searching || !searched">

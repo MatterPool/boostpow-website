@@ -4,7 +4,7 @@
     <span *ngIf="topic"> in <span class="font-weight-bold d-flex">{{ topic }}</span></span>
   </div>
   <div class="col-6 py-3 text-right">
-    <a class="boost-btn ml-auto my-auto" (click)="addBoost()">
+    <a class="boost-btn ml-auto my-auto" (click)="addBoost()" title="{{ difficulty | number }} Difficulty">
       <div class="my-auto">{{ difficulty | boostNumberFormat }}
           <span *ngIf="difficulty>9999">e<sup>{{ difficulty | boostNumberFormat:true }}</sup></span>
           <span class="d-none d-md-inline-flex">&nbsp;Difficulty</span>

@@ -1,4 +1,4 @@
-<div class="card my-3" [ngClass]="{'compact': compact}">
+<div [ngClass]="{'compact': compact}">
   <div class="viewer d-flex" [ngClass]="{ 'loading': !loaded }" (click)="openLink()">
     <fa-icon class="centered" *ngIf="!loaded" [icon]="faSpinner" [size]="4" [spin]="true"></fa-icon>
     <div class="image" *ngIf="type==='image'">
