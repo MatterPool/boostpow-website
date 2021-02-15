@@ -210,13 +210,9 @@ export class APIService {
       }
     });
 
-    console.log("topics = ", topics);
-    console.log("grouped = ", grouped);
-
     //Assign to behaviour ranks to make cascading changes
     this.ranksSubject.next(Object.keys(topics).map(topic => {
 
-      console.log("  checking topic = ", topic);
       let g = Object(null);
       if (topic == '') {
         g = grouped;
@@ -232,11 +228,9 @@ export class APIService {
         });
       }
 
-      console.log("  g = ", g);
       let ranked = Object.keys(g).map(k => { 
         return { content: k, difficulty: g[k] } }).sort((a,b) => {return b.difficulty - a.difficulty});
 
-        console.log("  ranked = ", ranked);
       for(let i = 0; i < ranked.length; i++) {
         if (ranked[i].content == id) return {topic: topic, rank: i + 1, difficulty: ranked[i].difficulty};
       }
@@ -259,8 +253,6 @@ export class APIService {
     //Execute search
     const results: any = await this.http.get(searchUrl).toPromise();
 
-    console.log("topics search results = ", results);
-
     let topics = {'':0};
 
     results.mined.forEach(r => {
@@ -271,7 +263,7 @@ export class APIService {
           Object.assign(topics, { [r.boostData.tagutf8]: r.boostJob.diff });
         }
       }
-      Object.assign(topics, { ['']: r.boostJob.diff });
+      topics[''] += r.boostJob.diff;
     });
 
     //Assign to behaviour topics to make cascading changes

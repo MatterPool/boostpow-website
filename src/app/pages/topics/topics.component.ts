@@ -53,7 +53,7 @@ export class TopicsComponent implements OnInit {
   }
 
   openTopic(topic:string){
-    this.router.navigate(['/search?topic='+topic+'&timeframe='+this.timeframe]);
+    this.router.navigate(['search?topic='+topic+'&timeframe='+this.timeframe]);
   }
 
   ngOnDestroy() {
