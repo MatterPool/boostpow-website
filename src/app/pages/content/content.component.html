@@ -9,10 +9,12 @@
       </div>
       <div class="col-md-12" *ngIf="ranks?.length">
         <div> In the last 
-        <select id="inputState" formControlName="timeframe" class="form-control d-block">
-          <option *ngFor="let opt of timeSelectOptions" value="{{opt.value}}">{{opt.title}}</option>
-        </select>, this content has achieved
-        <div>
+          <form [formGroup]="searchForm" (change)="search()">
+            <select id="inputState" style="display:inline" formControlName="timeframe" class="form-control d-block">
+              <option *ngFor="let opt of timeSelectOptions" value="{{opt.value}}">{{opt.title}}</option>
+            </select>, this content has achieved
+          </form>
+        </div>
         <div *ngFor="let topic of ranks">
           <app-boost [content]="id" [topic]="topic.topic" [difficulty]="topic.difficulty" [rank]="topic.rank"></app-boost>
         </div>
