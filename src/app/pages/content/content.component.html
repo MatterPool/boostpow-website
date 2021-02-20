@@ -10,11 +10,11 @@
       <div class="col-md-12" *ngIf="ranks?.length">
         <div> 
           <form [formGroup]="searchForm" (change)="getRanks()" class="form-inline">
-            <span>In the last &nbsp;</span>
+            <span class="d-inline-flex">In the last &nbsp;</span>
             <select id="inputState" formControlName="timeframe" class="custom-select form-control-sm">
               <option *ngFor="let opt of timeSelectOptions" value="{{opt.value}}">{{opt.title}}</option>
             </select>
-            <span>, this content has achieved</span>
+            <span class="d-inline-flex">, this content has achieved</span>
           </form>
         </div>
         <div *ngFor="let topic of ranks">

@@ -1,7 +1,7 @@
 <div class="row px-3">
   <div class="col-6 py-3 my-auto">
-    <span class="font-weight-bold d-flex" *ngIf="rank">Rank #{{ rank }}</span>
-    <span *ngIf="topic"> in <span class="font-weight-bold d-flex">{{ topic }}</span></span>
+    <span class="font-weight-bold d-inline-flex" *ngIf="rank">Rank #{{ rank }}</span>
+    <span *ngIf="topic"> in <span class="font-weight-bold d-inline-flex">{{ topic }}</span></span>
   </div>
   <div class="col-6 py-3 text-right">
     <a class="boost-btn ml-auto my-auto" (click)="addBoost()" title="{{ difficulty | number }} Difficulty">
