@@ -22,10 +22,10 @@
       <ng-container *ngIf="topics.length > 0">
         <div class="col-md-8 offset-md-2 ease" *ngFor="let topic of topics">
           <div class="card my-3" *ngIf="topic.topic==''">
-            {{topic.difficulty}} difficulty in <a [routerLink]="['/search']" [queryParams]="{timeframe:timeframe}" class="d-inline-flex">all topics</a>. 
+            <div style="display:block">{{topic.difficulty}} difficulty in <a [routerLink]="['/search']" [queryParams]="{timeframe:timeframe}" >all topics</a>.</div> 
           </div>
           <div class="card my-3" *ngIf="topic.topic!=''">
-            {{topic.difficulty}} difficulty in <a [routerLink]="['/search']" [queryParams]="{timeframe:timeframe, topic:topic.topic}" class="d-inline-flex">{{topic.topic}}</a>.
+            <div style="display:block">{{topic.difficulty}} difficulty in <a [routerLink]="['/search']" [queryParams]="{timeframe:timeframe, topic:topic.topic}" >{{topic.topic}}</a>.</div>
           </div>
         </div>
       </ng-container>
